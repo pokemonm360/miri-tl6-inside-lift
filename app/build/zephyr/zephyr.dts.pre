@@ -1,0 +1,2320 @@
+# 0 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/misc/empty_file.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 1
+
+
+
+
+
+
+
+/dts-v1/;
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l073Xz.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l073.dtsi" 1 3 4
+
+
+
+
+
+
+
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l072.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l071.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 1 3 4
+
+
+
+
+
+
+
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/armv6-m.dtsi" 1 3 4
+
+
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/common/skeleton.dtsi" 1 3 4
+# 9 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/common/skeleton.dtsi" 3 4
+/ {
+ #address-cells = <1>;
+ #size-cells = <1>;
+
+ chosen {};
+
+ aliases {};
+};
+# 4 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/armv6-m.dtsi" 2 3 4
+
+/ {
+ soc {
+  #address-cells = <1>;
+  #size-cells = <1>;
+  compatible = "simple-bus";
+  interrupt-parent = <&nvic>;
+  ranges;
+
+  nvic: interrupt-controller@e000e100 {
+   #address-cells = <1>;
+   compatible = "arm,v6m-nvic";
+   reg = <0xe000e100 0xc00>;
+   interrupt-controller;
+   #interrupt-cells = <2>;
+  };
+
+  systick: timer@e000e010 {
+   compatible = "arm,armv6m-systick";
+   reg = <0xe000e010 0x10>;
+  };
+ };
+};
+# 9 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/clock/stm32l0_clock.h" 1 3 4
+# 9 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/clock/stm32l0_clock.h" 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/clock/stm32_common_clocks.h" 1 3 4
+# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/clock/stm32l0_clock.h" 2 3 4
+# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/i2c/i2c.h" 1 3 4
+# 11 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/gpio/gpio.h" 1 3 4
+# 12 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pwm/pwm.h" 1 3 4
+# 13 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/adc/adc.h" 1 3 4
+# 9 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/adc/adc.h" 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/dt-util.h" 1 3 4
+# 19 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/dt-util.h" 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_macro.h" 1 3 4
+# 34 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_macro.h" 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 1 3 4
+# 18 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_loops.h" 1 3 4
+# 1465 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_loops.h" 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_listify.h" 1 3 4
+# 1466 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_loops.h" 2 3 4
+# 19 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+# 203 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal_is_eq.h" 1 3 4
+# 204 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+# 234 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal_util_inc.h" 1 3 4
+# 235 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+
+
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal_util_dec.h" 1 3 4
+# 238 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+
+
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal_util_x2.h" 1 3 4
+# 241 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+# 35 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_macro.h" 2 3 4
+# 20 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/dt-util.h" 2 3 4
+# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/adc/adc.h" 2 3 4
+# 14 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pwm/stm32_pwm.h" 1 3 4
+# 15 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/dma/stm32_dma.h" 1 3 4
+# 16 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/reset/stm32l0_reset.h" 1 3 4
+# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/reset/stm32l0_reset.h" 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/reset/stm32-common.h" 1 3 4
+# 11 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/reset/stm32l0_reset.h" 2 3 4
+# 17 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/sensor/qdec_stm32.h" 1 3 4
+# 18 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/common/freq.h" 1 3 4
+# 19 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/common/mem.h" 1 3 4
+# 20 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+
+/ {
+ chosen {
+  zephyr,flash-controller = &flash;
+ };
+
+ cpus {
+  #address-cells = <1>;
+  #size-cells = <0>;
+
+  cpu0: cpu@0 {
+   device_type = "cpu";
+   compatible = "arm,cortex-m0+";
+   reg = <0>;
+   cpu-power-states = <&stop>;
+  };
+
+  power-states {
+   stop: stop {
+    compatible = "zephyr,power-state";
+    power-state-name = "suspend-to-idle";
+    min-residency-us = <2000>;
+    exit-latency-us = <750>;
+   };
+  };
+ };
+
+ sram0: memory@20000000 {
+  compatible = "zephyr,memory-region", "mmio-sram";
+  zephyr,memory-region = "SRAM0";
+ };
+
+ clocks {
+  clk_hse: clk-hse {
+   #clock-cells = <0>;
+   compatible = "st,stm32-hse-clock";
+   status = "disabled";
+  };
+
+  clk_hsi: clk-hsi {
+   #clock-cells = <0>;
+   compatible = "st,stm32l0-hsi-clock";
+   clock-frequency = <(((16) * 1000) * 1000)>;
+   hsi-div = <1>;
+   status = "disabled";
+  };
+
+  clk_msi: clk-msi {
+   #clock-cells = <0>;
+   compatible = "st,stm32l0-msi-clock";
+   msi-range = <5>;
+   status = "disabled";
+  };
+
+  clk_lse: clk-lse {
+   #clock-cells = <0>;
+   compatible = "st,stm32-lse-clock";
+   clock-frequency = <32768>;
+   driving-capability = <0>;
+   status = "disabled";
+  };
+
+  clk_lsi: clk-lsi {
+   #clock-cells = <0>;
+   compatible = "fixed-clock";
+   clock-frequency = <((37) * 1000)>;
+   status = "disabled";
+  };
+
+  pll: pll {
+   #clock-cells = <0>;
+   compatible = "st,stm32l0-pll-clock";
+   status = "disabled";
+  };
+ };
+
+ soc {
+  rtc: rtc@40002800 {
+   compatible = "st,stm32-rtc";
+   reg = <0x40002800 0x400>;
+   interrupts = <2 0>;
+   clocks = <&rcc (0x038) (1 << 28)>;
+   prescaler = <32768>;
+   alarms-count = <2>;
+   alrm-exti-line = <17>;
+   status = "disabled";
+
+   bbram: backup_regs {
+    compatible = "st,stm32-bbram";
+    st,backup-regs = <5>;
+    status = "disabled";
+   };
+  };
+
+  flash: flash-controller@40022000 {
+   compatible = "st,stm32-flash-controller", "st,stm32f1-flash-controller";
+   reg = <0x40022000 0x400>;
+   interrupts = <3 0>;
+
+   #address-cells = <1>;
+   #size-cells = <1>;
+
+   flash0: flash@8000000 {
+    compatible = "st,stm32l0-nv-flash", "st,stm32-nv-flash",
+          "soc-nv-flash";
+
+    write-block-size = <4>;
+
+    max-erase-time = <4>;
+   };
+  };
+
+  rcc: rcc@40021000 {
+   compatible = "st,stm32-rcc";
+   #clock-cells = <2>;
+   reg = <0x40021000 0x400>;
+
+   rctl: reset-controller {
+    compatible = "st,stm32-rcc-rctl";
+    #reset-cells = <1>;
+   };
+  };
+
+  exti: interrupt-controller@40010400 {
+   compatible = "st,stm32-exti";
+   interrupt-controller;
+   #interrupt-cells = <1>;
+   #address-cells = <0>;
+   reg = <0x40010400 0x400>;
+   clocks = <&rcc (0x034) (1 << 0)>;
+   num-lines = <32>;
+   interrupts = <5 0>, <6 0>, <7 0>;
+   interrupt-names = "line0-1", "line2-3", "line4-15";
+   line-ranges = <0 2>, <2 2>, <4 12>;
+  };
+
+  pinctrl: pin-controller@50000000 {
+   compatible = "st,stm32-pinctrl";
+   #address-cells = <1>;
+   #size-cells = <1>;
+   reg = <0x50000000 0x2000>;
+
+   gpioa: gpio@50000000 {
+    compatible = "st,stm32-gpio";
+    gpio-controller;
+    #gpio-cells = <2>;
+    reg = <0x50000000 0x400>;
+    clocks = <&rcc (0x02c) (1 << 0)>;
+   };
+
+   gpiob: gpio@50000400 {
+    compatible = "st,stm32-gpio";
+    gpio-controller;
+    #gpio-cells = <2>;
+    reg = <0x50000400 0x400>;
+    clocks = <&rcc (0x02c) (1 << 1)>;
+   };
+
+   gpioc: gpio@50000800 {
+    compatible = "st,stm32-gpio";
+    gpio-controller;
+    #gpio-cells = <2>;
+    reg = <0x50000800 0x400>;
+    clocks = <&rcc (0x02c) (1 << 2)>;
+   };
+
+   gpiod: gpio@50000c00 {
+    compatible = "st,stm32-gpio";
+    gpio-controller;
+    #gpio-cells = <2>;
+    reg = <0x50000c00 0x400>;
+    clocks = <&rcc (0x02c) (1 << 3)>;
+   };
+
+   gpioh: gpio@50001c00 {
+    compatible = "st,stm32-gpio";
+    gpio-controller;
+    #gpio-cells = <2>;
+    reg = <0x50001c00 0x400>;
+    clocks = <&rcc (0x02c) (1 << 7)>;
+   };
+  };
+
+  iwdg: watchdog@40003000 {
+   compatible = "st,stm32-watchdog";
+   reg = <0x40003000 0x400>;
+   status = "disabled";
+  };
+
+  wwdg: watchdog@40002c00 {
+   compatible = "st,stm32-window-watchdog";
+   reg = <0x40002c00 0x400>;
+   clocks = <&rcc (0x038) (1 << 11)>;
+   interrupts = <0 2>;
+   status = "disabled";
+  };
+
+  usart2: serial@40004400 {
+   compatible = "st,stm32-usart", "st,stm32-uart";
+   reg = <0x40004400 0x400>;
+   clocks = <&rcc (0x038) (1 << 17)>;
+   resets = <&rctl (((0x28) << 5U) | (17))>;
+   interrupts = <28 0>;
+   status = "disabled";
+  };
+
+  lpuart1: serial@40004800 {
+   compatible = "st,stm32-lpuart", "st,stm32-uart";
+   reg = <0x40004800 0x400>;
+   clocks = <&rcc (0x038) (1 << 18)>;
+   resets = <&rctl (((0x28) << 5U) | (18))>;
+   interrupts = <29 0>;
+   status = "disabled";
+  };
+
+  i2c1: i2c@40005400 {
+   compatible = "st,stm32-i2c-v2";
+   clock-frequency = <100000>;
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40005400 0x400>;
+   clocks = <&rcc (0x038) (1 << 21)>;
+   interrupts = <23 0>;
+   interrupt-names = "combined";
+   status = "disabled";
+  };
+
+  spi1: spi@40013000 {
+   compatible = "st,stm32-spi";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40013000 0x400>;
+   clocks = <&rcc (0x034) (1 << 12)>;
+   interrupts = <25 3>;
+   st,spi-data-width = "limited-8-16-bit";
+   status = "disabled";
+  };
+
+  timers2: timers@40000000 {
+   compatible = "st,stm32-timers";
+   reg = <0x40000000 0x400>;
+   clocks = <&rcc (0x038) (1 << 0)>,
+     <&rcc (((((0x003 + 1) + 1) + 1) + 1) + 1) 0xFF>;
+   resets = <&rctl (((0x28) << 5U) | (0))>;
+   interrupts = <15 0>;
+   interrupt-names = "global";
+   st,prescaler = <0>;
+   status = "disabled";
+
+   pwm {
+    compatible = "st,stm32-pwm";
+    status = "disabled";
+    #pwm-cells = <3>;
+   };
+
+   counter {
+    compatible = "st,stm32-counter";
+    status = "disabled";
+   };
+
+   qdec {
+    compatible = "st,stm32-qdec";
+    st,input-filter-level = <0>;
+    status = "disabled";
+   };
+  };
+
+  timers21: timers@40010800 {
+   compatible = "st,stm32-timers";
+   reg = <0x40010800 0x400>;
+   clocks = <&rcc (0x034) (1 << 2)>,
+     <&rcc ((((((0x003 + 1) + 1) + 1) + 1) + 1) + 1) 0xFF>;
+   resets = <&rctl (((0x24) << 5U) | (2))>;
+   interrupts = <20 0>;
+   interrupt-names = "global";
+   st,prescaler = <0>;
+   status = "disabled";
+
+   pwm {
+    compatible = "st,stm32-pwm";
+    status = "disabled";
+    #pwm-cells = <3>;
+   };
+
+   counter {
+    compatible = "st,stm32-counter";
+    status = "disabled";
+   };
+  };
+
+  lptim1: timers@40007c00 {
+   compatible = "st,stm32-lptim";
+   clocks = <&rcc (0x038) (1 << 31)>;
+   resets = <&rctl (((0x28) << 5U) | (31))>;
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40007c00 0x400>;
+   interrupts = <13 1>;
+   interrupt-names = "wakeup";
+   status = "disabled";
+  };
+
+  adc1: adc@40012400 {
+   compatible = "st,stm32-adc";
+   reg = <0x40012400 0x400>;
+   clocks = <&rcc (0x034) (1 << 9)>;
+   clock-names = "adcx";
+   interrupts = <12 0>;
+   #io-channel-cells = <1>;
+   st,adc-resolutions = <12 10 8 6>;
+   sampling-times = <2 4 8 13 20 40 80 161>;
+   num-sampling-time-common-channels = <1>;
+   st,adc-sequencer = "fixed";
+   st,adc-oversampler = "minimal";
+   st,adc-internal-regulator = "startup-sw-delay";
+   status = "disabled";
+  };
+
+  dma1: dma@40020000 {
+   compatible = "st,stm32-dma-v2";
+   #dma-cells = <3>;
+   reg = <0x40020000 0x400>;
+   interrupts = <9 0 10 0 10 0 11 0 11 0 11 0 11 0>;
+   clocks = <&rcc (0x030) (1 << 0)>;
+   status = "disabled";
+  };
+
+  eeprom: eeprom@8080000 {
+   compatible = "st,stm32-eeprom";
+   status = "disabled";
+  };
+ };
+
+ die_temp: dietemp {
+  compatible = "st,stm32-temp-cal";
+  ts-cal1-addr = <0x1ff8007a>;
+  ts-cal2-addr = <0x1ff8007e>;
+  ts-cal1-temp = <30>;
+  ts-cal2-temp = <130>;
+  ts-cal-vrefanalog = <3000>;
+  io-channels = <&adc1 18>;
+  status = "disabled";
+ };
+
+ vref: vref {
+  compatible = "st,stm32-vref";
+  vrefint-cal-addr = <0x1ff80078>;
+  vrefint-cal-mv = <3000>;
+  io-channels = <&adc1 17>;
+  status = "disabled";
+ };
+
+ smbus1: smbus1 {
+  compatible = "st,stm32-smbus";
+  #address-cells = <1>;
+  #size-cells = <0>;
+  i2c = <&i2c1>;
+  status = "disabled";
+ };
+};
+
+&nvic {
+ arm,num-irq-priority-bits = <2>;
+};
+# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l071.dtsi" 2 3 4
+
+/ {
+ soc {
+  compatible = "st,stm32l071", "st,stm32l0", "simple-bus";
+
+  pinctrl: pin-controller@50000000 {
+   gpioe: gpio@50001000 {
+    compatible = "st,stm32-gpio";
+    gpio-controller;
+    #gpio-cells = <2>;
+    reg = <0x50001000 0x400>;
+    clocks = <&rcc (0x02c) (1 << 4)>;
+   };
+  };
+
+  i2c2: i2c@40005800 {
+   compatible = "st,stm32-i2c-v2";
+   clock-frequency = <100000>;
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40005800 0x400>;
+   clocks = <&rcc (0x038) (1 << 22)>;
+   interrupts = <24 0>;
+   interrupt-names = "combined";
+   status = "disabled";
+  };
+
+  i2c3: i2c@40007800 {
+   compatible = "st,stm32-i2c-v2";
+   clock-frequency = <100000>;
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40007800 0x400>;
+   clocks = <&rcc (0x038) (1 << 30)>;
+   interrupts = <21 0>;
+   interrupt-names = "combined";
+   status = "disabled";
+  };
+
+  spi2: spi@40003800 {
+   compatible = "st,stm32-spi";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   reg = <0x40003800 0x400>;
+   clocks = <&rcc (0x038) (1 << 14)>;
+   interrupts = <26 3>;
+   st,spi-data-width = "limited-8-16-bit";
+   status = "disabled";
+  };
+
+  timers3: timers@40000400 {
+   compatible = "st,stm32-timers";
+   reg = <0x40000400 0x400>;
+   clocks = <&rcc (0x038) (1 << 1)>,
+     <&rcc (((((0x003 + 1) + 1) + 1) + 1) + 1) 0xFF>;
+   resets = <&rctl (((0x28) << 5U) | (1))>;
+   interrupts = <16 0>;
+   interrupt-names = "global";
+   st,prescaler = <0>;
+   status = "disabled";
+
+   pwm {
+    compatible = "st,stm32-pwm";
+    status = "disabled";
+    #pwm-cells = <3>;
+   };
+
+   counter {
+    compatible = "st,stm32-counter";
+    status = "disabled";
+   };
+
+   qdec {
+    compatible = "st,stm32-qdec";
+    st,input-filter-level = <0>;
+    status = "disabled";
+   };
+  };
+
+  timers6: timers@40001000 {
+   compatible = "st,stm32-timers";
+   reg = <0x40001000 0x400>;
+   clocks = <&rcc (0x038) (1 << 4)>,
+     <&rcc (((((0x003 + 1) + 1) + 1) + 1) + 1) 0xFF>;
+   resets = <&rctl (((0x28) << 5U) | (4))>;
+   interrupts = <17 0>;
+   interrupt-names = "global";
+   st,prescaler = <0>;
+   status = "disabled";
+
+   counter {
+    compatible = "st,stm32-counter";
+    status = "disabled";
+   };
+  };
+
+  timers7: timers@40001400 {
+   compatible = "st,stm32-timers";
+   reg = <0x40001400 0x400>;
+   clocks = <&rcc (0x038) (1 << 5)>,
+     <&rcc (((((0x003 + 1) + 1) + 1) + 1) + 1) 0xFF>;
+   resets = <&rctl (((0x28) << 5U) | (5))>;
+   interrupts = <18 0>;
+   interrupt-names = "global";
+   st,prescaler = <0>;
+   status = "disabled";
+
+   counter {
+    compatible = "st,stm32-counter";
+    status = "disabled";
+   };
+  };
+
+  timers22: timers@40011400 {
+   compatible = "st,stm32-timers";
+   reg = <0x40011400 0x400>;
+   clocks = <&rcc (0x034) (1 << 5)>,
+     <&rcc ((((((0x003 + 1) + 1) + 1) + 1) + 1) + 1) 0xFF>;
+   resets = <&rctl (((0x24) << 5U) | (5))>;
+   interrupts = <22 0>;
+   interrupt-names = "global";
+   st,prescaler = <0>;
+   status = "disabled";
+
+   pwm {
+    compatible = "st,stm32-pwm";
+    status = "disabled";
+    #pwm-cells = <3>;
+   };
+
+   counter {
+    compatible = "st,stm32-counter";
+    status = "disabled";
+   };
+  };
+
+  usart1: serial@40013800 {
+   compatible = "st,stm32-usart", "st,stm32-uart";
+   reg = <0x40013800 0x400>;
+   clocks = <&rcc (0x034) (1 << 14)>;
+   resets = <&rctl (((0x24) << 5U) | (14))>;
+   interrupts = <27 0>;
+   status = "disabled";
+  };
+
+  usart4: serial@40004c00 {
+   compatible = "st,stm32-usart", "st,stm32-uart";
+   reg = <0x40004c00 0x400>;
+   clocks = <&rcc (0x038) (1 << 19)>;
+   resets = <&rctl (((0x28) << 5U) | (19))>;
+   interrupts = <14 0>;
+   status = "disabled";
+  };
+
+  usart5: serial@40005000 {
+   compatible = "st,stm32-usart", "st,stm32-uart";
+   reg = <0x40005000 0x400>;
+   clocks = <&rcc (0x038) (1 << 20)>;
+   resets = <&rctl (((0x28) << 5U) | (20))>;
+   interrupts = <14 0>;
+   status = "disabled";
+  };
+
+  eeprom: eeprom@8080000 {
+   reg = <0x08080000 ((6) * 1024)>;
+  };
+ };
+
+ smbus2: smbus2 {
+  compatible = "st,stm32-smbus";
+  #address-cells = <1>;
+  #size-cells = <0>;
+  i2c = <&i2c2>;
+  status = "disabled";
+ };
+
+ smbus3: smbus3 {
+  compatible = "st,stm32-smbus";
+  #address-cells = <1>;
+  #size-cells = <0>;
+  i2c = <&i2c3>;
+  status = "disabled";
+ };
+};
+# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l072.dtsi" 2 3 4
+
+/ {
+ chosen {
+  zephyr,entropy = &rng;
+ };
+
+ clocks {
+  clk_hsi48: clk-hsi48 {
+   #clock-cells = <0>;
+   compatible = "fixed-clock";
+   clock-frequency = <(((48) * 1000) * 1000)>;
+   status = "disabled";
+  };
+ };
+
+ soc {
+  compatible = "st,stm32l072", "st,stm32l0", "simple-bus";
+
+  usb: usb@40005c00 {
+   compatible = "st,stm32-usb";
+   reg = <0x40005c00 0x400>;
+   interrupts = <31 0>;
+   interrupt-names = "usb";
+   num-bidir-endpoints = <8>;
+   ram-size = <1024>;
+   maximum-speed = "full-speed";
+   phys = <&otgfs_phy>;
+   clocks = <&rcc (0x038) (1 << 23)>,
+     <&rcc (((0x003 + 1) + 1) + 1) ((((0x4C) & 0xFFFFU) << 0U) | (((26) & 0x1FU) << 16U) | ((((26) - (26)) & 0x3U) << 21U) | ((((1)) & 0xFFU) << 24U))>;
+   status = "disabled";
+  };
+
+  rng: rng@40025000 {
+   compatible = "st,stm32-rng";
+   reg = <0x40025000 0x400>;
+   interrupts = <29 0>;
+   clocks = <&rcc (0x030) (1 << 20)>;
+   status = "disabled";
+  };
+ };
+
+ otgfs_phy: otgfs_phy {
+  compatible = "usb-nop-xceiv";
+  #phy-cells = <0>;
+ };
+
+ dac1: dac@40007400 {
+  compatible = "st,stm32-dac";
+  reg = <0x40007400 0x400>;
+  clocks = <&rcc (0x038) (1 << 29)>;
+  status = "disabled";
+  #io-channel-cells = <1>;
+ };
+};
+# 9 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l073.dtsi" 2 3 4
+
+/ {
+ soc {
+  compatible = "st,stm32l073", "st,stm32l0", "simple-bus";
+ };
+};
+# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l073Xz.dtsi" 2 3 4
+
+/ {
+ sram0: memory@20000000 {
+  reg = <0x20000000 ((20) * 1024)>;
+ };
+
+ soc {
+  flash-controller@40022000 {
+   flash0: flash@8000000 {
+    reg = <0x08000000 ((192) * 1024)>;
+   };
+  };
+ };
+};
+# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/stm32/dts/st/l0/stm32l073r(b-z)tx-pinctrl.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl.h" 1 3 4
+# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl.h" 3 4
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl-common.h" 1 3 4
+# 11 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl.h" 2 3 4
+# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/stm32/dts/st/l0/stm32l073r(b-z)tx-pinctrl.dtsi" 2 3 4
+
+/ {
+ soc {
+  pinctrl: pin-controller@50000000 {
+
+
+
+   /omit-if-no-ref/ adc_in0_pa0: adc_in0_pa0 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in1_pa1: adc_in1_pa1 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in2_pa2: adc_in2_pa2 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in3_pa3: adc_in3_pa3 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in4_pa4: adc_in4_pa4 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in5_pa5: adc_in5_pa5 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in6_pa6: adc_in6_pa6 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in7_pa7: adc_in7_pa7 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in8_pb0: adc_in8_pb0 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in9_pb1: adc_in9_pb1 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in10_pc0: adc_in10_pc0 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in11_pc1: adc_in11_pc1 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in12_pc2: adc_in12_pc2 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in13_pc3: adc_in13_pc3 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in14_pc4: adc_in14_pc4 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ adc_in15_pc5: adc_in15_pc5 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ analog_pa0: analog_pa0 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa1: analog_pa1 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa2: analog_pa2 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa3: analog_pa3 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa4: analog_pa4 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa5: analog_pa5 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa6: analog_pa6 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa7: analog_pa7 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa8: analog_pa8 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((8) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa9: analog_pa9 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa10: analog_pa10 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa11: analog_pa11 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa12: analog_pa12 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa13: analog_pa13 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa14: analog_pa14 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pa15: analog_pa15 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((15) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb0: analog_pb0 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb1: analog_pb1 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb2: analog_pb2 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb3: analog_pb3 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb4: analog_pb4 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb5: analog_pb5 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb6: analog_pb6 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb7: analog_pb7 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb8: analog_pb8 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((8) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb9: analog_pb9 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb10: analog_pb10 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb11: analog_pb11 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb12: analog_pb12 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb13: analog_pb13 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb14: analog_pb14 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pb15: analog_pb15 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((15) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc0: analog_pc0 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc1: analog_pc1 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc2: analog_pc2 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc3: analog_pc3 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc4: analog_pc4 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc5: analog_pc5 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc6: analog_pc6 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc7: analog_pc7 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc8: analog_pc8 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((8) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc9: analog_pc9 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc10: analog_pc10 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc11: analog_pc11 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc12: analog_pc12 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc13: analog_pc13 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc14: analog_pc14 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pc15: analog_pc15 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((15) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_pd2: analog_pd2 {
+    pinmux = <((((('D') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_ph0: analog_ph0 {
+    pinmux = <((((('H') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ analog_ph1: analog_ph1 {
+    pinmux = <((((('H') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ comp1_inm_pa0: comp1_inm_pa0 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp1_inp_pa1: comp1_inp_pa1 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp1_inm_pa4: comp1_inm_pa4 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp1_inm_pa5: comp1_inm_pa5 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_inm_pa2: comp2_inm_pa2 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_inp_pa3: comp2_inp_pa3 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_inm_pa4: comp2_inm_pa4 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_inm_pa5: comp2_inm_pa5 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_inm_pb3: comp2_inm_pb3 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_inp_pb4: comp2_inp_pb4 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_inp_pb5: comp2_inp_pb5 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_inp_pb6: comp2_inp_pb6 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_inp_pb7: comp2_inp_pb7 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ comp1_out_pa0: comp1_out_pa0 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp1_out_pa6: comp1_out_pa6 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp1_out_pa11: comp1_out_pa11 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_out_pa2: comp2_out_pa2 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_out_pa7: comp2_out_pa7 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ comp2_out_pa12: comp2_out_pa12 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ dac_out1_pa4: dac_out1_pa4 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ dac_out2_pa5: dac_out2_pa5 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ i2c1_scl_pa9: i2c1_scl_pa9 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c1_scl_pb6: i2c1_scl_pb6 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x1) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c1_scl_pb8: i2c1_scl_pb8 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((8) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c2_scl_pb10: i2c2_scl_pb10 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c2_scl_pb13: i2c2_scl_pb13 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c3_scl_pa8: i2c3_scl_pa8 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((8) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c3_scl_pc0: i2c3_scl_pc0 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+
+
+   /omit-if-no-ref/ i2c1_sda_pa10: i2c1_sda_pa10 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c1_sda_pb7: i2c1_sda_pb7 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x1) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c1_sda_pb9: i2c1_sda_pb9 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c2_sda_pb11: i2c2_sda_pb11 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c2_sda_pb14: i2c2_sda_pb14 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c3_sda_pb4: i2c3_sda_pb4 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c3_sda_pc1: i2c3_sda_pc1 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+   /omit-if-no-ref/ i2c3_sda_pc9: i2c3_sda_pc9 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    drive-open-drain;
+   };
+
+
+
+   /omit-if-no-ref/ i2c1_smba_pb5: i2c1_smba_pb5 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ i2c3_smba_pa9: i2c3_smba_pa9 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ i2c3_smba_pb2: i2c3_smba_pb2 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+
+
+   /omit-if-no-ref/ i2s2_ck_pb13: i2s2_ck_pb13 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    slew-rate = "very-high-speed";
+   };
+
+
+
+   /omit-if-no-ref/ i2s2_mck_pb14: i2s2_mck_pb14 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ i2s2_mck_pc2: i2s2_mck_pc2 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+    slew-rate = "very-high-speed";
+   };
+
+
+
+   /omit-if-no-ref/ i2s2_sd_pb15: i2s2_sd_pb15 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((15) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ i2s2_sd_pc3: i2s2_sd_pc3 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ i2s2_ws_pb9: i2s2_ws_pb9 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ i2s2_ws_pb12: i2s2_ws_pb12 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ sys_swdio_pa13: sys_swdio_pa13 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ sys_swclk_pa14: sys_swclk_pa14 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ lptim1_out_pb2: lptim1_out_pb2 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lptim1_in1_pb5: lptim1_in1_pb5 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lptim1_etr_pb6: lptim1_etr_pb6 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lptim1_in2_pb7: lptim1_in2_pb7 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lptim1_in1_pc0: lptim1_in1_pc0 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lptim1_out_pc1: lptim1_out_pc1 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lptim1_in2_pc2: lptim1_in2_pc2 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lptim1_etr_pc3: lptim1_etr_pc3 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ rcc_mco_pa8: rcc_mco_pa8 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((8) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ rcc_mco_pa9: rcc_mco_pa9 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ rcc_mco_pb13: rcc_mco_pb13 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+    slew-rate = "very-high-speed";
+   };
+
+
+
+   /omit-if-no-ref/ spi1_miso_pa6: spi1_miso_pa6 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi1_miso_pa11: spi1_miso_pa11 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi1_miso_pb4: spi1_miso_pb4 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi2_miso_pb14: spi2_miso_pb14 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi2_miso_pc2: spi2_miso_pc2 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+
+
+   /omit-if-no-ref/ spi1_mosi_pa7: spi1_mosi_pa7 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi1_mosi_pa12: spi1_mosi_pa12 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi1_mosi_pb5: spi1_mosi_pb5 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi2_mosi_pb15: spi2_mosi_pb15 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((15) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi2_mosi_pc3: spi2_mosi_pc3 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+
+
+   /omit-if-no-ref/ spi1_nss_pa4: spi1_nss_pa4 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi1_nss_pa15: spi1_nss_pa15 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((15) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi2_nss_pb9: spi2_nss_pb9 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi2_nss_pb12: spi2_nss_pb12 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-up;
+    slew-rate = "very-high-speed";
+   };
+
+
+
+   /omit-if-no-ref/ spi1_sck_pa5: spi1_sck_pa5 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi1_sck_pb3: spi1_sck_pb3 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi2_sck_pb10: spi2_sck_pb10 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+   /omit-if-no-ref/ spi2_sck_pb13: spi2_sck_pb13 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-down;
+    slew-rate = "very-high-speed";
+   };
+
+
+
+   /omit-if-no-ref/ tim21_ch1_pa2: tim21_ch1_pa2 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim21_ch2_pa3: tim21_ch2_pa3 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim21_ch1_pb13: tim21_ch1_pb13 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim21_ch2_pb14: tim21_ch2_pb14 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim2_ch1_pa0: tim2_ch1_pa0 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim2_ch2_pa1: tim2_ch2_pa1 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim2_ch3_pa2: tim2_ch3_pa2 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim2_ch4_pa3: tim2_ch4_pa3 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim2_ch1_pa5: tim2_ch1_pa5 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim22_ch1_pa6: tim22_ch1_pa6 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim22_ch2_pa7: tim22_ch2_pa7 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim2_ch1_pa15: tim2_ch1_pa15 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((15) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim2_ch2_pb3: tim2_ch2_pb3 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim22_ch1_pb4: tim22_ch1_pb4 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim22_ch2_pb5: tim22_ch2_pb5 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim2_ch3_pb10: tim2_ch3_pb10 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim2_ch4_pb11: tim2_ch4_pb11 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim22_ch1_pc6: tim22_ch1_pc6 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim22_ch2_pc7: tim22_ch2_pc7 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim3_ch1_pa6: tim3_ch1_pa6 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim3_ch2_pa7: tim3_ch2_pa7 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim3_ch3_pb0: tim3_ch3_pb0 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim3_ch4_pb1: tim3_ch4_pb1 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim3_ch1_pb4: tim3_ch1_pb4 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim3_ch2_pb5: tim3_ch2_pb5 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim3_ch1_pc6: tim3_ch1_pc6 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim3_ch2_pc7: tim3_ch2_pc7 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim3_ch3_pc8: tim3_ch3_pc8 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((8) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tim3_ch4_pc9: tim3_ch4_pc9 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ tsc_g1_io1_pa0: tsc_g1_io1_pa0 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g1_io2_pa1: tsc_g1_io2_pa1 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g1_io3_pa2: tsc_g1_io3_pa2 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g1_io4_pa3: tsc_g1_io4_pa3 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g2_io1_pa4: tsc_g2_io1_pa4 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g2_io2_pa5: tsc_g2_io2_pa5 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g2_io3_pa6: tsc_g2_io3_pa6 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g2_io4_pa7: tsc_g2_io4_pa7 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g4_io1_pa9: tsc_g4_io1_pa9 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g4_io2_pa10: tsc_g4_io2_pa10 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g4_io3_pa11: tsc_g4_io3_pa11 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g4_io4_pa12: tsc_g4_io4_pa12 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g3_io2_pb0: tsc_g3_io2_pb0 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g3_io3_pb1: tsc_g3_io3_pb1 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g3_io4_pb2: tsc_g3_io4_pb2 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g5_io1_pb3: tsc_g5_io1_pb3 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g5_io2_pb4: tsc_g5_io2_pb4 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g5_io3_pb6: tsc_g5_io3_pb6 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g5_io4_pb7: tsc_g5_io4_pb7 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_sync_pb8: tsc_sync_pb8 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((8) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_sync_pb10: tsc_sync_pb10 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g6_io1_pb11: tsc_g6_io1_pb11 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g6_io2_pb12: tsc_g6_io2_pb12 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g6_io3_pb13: tsc_g6_io3_pb13 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g6_io4_pb14: tsc_g6_io4_pb14 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g7_io1_pc0: tsc_g7_io1_pc0 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g7_io2_pc1: tsc_g7_io2_pc1 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g7_io3_pc2: tsc_g7_io3_pc2 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g7_io4_pc3: tsc_g7_io4_pc3 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g3_io1_pc5: tsc_g3_io1_pc5 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g8_io1_pc6: tsc_g8_io1_pc6 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g8_io2_pc7: tsc_g8_io2_pc7 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g8_io3_pc8: tsc_g8_io3_pc8 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((8) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ tsc_g8_io4_pc9: tsc_g8_io4_pc9 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x3) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ lpuart1_cts_pa6: lpuart1_cts_pa6 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart1_cts_pa11: usart1_cts_pa11 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart1_cts_pb4: usart1_cts_pb4 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ lpuart1_cts_pb13: lpuart1_cts_pb13 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart2_cts_pa0: usart2_cts_pa0 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart4_cts_pb7: usart4_cts_pb7 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+
+
+   /omit-if-no-ref/ usart1_de_pa12: usart1_de_pa12 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ lpuart1_de_pb1: lpuart1_de_pb1 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ usart1_de_pb3: usart1_de_pb3 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ lpuart1_de_pb12: lpuart1_de_pb12 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ lpuart1_de_pb14: lpuart1_de_pb14 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ lpuart1_de_pd2: lpuart1_de_pd2 {
+    pinmux = <((((('D') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ usart2_de_pa1: usart2_de_pa1 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ usart4_de_pa15: usart4_de_pa15 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((15) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ usart5_de_pb5: usart5_de_pb5 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+
+
+   /omit-if-no-ref/ usart1_rts_pa12: usart1_rts_pa12 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ lpuart1_rts_pb1: lpuart1_rts_pb1 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ usart1_rts_pb3: usart1_rts_pb3 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x5) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ lpuart1_rts_pb12: lpuart1_rts_pb12 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ lpuart1_rts_pb14: lpuart1_rts_pb14 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ lpuart1_rts_pd2: lpuart1_rts_pd2 {
+    pinmux = <((((('D') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ usart2_rts_pa1: usart2_rts_pa1 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ usart4_rts_pa15: usart4_rts_pa15 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((15) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+   /omit-if-no-ref/ usart5_rts_pb5: usart5_rts_pb5 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    drive-push-pull;
+   };
+
+
+
+   /omit-if-no-ref/ lpuart1_rx_pa3: lpuart1_rx_pa3 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ usart1_rx_pa10: usart1_rx_pa10 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lpuart1_rx_pa13: lpuart1_rx_pa13 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ usart1_rx_pb7: usart1_rx_pb7 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((7) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lpuart1_rx_pb10: lpuart1_rx_pb10 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lpuart1_rx_pb11: lpuart1_rx_pb11 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lpuart1_rx_pc0: lpuart1_rx_pc0 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lpuart1_rx_pc5: lpuart1_rx_pc5 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((5) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ lpuart1_rx_pc11: lpuart1_rx_pc11 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ usart2_rx_pa3: usart2_rx_pa3 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ usart2_rx_pa15: usart2_rx_pa15 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((15) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ usart4_rx_pa1: usart4_rx_pa1 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ usart4_rx_pc11: usart4_rx_pc11 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ usart5_rx_pb4: usart5_rx_pb4 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ usart5_rx_pd2: usart5_rx_pd2 {
+    pinmux = <((((('D') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+   };
+
+
+
+   /omit-if-no-ref/ lpuart1_tx_pa2: lpuart1_tx_pa2 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart1_tx_pa9: usart1_tx_pa9 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ lpuart1_tx_pa14: lpuart1_tx_pa14 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart1_tx_pb6: usart1_tx_pb6 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((6) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ lpuart1_tx_pb10: lpuart1_tx_pb10 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ lpuart1_tx_pb11: lpuart1_tx_pb11 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x7) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ lpuart1_tx_pc1: lpuart1_tx_pc1 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((1) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ lpuart1_tx_pc4: lpuart1_tx_pc4 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((4) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ lpuart1_tx_pc10: lpuart1_tx_pc10 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x0) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart2_tx_pa2: usart2_tx_pa2 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((2) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart2_tx_pa14: usart2_tx_pa14 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((14) & 0xFU) << 5U) | (((0x4) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart4_tx_pa0: usart4_tx_pa0 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((0) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart4_tx_pc10: usart4_tx_pc10 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((10) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart5_tx_pb3: usart5_tx_pb3 {
+    pinmux = <((((('B') - 'A') & 0x1FU) << 9U) | (((3) & 0xFU) << 5U) | (((0x6) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+   /omit-if-no-ref/ usart5_tx_pc12: usart5_tx_pc12 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+    bias-pull-up;
+   };
+
+
+
+   /omit-if-no-ref/ usb_dm_pa11: usb_dm_pa11 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((11) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ usb_dp_pa12: usb_dp_pa12 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((12) & 0xFU) << 5U) | (((0x10) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ usb_noe_pa13: usb_noe_pa13 {
+    pinmux = <((((('A') - 'A') & 0x1FU) << 9U) | (((13) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+   /omit-if-no-ref/ usb_noe_pc9: usb_noe_pc9 {
+    pinmux = <((((('C') - 'A') & 0x1FU) << 9U) | (((9) & 0xFU) << 5U) | (((0x2) & 0x1FU) << 0U))>;
+   };
+
+  };
+ };
+};
+# 11 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/arduino_r3_connector.dtsi" 1
+
+
+
+
+
+
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/gpio/arduino-header-r3.h" 1 3 4
+# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/arduino_r3_connector.dtsi" 2
+
+/ {
+ arduino_header: connector {
+  compatible = "arduino-header-r3";
+  #gpio-cells = <2>;
+  gpio-map-mask = <0xffffffff 0xffffffc0>;
+  gpio-map-pass-thru = <0 0x3f>;
+  gpio-map = <0 0 &gpioa 0 0>,
+      <1 0 &gpioa 1 0>,
+      <2 0 &gpioa 4 0>,
+      <3 0 &gpiob 0 0>,
+      <4 0 &gpioc 1 0>,
+      <5 0 &gpioc 0 0>,
+      <6 0 &gpioa 3 0>,
+      <7 0 &gpioa 2 0>,
+      <8 0 &gpioa 10 0>,
+      <9 0 &gpiob 3 0>,
+      <10 0 &gpiob 5 0>,
+      <11 0 &gpiob 4 0>,
+      <12 0 &gpiob 10 0>,
+      <13 0 &gpioa 8 0>,
+      <14 0 &gpioa 9 0>,
+      <15 0 &gpioc 7 0>,
+      <16 0 &gpiob 6 0>,
+      <17 0 &gpioa 7 0>,
+      <18 0 &gpioa 6 0>,
+      <19 0 &gpioa 5 0>,
+      <20 0 &gpiob 9 0>,
+      <21 0 &gpiob 8 0>;
+ };
+};
+
+arduino_i2c: &i2c1 {};
+
+arduino_spi: &spi1 {};
+# 12 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/st_morpho_connector.dtsi" 1
+
+
+
+
+
+
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/gpio/st-morpho-header.h" 1 3 4
+# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/st_morpho_connector.dtsi" 2
+
+/ {
+ st_morpho_header: st-morpho-header {
+  compatible = "st-morpho-header";
+  #gpio-cells = <2>;
+  gpio-map-mask = <0xFF 0x0>;
+  gpio-map-pass-thru = <0x0 0x7F>;
+  gpio-map = <0 0 &gpioc 10 0>,
+      <1 0 &gpioc 11 0>,
+      <2 0 &gpioc 12 0>,
+      <3 0 &gpiod 2 0>,
+      <12 0 &gpioa 13 0>,
+      <14 0 &gpioa 14 0>,
+      <16 0 &gpioa 15 0>,
+      <20 0 &gpiob 7 0>,
+      <22 0 &gpioc 13 0>,
+      <24 0 &gpioc 14 0>,
+      <26 0 &gpioc 15 0>,
+      <27 0 &gpioa 0 0>,
+      <28 0 &gpioh 0 0>,
+      <29 0 &gpioa 1 0>,
+      <30 0 &gpioh 1 0>,
+      <31 0 &gpioa 4 0>,
+      <33 0 &gpiob 0 0>,
+      <34 0 &gpioc 2 0>,
+      <35 0 &gpioc 1 0>,
+      <36 0 &gpioc 3 0>,
+      <37 0 &gpioc 0 0>,
+      <72 0 &gpioc 9 0>,
+      <73 0 &gpioc 8 0>,
+      <74 0 &gpiob 8 0>,
+      <75 0 &gpioc 6 0>,
+      <76 0 &gpiob 9 0>,
+      <77 0 &gpioc 5 0>,
+      <82 0 &gpioa 5 0>,
+      <83 0 &gpioa 12 0>,
+      <84 0 &gpioa 6 0>,
+      <85 0 &gpioa 11 0>,
+      <86 0 &gpioa 7 0>,
+      <87 0 &gpiob 12 0>,
+      <88 0 &gpiob 6 0>,
+      <89 0 &gpiob 11 0>,
+      <90 0 &gpioc 7 0>,
+      <92 0 &gpioa 9 0>,
+      <93 0 &gpiob 2 0>,
+      <94 0 &gpioa 8 0>,
+      <95 0 &gpiob 1 0>,
+      <96 0 &gpiob 10 0>,
+      <97 0 &gpiob 15 0>,
+      <98 0 &gpiob 4 0>,
+      <99 0 &gpiob 14 0>,
+      <100 0 &gpiob 5 0>,
+      <101 0 &gpiob 13 0>,
+      <102 0 &gpiob 3 0>,
+      <104 0 &gpioa 10 0>,
+      <105 0 &gpioc 4 0>,
+      <106 0 &gpioa 2 0>,
+      <108 0 &gpioa 3 0>;
+ };
+};
+# 13 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h" 1 3 4
+# 14 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
+
+/ {
+ model = "STMicroelectronics STM32L073RZ-NUCLEO board";
+ compatible = "st,stm32l073rz-nucleo";
+
+ chosen {
+  zephyr,console = &usart2;
+  zephyr,shell-uart = &usart2;
+  zephyr,sram = &sram0;
+  zephyr,flash = &flash0;
+ };
+
+ leds: leds {
+  compatible = "gpio-leds";
+
+  green_led_2: led_2 {
+   gpios = <&gpioa 5 (0 << 0)>;
+   label = "User LD2";
+  };
+ };
+
+ gpio_keys {
+  compatible = "gpio-keys";
+
+  user_button: button {
+   label = "User";
+   gpios = <&gpioc 13 (1 << 0)>;
+   zephyr,code = <11>;
+  };
+ };
+
+ pwmleds: pwmleds {
+  compatible = "pwm-leds";
+
+  status = "disabled";
+
+  green_pwm_led: green_pwm_led {
+   pwms = <&pwm2 1 (((20) * 1000UL) * 1000UL) (0 << 0)>;
+  };
+ };
+
+ aliases {
+  led0 = &green_led_2;
+  sw0 = &user_button;
+  pwm-led0 = &green_pwm_led;
+  watchdog0 = &iwdg;
+  eeprom-0 = &eeprom;
+  die-temp0 = &die_temp;
+  volt-sensor0 = &vref;
+ };
+};
+
+&clk_hse {
+ hse-bypass;
+ clock-frequency = <(((8) * 1000) * 1000)>;
+ status = "okay";
+};
+
+&clk_lsi {
+ status = "okay";
+};
+
+&clk_hsi48 {
+ status = "okay";
+};
+
+&pll {
+ div = <2>;
+ mul = <8>;
+ clocks = <&clk_hse>;
+ status = "okay";
+};
+
+&rcc {
+ clocks = <&pll>;
+ clock-frequency = <(((32) * 1000) * 1000)>;
+ ahb-prescaler = <1>;
+ apb1-prescaler = <1>;
+ apb2-prescaler = <1>;
+};
+
+stm32_lp_tick_source: &lptim1 {
+
+
+
+
+ clocks = <&rcc (0x038) (1 << 31)>,
+   <&rcc 0x003 ((((0x4C) & 0xFFFFU) << 0U) | (((18) & 0x1FU) << 16U) | ((((19) - (18)) & 0x3U) << 21U) | ((((1)) & 0xFFU) << 24U))>;
+ status = "okay";
+};
+
+&usart1 {
+ pinctrl-0 = <&usart1_tx_pb6 &usart1_rx_pb7>;
+ pinctrl-names = "default";
+ current-speed = <115200>;
+};
+
+&usart2 {
+ pinctrl-0 = <&usart2_tx_pa2 &usart2_rx_pa3>;
+ pinctrl-names = "default";
+ current-speed = <115200>;
+ status = "okay";
+};
+
+&i2c1 {
+ pinctrl-0 = <&i2c1_scl_pb8 &i2c1_sda_pb9>;
+ pinctrl-names = "default";
+ status = "okay";
+ clock-frequency = <400000>;
+};
+
+&i2c2 {
+ pinctrl-0 = <&i2c2_scl_pb10 &i2c2_sda_pb11>;
+ pinctrl-names = "default";
+ status = "okay";
+ clock-frequency = <400000>;
+};
+
+&spi1 {
+ pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
+ pinctrl-names = "default";
+ status = "okay";
+};
+
+&iwdg {
+ status = "okay";
+};
+
+&adc1 {
+ pinctrl-0 = <&adc_in0_pa0>;
+ pinctrl-names = "default";
+ st,adc-clock-source = "SYNC";
+ st,adc-prescaler = <4>;
+ status = "okay";
+};
+
+&die_temp {
+ status = "okay";
+};
+
+&dac1 {
+ status = "okay";
+ pinctrl-0 = <&dac_out1_pa4>;
+ pinctrl-names = "default";
+};
+
+&timers2 {
+ st,prescaler = <10000>;
+ status = "okay";
+
+ pwm2: pwm {
+
+  pinctrl-0 = <&tim2_ch1_pa5>;
+  pinctrl-names = "default";
+ };
+};
+
+&rtc {
+ clocks = <&rcc (0x038) (1 << 28)>,
+   <&rcc 0x003 ((((0x50) & 0xFFFFU) << 0U) | (((16) & 0x1FU) << 16U) | ((((17) - (16)) & 0x3U) << 21U) | ((((2)) & 0xFFU) << 24U))>;
+ status = "okay";
+};
+
+&rng {
+ status = "okay";
+};
+
+&eeprom {
+ status = "okay";
+};
+
+&vref {
+ status = "okay";
+};
+# 0 "<command-line>" 2
+# 1 "./boards/nucleo_l073rz.overlay" 1
+/ {
+    aliases {
+        button-blue = &user_button;
+    };
+};
+# 0 "<command-line>" 2
+# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/misc/empty_file.c"

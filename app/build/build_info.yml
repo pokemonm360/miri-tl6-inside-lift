@@ -1,0 +1,61 @@
+cmake:
+  application:
+    configuration-dir: '/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app'
+    source-dir: '/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app'
+  board:
+    name: 'nucleo_l073rz'
+    path:
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz'
+    qualifiers: 'stm32l073xx'
+    revision: ''
+  devicetree:
+    bindings-dirs:
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/bindings'
+    files:
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts'
+     - 'boards/nucleo_l073rz.overlay'
+    include-dirs:
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/ambiq/dts'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/atmel/include'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/bouffalolab/include'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/bouffalolab/include/zephyr'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/gigadevice/include'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/microchip/include'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/microchip/dts'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/nuvoton/dts'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/nxp/dts'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/stm32/dts'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/ti/dts'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/common'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/vendor'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/rx'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/x86'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/xtensa'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/sparc'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/riscv'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/posix'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm64'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arc'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts'
+    user-files:
+     - 'boards/nucleo_l073rz.overlay'
+  kconfig:
+    files:
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz_defconfig'
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/prj.conf'
+    user-files:
+     - '/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/prj.conf'
+  toolchain:
+    name: 'zephyr'
+    path: '/Users/kostascaplinskas/zephyr-sdk-0.17.4'
+  zephyr:
+    version: '4.3.99'
+    zephyr-base: '/Users/kostascaplinskas/miri-tl-inside-lift/zephyr'
+version: '0.1.0'
+west:
+  command: '/Users/kostascaplinskas/miri-tl-inside-lift/.venv/bin/west build -p always -b nucleo_l073rz -- -DDTC_OVERLAY_FILE=boards/nucleo_l073rz.overlay'
+  topdir: '/Users/kostascaplinskas/miri-tl-inside-lift'
+  version: '1.5.0'

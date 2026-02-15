@@ -1,0 +1,2 @@
+# Load Sysbuild board Kconfig descriptions.
+osource "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/Kconfig.sysbuild"

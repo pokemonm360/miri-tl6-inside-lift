@@ -1,0 +1,5 @@
+west:
+  command: /Users/kostascaplinskas/miri-tl-inside-lift/.venv/bin/west build -p always
+    -b nucleo_l073rz -- -DDTC_OVERLAY_FILE=boards/nucleo_l073rz.overlay
+  topdir: /Users/kostascaplinskas/miri-tl-inside-lift
+  version: 1.5.0
