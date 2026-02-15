@@ -4,7 +4,7 @@
 
 //LOG_MODULE_REGISTER(main, CONFIG_APP_LOG_LEVEL);
 
-static const int32_t sleep_time_ms = 1000;
+static const int32_t sleep_time_ms = 100;
 static const struct gpio_dt_spec btn = GPIO_DT_SPEC_GET(DT_ALIAS(button_blue), gpios);
 
 int main(void)

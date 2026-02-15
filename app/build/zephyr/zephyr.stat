@@ -41,12 +41,12 @@ Section Headers:
   [17] device_states     PROGBITS        200000f0 006138 00001c 00  WA  0   0  1
   [18] .comment          PROGBITS        00000000 006158 000020 01  MS  0   0  1
   [19] .debug_aranges    PROGBITS        00000000 006178 0010e0 00      0   0  8
-  [20] .debug_info       PROGBITS        00000000 007258 036de6 00      0   0  1
-  [21] .debug_abbrev     PROGBITS        00000000 03e03e 00af8b 00      0   0  1
-  [22] .debug_line       PROGBITS        00000000 048fc9 01f168 00      0   0  1
-  [23] .debug_frame      PROGBITS        00000000 068134 0026d0 00      0   0  4
-  [24] .debug_str        PROGBITS        00000000 06a804 00a353 01  MS  0   0  1
-  [25] .debug_loc        PROGBITS        00000000 074b57 0180ef 00      0   0  1
+  [20] .debug_info       PROGBITS        00000000 007258 036de5 00      0   0  1
+  [21] .debug_abbrev     PROGBITS        00000000 03e03d 00af8b 00      0   0  1
+  [22] .debug_line       PROGBITS        00000000 048fc8 01f168 00      0   0  1
+  [23] .debug_frame      PROGBITS        00000000 068130 0026d0 00      0   0  4
+  [24] .debug_str        PROGBITS        00000000 06a800 00a353 01  MS  0   0  1
+  [25] .debug_loc        PROGBITS        00000000 074b53 0180ee 00      0   0  1
   [26] .debug_ranges     PROGBITS        00000000 08cc48 004a00 00      0   0  8
   [27] .ARM.attributes   ARM_ATTRIBUTES  00000000 091648 000030 00      0   0  1
   [28] .last_section     PROGBITS        0800605c 006154 000004 00  WA  0   0  4
