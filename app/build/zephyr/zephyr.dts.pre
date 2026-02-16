@@ -2314,6 +2314,7 @@ stm32_lp_tick_source: &lptim1 {
 / {
     aliases {
         button-blue = &user_button;
+        led-ukas = &green_led_2;
     };
 };
 # 0 "<command-line>" 2

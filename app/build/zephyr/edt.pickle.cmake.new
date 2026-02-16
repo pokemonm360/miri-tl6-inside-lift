@@ -9,6 +9,7 @@ set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_ALIAS|eeprom-0" "/soc/
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_ALIAS|die-temp0" "/dietemp")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_ALIAS|volt-sensor0" "/vref")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_ALIAS|led0" "/leds/led_2")
+set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_ALIAS|led-ukas" "/leds/led_2")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_ALIAS|sw0" "/gpio_keys/button")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_ALIAS|button-blue" "/gpio_keys/button")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_ALIAS|pwm-led0" "/pwmleds/green_pwm_led")

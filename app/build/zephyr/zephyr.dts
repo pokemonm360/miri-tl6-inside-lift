@@ -27,6 +27,7 @@
 		die-temp0 = &die_temp;      /* in zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts:61 */
 		volt-sensor0 = &vref;       /* in zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts:62 */
 		button-blue = &user_button; /* in miri-tl6-inside-lift/app/build/zephyr/boards/nucleo_l073rz.overlay:3 */
+		led-ukas = &green_led_2;    /* in miri-tl6-inside-lift/app/build/zephyr/boards/nucleo_l073rz.overlay:4 */
 	};
 
 	/* node '/soc' defined in zephyr/dts/arm/armv6-m.dtsi:6 */
