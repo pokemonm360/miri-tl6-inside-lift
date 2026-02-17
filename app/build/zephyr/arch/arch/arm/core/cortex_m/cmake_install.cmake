@@ -1,8 +1,8 @@
-# Install script for directory: /Users/kostascaplinskas/miri-tl-inside-lift/zephyr/arch/arm/core/cortex_m
+# Install script for directory: C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/arch/arm/core/cortex_m
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/Zephyr-Kernel")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,12 +34,12 @@ endif()
 
 # Set path to fallback-tool for dependency-resolution.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/Users/kostascaplinskas/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/arm-zephyr-eabi-objdump")
+  set(CMAKE_OBJDUMP "C:/Users/kostas.caplinskas/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/arm-zephyr-eabi-objdump.exe")
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/arch/arch/arm/core/cortex_m/install_local_manifest.txt"
+  file(WRITE "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/arch/arch/arm/core/cortex_m/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

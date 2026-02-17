@@ -1,8 +1,8 @@
-# Install script for directory: /Users/kostascaplinskas/miri-tl-inside-lift/zephyr/subsys
+# Install script for directory: C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/subsys
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/Zephyr-Kernel")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,41 +34,41 @@ endif()
 
 # Set path to fallback-tool for dependency-resolution.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/Users/kostascaplinskas/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/arm-zephyr-eabi-objdump")
+  set(CMAKE_OBJDUMP "C:/Users/kostas.caplinskas/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/arm-zephyr-eabi-objdump.exe")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/canbus/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/debug/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/fb/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/fs/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/gnss/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/instrumentation/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/ipc/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/kvss/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/logging/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/mem_mgmt/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/mgmt/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/modbus/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/pm/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/pmci/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/portability/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/random/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/rtio/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/sd/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/stats/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/storage/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/task_wdt/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/testsuite/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/tracing/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/usb/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/canbus/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/debug/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/fb/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/fs/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/gnss/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/instrumentation/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/ipc/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/kvss/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/logging/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/mem_mgmt/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/mgmt/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/modbus/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/pm/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/pmci/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/portability/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/random/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/rtio/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/sd/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/stats/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/storage/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/task_wdt/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/testsuite/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/tracing/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/usb/cmake_install.cmake")
 
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/subsys/install_local_manifest.txt"
+  file(WRITE "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/subsys/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

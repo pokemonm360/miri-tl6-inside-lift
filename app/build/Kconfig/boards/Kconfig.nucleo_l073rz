@@ -1,2 +1,2 @@
 # Load board Kconfig descriptions.
-osource "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/Kconfig.nucleo_l073rz"
+osource "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/Kconfig.nucleo_l073rz"

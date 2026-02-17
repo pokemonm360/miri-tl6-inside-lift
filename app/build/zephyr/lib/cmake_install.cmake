@@ -1,8 +1,8 @@
-# Install script for directory: /Users/kostascaplinskas/miri-tl-inside-lift/zephyr/lib
+# Install script for directory: C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/lib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/usr/local")
+  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/Zephyr-Kernel")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,26 +34,26 @@ endif()
 
 # Set path to fallback-tool for dependency-resolution.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/Users/kostascaplinskas/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/arm-zephyr-eabi-objdump")
+  set(CMAKE_OBJDUMP "C:/Users/kostas.caplinskas/zephyr-sdk-0.17.4/arm-zephyr-eabi/bin/arm-zephyr-eabi-objdump.exe")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/lib/libc/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/lib/posix/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/lib/hash/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/lib/heap/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/lib/mem_blocks/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/lib/midi2/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/lib/os/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/lib/utils/cmake_install.cmake")
-  include("/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/lib/uuid/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/libc/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/posix/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/hash/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/heap/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/mem_blocks/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/midi2/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/os/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/utils/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/uuid/cmake_install.cmake")
 
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/kostascaplinskas/miri-tl-inside-lift/miri-tl6-inside-lift/app/build/zephyr/lib/install_local_manifest.txt"
+  file(WRITE "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

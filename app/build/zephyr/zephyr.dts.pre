@@ -1,7 +1,7 @@
-# 0 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/misc/empty_file.c"
+# 0 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/misc/empty_file.c"
 # 0 "<built-in>"
 # 0 "<command-line>"
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 1
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 1
 
 
 
@@ -10,36 +10,14 @@
 
 
 /dts-v1/;
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l073Xz.dtsi" 1 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l073Xz.dtsi" 1 3 4
 
 
 
 
 
 
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l073.dtsi" 1 3 4
-
-
-
-
-
-
-
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l072.dtsi" 1 3 4
-
-
-
-
-
-
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l071.dtsi" 1 3 4
-
-
-
-
-
-
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 1 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l073.dtsi" 1 3 4
 
 
 
@@ -47,11 +25,33 @@
 
 
 
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/armv6-m.dtsi" 1 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l072.dtsi" 1 3 4
 
 
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/common/skeleton.dtsi" 1 3 4
-# 9 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/common/skeleton.dtsi" 3 4
+
+
+
+
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l071.dtsi" 1 3 4
+
+
+
+
+
+
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 1 3 4
+
+
+
+
+
+
+
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/armv6-m.dtsi" 1 3 4
+
+
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/common/skeleton.dtsi" 1 3 4
+# 9 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/common/skeleton.dtsi" 3 4
 / {
  #address-cells = <1>;
  #size-cells = <1>;
@@ -60,7 +60,7 @@
 
  aliases {};
 };
-# 4 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/armv6-m.dtsi" 2 3 4
+# 4 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/armv6-m.dtsi" 2 3 4
 
 / {
  soc {
@@ -84,64 +84,64 @@
   };
  };
 };
-# 9 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/clock/stm32l0_clock.h" 1 3 4
-# 9 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/clock/stm32l0_clock.h" 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/clock/stm32_common_clocks.h" 1 3 4
-# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/clock/stm32l0_clock.h" 2 3 4
-# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/i2c/i2c.h" 1 3 4
-# 11 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/gpio/gpio.h" 1 3 4
-# 12 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pwm/pwm.h" 1 3 4
-# 13 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/adc/adc.h" 1 3 4
-# 9 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/adc/adc.h" 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/dt-util.h" 1 3 4
-# 19 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/dt-util.h" 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_macro.h" 1 3 4
-# 34 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_macro.h" 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 1 3 4
-# 18 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_loops.h" 1 3 4
-# 1465 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_loops.h" 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_listify.h" 1 3 4
-# 1466 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_loops.h" 2 3 4
-# 19 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
-# 203 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal_is_eq.h" 1 3 4
-# 204 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
-# 234 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal_util_inc.h" 1 3 4
-# 235 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+# 9 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/clock/stm32l0_clock.h" 1 3 4
+# 9 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/clock/stm32l0_clock.h" 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/clock/stm32_common_clocks.h" 1 3 4
+# 10 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/clock/stm32l0_clock.h" 2 3 4
+# 10 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/i2c/i2c.h" 1 3 4
+# 11 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/gpio/gpio.h" 1 3 4
+# 12 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/pwm/pwm.h" 1 3 4
+# 13 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/adc/adc.h" 1 3 4
+# 9 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/adc/adc.h" 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/dt-util.h" 1 3 4
+# 19 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/dt-util.h" 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_macro.h" 1 3 4
+# 34 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_macro.h" 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal.h" 1 3 4
+# 18 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal.h" 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_loops.h" 1 3 4
+# 1465 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_loops.h" 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_listify.h" 1 3 4
+# 1466 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_loops.h" 2 3 4
+# 19 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+# 203 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal.h" 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal_is_eq.h" 1 3 4
+# 204 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+# 234 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal.h" 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal_util_inc.h" 1 3 4
+# 235 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
 
 
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal_util_dec.h" 1 3 4
-# 238 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal_util_dec.h" 1 3 4
+# 238 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
 
 
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal_util_x2.h" 1 3 4
-# 241 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
-# 35 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/sys/util_macro.h" 2 3 4
-# 20 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/dt-util.h" 2 3 4
-# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/adc/adc.h" 2 3 4
-# 14 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pwm/stm32_pwm.h" 1 3 4
-# 15 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/dma/stm32_dma.h" 1 3 4
-# 16 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/reset/stm32l0_reset.h" 1 3 4
-# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/reset/stm32l0_reset.h" 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/reset/stm32-common.h" 1 3 4
-# 11 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/reset/stm32l0_reset.h" 2 3 4
-# 17 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/sensor/qdec_stm32.h" 1 3 4
-# 18 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/common/freq.h" 1 3 4
-# 19 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/common/mem.h" 1 3 4
-# 20 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal_util_x2.h" 1 3 4
+# 241 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal.h" 2 3 4
+# 35 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_macro.h" 2 3 4
+# 20 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/dt-util.h" 2 3 4
+# 10 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/adc/adc.h" 2 3 4
+# 14 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/pwm/stm32_pwm.h" 1 3 4
+# 15 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/dma/stm32_dma.h" 1 3 4
+# 16 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/reset/stm32l0_reset.h" 1 3 4
+# 10 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/reset/stm32l0_reset.h" 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/reset/stm32-common.h" 1 3 4
+# 11 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/reset/stm32l0_reset.h" 2 3 4
+# 17 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/sensor/qdec_stm32.h" 1 3 4
+# 18 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/common/freq.h" 1 3 4
+# 19 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/common/mem.h" 1 3 4
+# 20 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi" 2 3 4
 
 / {
  chosen {
@@ -506,7 +506,7 @@
 &nvic {
  arm,num-irq-priority-bits = <2>;
 };
-# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l071.dtsi" 2 3 4
+# 8 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l071.dtsi" 2 3 4
 
 / {
  soc {
@@ -691,7 +691,7 @@
   status = "disabled";
  };
 };
-# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l072.dtsi" 2 3 4
+# 8 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l072.dtsi" 2 3 4
 
 / {
  chosen {
@@ -746,14 +746,14 @@
   #io-channel-cells = <1>;
  };
 };
-# 9 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l073.dtsi" 2 3 4
+# 9 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l073.dtsi" 2 3 4
 
 / {
  soc {
   compatible = "st,stm32l073", "st,stm32l0", "simple-bus";
  };
 };
-# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/dts/arm/st/l0/stm32l073Xz.dtsi" 2 3 4
+# 8 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l073Xz.dtsi" 2 3 4
 
 / {
  sram0: memory@20000000 {
@@ -768,19 +768,19 @@
   };
  };
 };
-# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/stm32/dts/st/l0/stm32l073r(b-z)tx-pinctrl.dtsi" 1 3 4
+# 10 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/modules/hal/stm32/dts/st/l0/stm32l073r(b-z)tx-pinctrl.dtsi" 1 3 4
 
 
 
 
 
 
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl.h" 1 3 4
-# 10 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl.h" 3 4
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl-common.h" 1 3 4
-# 11 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl.h" 2 3 4
-# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/modules/hal/stm32/dts/st/l0/stm32l073r(b-z)tx-pinctrl.dtsi" 2 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl.h" 1 3 4
+# 10 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl.h" 3 4
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl-common.h" 1 3 4
+# 11 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl.h" 2 3 4
+# 8 "C:/Users/kostas.caplinskas/Documents/zephyrproject/modules/hal/stm32/dts/st/l0/stm32l073r(b-z)tx-pinctrl.dtsi" 2 3 4
 
 / {
  soc {
@@ -2017,16 +2017,16 @@
   };
  };
 };
-# 11 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/arduino_r3_connector.dtsi" 1
+# 11 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/arduino_r3_connector.dtsi" 1
 
 
 
 
 
 
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/gpio/arduino-header-r3.h" 1 3 4
-# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/arduino_r3_connector.dtsi" 2
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/gpio/arduino-header-r3.h" 1 3 4
+# 8 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/arduino_r3_connector.dtsi" 2
 
 / {
  arduino_header: connector {
@@ -2062,16 +2062,16 @@
 arduino_i2c: &i2c1 {};
 
 arduino_spi: &spi1 {};
-# 12 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/st_morpho_connector.dtsi" 1
+# 12 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/st_morpho_connector.dtsi" 1
 
 
 
 
 
 
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/gpio/st-morpho-header.h" 1 3 4
-# 8 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/st_morpho_connector.dtsi" 2
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/gpio/st-morpho-header.h" 1 3 4
+# 8 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/st_morpho_connector.dtsi" 2
 
 / {
  st_morpho_header: st-morpho-header {
@@ -2132,9 +2132,9 @@ arduino_spi: &spi1 {};
       <108 0 &gpioa 3 0>;
  };
 };
-# 13 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h" 1 3 4
-# 14 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
+# 13 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h" 1 3 4
+# 14 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts" 2
 
 / {
  model = "STMicroelectronics STM32L073RZ-NUCLEO board";
@@ -2318,4 +2318,4 @@ stm32_lp_tick_source: &lptim1 {
     };
 };
 # 0 "<command-line>" 2
-# 1 "/Users/kostascaplinskas/miri-tl-inside-lift/zephyr/misc/empty_file.c"
+# 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/misc/empty_file.c"

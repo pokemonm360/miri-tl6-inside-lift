@@ -1,1 +1,1 @@
-"mcuboot":"/Users/kostascaplinskas/miri-tl-inside-lift/bootloader/mcuboot":"/Users/kostascaplinskas/miri-tl-inside-lift/bootloader/mcuboot/boot/zephyr/sysbuild"
+"mcuboot":"C:/Users/kostas.caplinskas/Documents/zephyrproject/bootloader/mcuboot":"C:/Users/kostas.caplinskas/Documents/zephyrproject/bootloader/mcuboot/boot/zephyr/sysbuild"
