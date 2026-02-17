@@ -11,36 +11,36 @@
     ]
   ],
   [
-    "CONFIG_DT_HAS_ARM_ARMV6M_SYSTICK_ENABLED",
+    "CONFIG_DT_HAS_ARM_ARMV7M_SYSTICK_ENABLED",
     "n",
     "bool",
     "y",
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      988
+      1008
     ]
   ],
   [
-    "CONFIG_DT_HAS_ARM_CORTEX_M0__ENABLED",
+    "CONFIG_DT_HAS_ARM_CORTEX_M4F_ENABLED",
     "n",
     "bool",
     "y",
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      1123
+      1158
     ]
   ],
   [
-    "CONFIG_DT_HAS_ARM_V6M_NVIC_ENABLED",
+    "CONFIG_DT_HAS_ARM_V7M_NVIC_ENABLED",
     "n",
     "bool",
     "y",
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      1398
+      1403
     ]
   ],
   [
@@ -52,6 +52,17 @@
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
       2753
+    ]
+  ],
+  [
+    "CONFIG_DT_HAS_FIXED_PARTITIONS_ENABLED",
+    "n",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
+      2768
     ]
   ],
   [
@@ -99,36 +110,14 @@
     ]
   ],
   [
-    "CONFIG_DT_HAS_ST_STM32_ADC_ENABLED",
+    "CONFIG_DT_HAS_ST_STM32_BXCAN_ENABLED",
     "n",
     "bool",
     "y",
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12133
-    ]
-  ],
-  [
-    "CONFIG_DT_HAS_ST_STM32_DAC_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12198
-    ]
-  ],
-  [
-    "CONFIG_DT_HAS_ST_STM32_EEPROM_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12248
+      12163
     ]
   ],
   [
@@ -165,17 +154,6 @@
     ]
   ],
   [
-    "CONFIG_DT_HAS_ST_STM32_HSE_CLOCK_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12308
-    ]
-  ],
-  [
     "CONFIG_DT_HAS_ST_STM32_I2C_V2_ENABLED",
     "n",
     "bool",
@@ -184,17 +162,6 @@
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
       12328
-    ]
-  ],
-  [
-    "CONFIG_DT_HAS_ST_STM32_LPTIM_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12353
     ]
   ],
   [
@@ -220,6 +187,17 @@
     ]
   ],
   [
+    "CONFIG_DT_HAS_ST_STM32_PWM_ENABLED",
+    "n",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
+      12443
+    ]
+  ],
+  [
     "CONFIG_DT_HAS_ST_STM32_RCC_ENABLED",
     "n",
     "bool",
@@ -239,17 +217,6 @@
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
       12478
-    ]
-  ],
-  [
-    "CONFIG_DT_HAS_ST_STM32_RNG_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12483
     ]
   ],
   [
@@ -275,14 +242,14 @@
     ]
   ],
   [
-    "CONFIG_DT_HAS_ST_STM32_TEMP_CAL_ENABLED",
+    "CONFIG_DT_HAS_ST_STM32_SPI_FIFO_ENABLED",
     "n",
     "bool",
     "y",
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12543
+      12523
     ]
   ],
   [
@@ -319,58 +286,25 @@
     ]
   ],
   [
-    "CONFIG_DT_HAS_ST_STM32_VREF_ENABLED",
+    "CONFIG_DT_HAS_ST_STM32L4_FLASH_CONTROLLER_ENABLED",
     "n",
     "bool",
     "y",
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12593
+      12883
     ]
   ],
   [
-    "CONFIG_DT_HAS_ST_STM32_WATCHDOG_ENABLED",
+    "CONFIG_DT_HAS_ST_STM32L4_PLL_CLOCK_ENABLED",
     "n",
     "bool",
     "y",
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12603
-    ]
-  ],
-  [
-    "CONFIG_DT_HAS_ST_STM32F1_FLASH_CONTROLLER_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12663
-    ]
-  ],
-  [
-    "CONFIG_DT_HAS_ST_STM32L0_NV_FLASH_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12868
-    ]
-  ],
-  [
-    "CONFIG_DT_HAS_ST_STM32L0_PLL_CLOCK_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      12873
+      12888
     ]
   ],
   [
@@ -385,6 +319,17 @@
     ]
   ],
   [
+    "CONFIG_DT_HAS_TI_ADS1220_ENABLED",
+    "n",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
+      13348
+    ]
+  ],
+  [
     "CONFIG_DT_HAS_USB_NOP_XCEIV_ENABLED",
     "n",
     "bool",
@@ -392,7 +337,7 @@
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      14303
+      14308
     ]
   ],
   [
@@ -403,7 +348,7 @@
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      15553
+      15558
     ]
   ],
   [
@@ -414,7 +359,7 @@
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      15663
+      15668
     ]
   ],
   [
@@ -475,23 +420,33 @@
     ]
   ],
   [
+    "CONFIG_FPU",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
     "CONFIG_SERIAL",
     "y",
     "bool",
     "y",
     "assign",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz_defconfig",
-      7
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
+      4
     ]
   ],
   [
     "CONFIG_SPI",
     "y",
     "bool",
-    null,
-    "unset",
-    null
+    "y",
+    "select",
+    [
+      "ADC_ADS1220 && DT_HAS_TI_ADS1220_ENABLED && ADC"
+    ]
   ],
   [
     "CONFIG_MIPI_DSI",
@@ -521,12 +476,9 @@
     "CONFIG_UART_INTERRUPT_DRIVEN",
     "y",
     "bool",
-    "y",
-    "assign",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz_defconfig",
-      8
-    ]
+    null,
+    "unset",
+    null
   ],
   [
     "CONFIG_GPIO_HOGS",
@@ -537,13 +489,32 @@
     null
   ],
   [
+    "CONFIG_SPI_STM32_INTERRUPT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/Kconfig.defconfig",
+      10
+    ]
+  ],
+  [
+    "CONFIG_SPI_STM32_DMA",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
     "CONFIG_NUM_IRQS",
     "n",
     "int",
-    "32",
+    "85",
     "default",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32\\stm32l0x\\Kconfig.defconfig.stm32l073xx",
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32\\stm32l4x\\Kconfig.defconfig.stm32l452xx",
       9
     ]
   ],
@@ -551,7 +522,7 @@
     "CONFIG_SYS_CLOCK_HW_CYCLES_PER_SEC",
     "y",
     "int",
-    "32000000",
+    "80000000",
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32/Kconfig.defconfig",
@@ -562,7 +533,7 @@
     "CONFIG_FLASH_SIZE",
     "y",
     "int",
-    "192",
+    "512",
     "default",
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\arch\\Kconfig",
@@ -614,11 +585,11 @@
     "CONFIG_IDLE_STACK_SIZE",
     "y",
     "int",
-    "256",
+    "320",
     "default",
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\kernel\\Kconfig",
-      179
+      178
     ]
   ],
   [
@@ -636,11 +607,11 @@
     "CONFIG_SYS_CLOCK_TICKS_PER_SEC",
     "y",
     "int",
-    "8000",
+    "10000",
     "default",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32/Kconfig.defconfig",
-      69
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\kernel\\Kconfig",
+      843
     ]
   ],
   [
@@ -727,7 +698,7 @@
     "y",
     "select",
     [
-      "SOC_STM32L073XX && SOC_FAMILY_STM32"
+      "SOC_SERIES_STM32L4X && SOC_FAMILY_STM32"
     ]
   ],
   [
@@ -833,6 +804,14 @@
   ],
   [
     "CONFIG_PM",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ZERO_LATENCY_IRQS",
     "y",
     "bool",
     null,
@@ -983,6 +962,17 @@
     null
   ],
   [
+    "CONFIG_HW_STACK_PROTECTION",
+    "y",
+    "bool",
+    "y",
+    "assign",
+    [
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
+      10
+    ]
+  ],
+  [
     "CONFIG_CPU_HAS_CUSTOM_FIXED_SOC_MPU_REGIONS",
     "y",
     "bool",
@@ -997,8 +987,8 @@
     "y",
     "assign",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz_defconfig",
-      14
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
+      13
     ]
   ],
   [
@@ -1104,7 +1094,7 @@
     "y",
     "select",
     [
-      "SOC_SERIES_STM32L0X && SOC_FAMILY_STM32"
+      "SOC_SERIES_STM32L4X && SOC_FAMILY_STM32"
     ]
   ],
   [
@@ -1114,8 +1104,8 @@
     "y",
     "assign",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz_defconfig",
-      10
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
+      16
     ]
   ],
   [
@@ -1135,16 +1125,6 @@
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\common\\Kconfig",
       64
-    ]
-  ],
-  [
-    "CONFIG_ATOMIC_OPERATIONS_C",
-    "n",
-    "bool",
-    "y",
-    "select",
-    [
-      "ARMV6_M_ARMV8_M_BASELINE && !ARMV8_M_BASELINE && CPU_CORTEX_M && ARM"
     ]
   ],
   [
@@ -2200,7 +2180,7 @@
     "y",
     "select",
     [
-      "SOC_SERIES_STM32L0X && SOC_FAMILY_STM32"
+      "SOC_SERIES_STM32L4X && SOC_FAMILY_STM32"
     ]
   ],
   [
@@ -2241,7 +2221,7 @@
     "CONFIG_BOARD",
     "n",
     "string",
-    "nucleo_l073rz",
+    "nucleo_l452re",
     "default",
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\boards\\Kconfig",
@@ -2263,7 +2243,7 @@
     "CONFIG_BOARD_TARGET",
     "n",
     "string",
-    "nucleo_l073rz/stm32l073xx",
+    "nucleo_l452re/stm32l452xx",
     "default",
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\boards\\Kconfig",
@@ -2279,7 +2259,7 @@
     null
   ],
   [
-    "CONFIG_BOARD_NUCLEO_L073RZ",
+    "CONFIG_BOARD_NUCLEO_L452RE",
     "n",
     "bool",
     "y",
@@ -2290,7 +2270,7 @@
     ]
   ],
   [
-    "CONFIG_BOARD_NUCLEO_L073RZ_STM32L073XX",
+    "CONFIG_BOARD_NUCLEO_L452RE_STM32L452XX",
     "n",
     "bool",
     "y",
@@ -2304,7 +2284,7 @@
     "CONFIG_BOARD_QUALIFIERS",
     "n",
     "string",
-    "stm32l073xx",
+    "stm32l452xx",
     "default",
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\boards\\Kconfig.v2",
@@ -2315,21 +2295,21 @@
     "CONFIG_SOC",
     "n",
     "string",
-    "stm32l073xx",
+    "stm32l452xx",
     "default",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32\\stm32l0x\\Kconfig.soc",
-      79
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32\\stm32l4x\\Kconfig.soc",
+      99
     ]
   ],
   [
     "CONFIG_SOC_SERIES",
     "n",
     "string",
-    "stm32l0x",
+    "stm32l4x",
     "default",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32\\stm32l0x\\Kconfig.soc",
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32\\stm32l4x\\Kconfig.soc",
       14
     ]
   ],
@@ -2351,27 +2331,27 @@
     "y",
     "select",
     [
-      "SOC_SERIES_STM32L0X"
+      "SOC_SERIES_STM32L4X"
     ]
   ],
   [
-    "CONFIG_SOC_SERIES_STM32L0X",
+    "CONFIG_SOC_SERIES_STM32L4X",
     "n",
     "bool",
     "y",
     "select",
     [
-      "SOC_STM32L073XX"
+      "SOC_STM32L452XX"
     ]
   ],
   [
-    "CONFIG_SOC_STM32L073XX",
+    "CONFIG_SOC_STM32L452XX",
     "n",
     "bool",
     "y",
     "select",
     [
-      "BOARD_NUCLEO_L073RZ"
+      "BOARD_NUCLEO_L452RE"
     ]
   ],
   [
@@ -2408,7 +2388,7 @@
     "y",
     "select",
     [
-      "SOC_SERIES_STM32L0X && SOC_FAMILY_STM32"
+      "SOC_SERIES_STM32L4X && SOC_FAMILY_STM32"
     ]
   ],
   [
@@ -2481,11 +2461,11 @@
     "CONFIG_ARM_MPU_REGION_MIN_ALIGN_AND_SIZE",
     "n",
     "int",
-    "256",
+    "32",
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/arch/arm\\core\\mpu/Kconfig",
-      11
+      14
     ]
   ],
   [
@@ -2503,7 +2483,7 @@
     "y",
     "select",
     [
-      "CPU_CORTEX_M0PLUS && ARM"
+      "CPU_CORTEX_M4 && ARM"
     ]
   ],
   [
@@ -2521,7 +2501,7 @@
     "y",
     "select",
     [
-      "ARMV6_M_ARMV8_M_BASELINE && CPU_CORTEX_M && ARM"
+      "ARMV7_M_ARMV8_M_MAINLINE && CPU_CORTEX_M && ARM"
     ]
   ],
   [
@@ -2585,6 +2565,17 @@
     ]
   ],
   [
+    "CONFIG_ARM_STACK_PROTECTION",
+    "n",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/arch/arm\\core/Kconfig",
+      203
+    ]
+  ],
+  [
     "CONFIG_FP16",
     "y",
     "bool",
@@ -2615,13 +2606,13 @@
     null
   ],
   [
-    "CONFIG_CPU_CORTEX_M0PLUS",
+    "CONFIG_CPU_CORTEX_M4",
     "n",
     "bool",
     "y",
     "select",
     [
-      "SOC_SERIES_STM32L0X && SOC_FAMILY_STM32"
+      "SOC_SERIES_STM32L4X && SOC_FAMILY_STM32"
     ]
   ],
   [
@@ -2631,7 +2622,27 @@
     "y",
     "select",
     [
-      "SOC_SERIES_STM32L0X && SOC_FAMILY_STM32"
+      "ARMV7_M_ARMV8_M_MAINLINE && CPU_CORTEX_M && ARM"
+    ]
+  ],
+  [
+    "CONFIG_CPU_CORTEX_M_HAS_DWT",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "SOC_SERIES_STM32L4X && SOC_FAMILY_STM32"
+    ]
+  ],
+  [
+    "CONFIG_CPU_CORTEX_M_HAS_BASEPRI",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "ARMV7_M_ARMV8_M_MAINLINE && CPU_CORTEX_M && ARM"
     ]
   ],
   [
@@ -2641,21 +2652,65 @@
     "y",
     "select",
     [
-      "SOC_SERIES_STM32L0X && SOC_FAMILY_STM32"
+      "ARMV7_M_ARMV8_M_MAINLINE && CPU_CORTEX_M && ARM"
     ]
   ],
   [
-    "CONFIG_ARMV6_M_ARMV8_M_BASELINE",
+    "CONFIG_CPU_CORTEX_M_HAS_PROGRAMMABLE_FAULT_PRIOS",
     "n",
     "bool",
     "y",
     "select",
     [
-      "CPU_CORTEX_M0PLUS && ARM"
+      "ARMV7_M_ARMV8_M_MAINLINE && CPU_CORTEX_M && ARM"
+    ]
+  ],
+  [
+    "CONFIG_ARMV7_M_ARMV8_M_MAINLINE",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "CPU_CORTEX_M4 && ARM"
+    ]
+  ],
+  [
+    "CONFIG_ARMV7_M_ARMV8_M_FP",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "CPU_CORTEX_M4 && CPU_HAS_FPU && ARM"
     ]
   ],
   [
     "CONFIG_SW_VECTOR_RELAY",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CORTEX_M_DWT",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CORTEX_M_DEBUG_MONITOR_HOOK",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_TRAP_UNALIGNED_ACCESS",
     "y",
     "bool",
     null,
@@ -2674,6 +2729,14 @@
     ]
   ],
   [
+    "CONFIG_NULL_POINTER_EXCEPTION_DETECTION_DWT",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
     "CONFIG_NULL_POINTER_EXCEPTION_DETECTION_MPU",
     "y",
     "bool",
@@ -2685,9 +2748,11 @@
     "CONFIG_MPU_STACK_GUARD",
     "y",
     "bool",
-    null,
-    "unset",
-    null
+    "y",
+    "select",
+    [
+      "ARM_STACK_PROTECTION && !BUILTIN_STACK_GUARD && ARM_MPU && ARM"
+    ]
   ],
   [
     "CONFIG_MPU_DISABLE_BACKGROUND_MAP",
@@ -2725,13 +2790,23 @@
     null
   ],
   [
+    "CONFIG_HAS_SWO",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "SOC_SERIES_STM32L4X && SOC_FAMILY_STM32"
+    ]
+  ],
+  [
     "CONFIG_ARM",
     "n",
     "bool",
     "y",
     "select",
     [
-      "SOC_SERIES_STM32L0X && SOC_FAMILY_STM32"
+      "SOC_SERIES_STM32L4X && SOC_FAMILY_STM32"
     ]
   ],
   [
@@ -2770,8 +2845,8 @@
     "y",
     "assign",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz_defconfig",
-      4
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
+      7
     ]
   ],
   [
@@ -2789,7 +2864,7 @@
     "CONFIG_SRAM_SIZE",
     "y",
     "int",
-    "20",
+    "160",
     "default",
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\arch\\Kconfig",
@@ -2913,6 +2988,26 @@
     null,
     "unset",
     null
+  ],
+  [
+    "CONFIG_ARCH_HAS_TIMING_FUNCTIONS",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "CPU_CORTEX_M && CPU_CORTEX_M_HAS_DWT && ARM"
+    ]
+  ],
+  [
+    "CONFIG_ARCH_HAS_STACK_PROTECTION",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "CPU_CORTEX_M && ((ARM_MPU && !ARMV6_M_ARMV8_M_BASELINE) || CPU_CORTEX_M_HAS_SPLIM) && ARM"
+    ]
   ],
   [
     "CONFIG_ARCH_HAS_USERSPACE",
@@ -3062,6 +3157,16 @@
     "select",
     [
       "CPU_CORTEX_M && ARM"
+    ]
+  ],
+  [
+    "CONFIG_CPU_HAS_FPU",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "SOC_SERIES_STM32L4X && SOC_FAMILY_STM32"
     ]
   ],
   [
@@ -3454,6 +3559,16 @@
     ]
   ],
   [
+    "CONFIG_ATOMIC_OPERATIONS_BUILTIN",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "ARMV7_M_ARMV8_M_MAINLINE && CPU_CORTEX_M && ARM"
+    ]
+  ],
+  [
     "CONFIG_TIMESLICING",
     "y",
     "bool",
@@ -3793,10 +3908,20 @@
     "y",
     "bool",
     "y",
+    "assign",
+    [
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/prj.conf",
+      8
+    ]
+  ],
+  [
+    "CONFIG_ADC_CONFIGURABLE_INPUTS",
+    "n",
+    "bool",
+    "y",
     "select",
     [
-      "STM32_TEMP && SOC_FAMILY_STM32 && DT_HAS_ST_STM32_ADC_ENABLED && (DT_HAS_ST_STM32_TEMP_ENABLED || DT_HAS_ST_STM32_TEMP_CAL_ENABLED || DT_HAS_ST_STM32C0_TEMP_CAL_ENABLED) && SENSOR",
-      "STM32_VREF && DT_HAS_ST_STM32_ADC_ENABLED && DT_HAS_ST_STM32_VREF_ENABLED && SOC_FAMILY_STM32 && !SOC_SERIES_STM32F1X && SENSOR"
+      "ADC_ADS1220 && DT_HAS_TI_ADS1220_ENABLED && ADC"
     ]
   ],
   [
@@ -3824,23 +3949,26 @@
     null
   ],
   [
-    "CONFIG_ADC_STM32",
+    "CONFIG_ADC_ADS1220",
     "y",
     "bool",
     "y",
-    "default",
+    "assign",
     [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\adc\\Kconfig.stm32",
-      13
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/prj.conf",
+      9
     ]
   ],
   [
-    "CONFIG_ADC_STM32_DMA",
+    "CONFIG_ADC_ADS1220_WAIT_FOR_COMPLETION_TIMEOUT_MS",
     "y",
-    "bool",
-    null,
-    "unset",
-    null
+    "int",
+    "250",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\adc\\Kconfig.ads1220",
+      30
+    ]
   ],
   [
     "CONFIG_AUDIO",
@@ -3910,17 +4038,6 @@
     ]
   ],
   [
-    "CONFIG_CLOCK_STM32_HSE_CLOCK",
-    "n",
-    "int",
-    "8000000",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\clock_control\\Kconfig.stm32",
-      27
-    ]
-  ],
-  [
     "CONFIG_COMPARATOR",
     "y",
     "bool",
@@ -3975,8 +4092,8 @@
     "y",
     "assign",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz_defconfig",
-      11
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
+      17
     ]
   ],
   [
@@ -4414,8 +4531,8 @@
     "y",
     "select",
     [
-      "ADC_STM32 && DT_HAS_ST_STM32_ADC_ENABLED && ADC",
-      "UART_STM32 && DT_HAS_ST_STM32_UART_ENABLED && SERIAL"
+      "UART_STM32 && DT_HAS_ST_STM32_UART_ENABLED && SERIAL",
+      "SPI_STM32 && DT_HAS_ST_STM32_SPI_ENABLED && SPI"
     ]
   ],
   [
@@ -4562,61 +4679,9 @@
     "CONFIG_SENSOR",
     "y",
     "bool",
-    "y",
-    "assign",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/prj.conf",
-      6
-    ]
-  ],
-  [
-    "CONFIG_SENSOR_INIT_PRIORITY",
-    "y",
-    "int",
-    "90",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\sensor\\Kconfig",
-      20
-    ]
-  ],
-  [
-    "CONFIG_SENSOR_ASYNC_API",
-    "y",
-    "bool",
     null,
     "unset",
     null
-  ],
-  [
-    "CONFIG_SENSOR_INFO",
-    "y",
-    "bool",
-    null,
-    "unset",
-    null
-  ],
-  [
-    "CONFIG_STM32_TEMP",
-    "y",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\sensor\\st\\stm32_temp\\Kconfig",
-      8
-    ]
-  ],
-  [
-    "CONFIG_STM32_VREF",
-    "y",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\sensor\\st\\stm32_vref\\Kconfig",
-      8
-    ]
   ],
   [
     "CONFIG_SENT",
@@ -4725,12 +4790,109 @@
     null
   ],
   [
+    "CONFIG_SPI_ASYNC",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SPI_RTIO",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SPI_SLAVE",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SPI_EXTENDED_MODES",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SPI_INIT_PRIORITY",
+    "y",
+    "int",
+    "50",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\spi\\Kconfig",
+      77
+    ]
+  ],
+  [
+    "CONFIG_SPI_COMPLETION_TIMEOUT_TOLERANCE",
+    "y",
+    "int",
+    "200",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\spi\\Kconfig",
+      83
+    ]
+  ],
+  [
+    "CONFIG_SPI_STM32",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\spi\\Kconfig.stm32",
+      8
+    ]
+  ],
+  [
+    "CONFIG_SPI_STM32_ERRATA_BUSY",
+    "n",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\spi\\Kconfig.stm32",
+      32
+    ]
+  ],
+  [
+    "CONFIG_SPI_STM32_BUSY_FLAG_TIMEOUT",
+    "y",
+    "int",
+    "10000",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\spi\\Kconfig.stm32",
+      43
+    ]
+  ],
+  [
     "CONFIG_STEPPER",
     "y",
     "bool",
     null,
     "unset",
     null
+  ],
+  [
+    "CONFIG_TIMER_HAS_64BIT_CYCLE_COUNTER",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "CORTEX_M_SYSTICK_64BIT_CYCLE_COUNTER && CORTEX_M_SYSTICK && SYS_CLOCK_EXISTS"
+    ]
   ],
   [
     "CONFIG_TIMER_READS_ITS_FREQUENCY_AT_RUNTIME",
@@ -4793,9 +4955,12 @@
     "CONFIG_CORTEX_M_SYSTICK_64BIT_CYCLE_COUNTER",
     "y",
     "bool",
-    null,
-    "unset",
-    null
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\timer\\Kconfig.cortex_m_systick",
+      33
+    ]
   ],
   [
     "CONFIG_CORTEX_M_SYSTICK_LPM_TIMER_NONE",
@@ -5336,6 +5501,24 @@
     null
   ],
   [
+    "CONFIG_HAS_POWEROFF",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "SOC_SERIES_STM32L4X && SOC_FAMILY_STM32"
+    ]
+  ],
+  [
+    "CONFIG_POWEROFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
     "CONFIG_CBPRINTF_COMPLETE",
     "y",
     "bool",
@@ -5756,14 +5939,6 @@
     null
   ],
   [
-    "CONFIG_STACK_SENTINEL",
-    "y",
-    "bool",
-    null,
-    "unset",
-    null
-  ],
-  [
     "CONFIG_PRINTK",
     "y",
     "bool",
@@ -6092,7 +6267,7 @@
     "y",
     "select",
     [
-      "SOC_SERIES_STM32L0X && SOC_FAMILY_STM32"
+      "SOC_SERIES_STM32L4X && SOC_FAMILY_STM32"
     ]
   ],
   [
@@ -6136,17 +6311,6 @@
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\random\\Kconfig",
       33
-    ]
-  ],
-  [
-    "CONFIG_ENTROPY_NODE_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\random\\Kconfig",
-      82
     ]
   ],
   [

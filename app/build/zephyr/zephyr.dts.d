@@ -1,14 +1,14 @@
 empty_file.o: \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/misc/empty_file.c \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/nucleo_l073rz.dts \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l073Xz.dtsi \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l073.dtsi \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l072.dtsi \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l071.dtsi \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l0/stm32l0.dtsi \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/armv6-m.dtsi \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re.dts \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_common.dtsi \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l4/stm32l452Xe.dtsi \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l4/stm32l452.dtsi \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l4/stm32l451.dtsi \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l4/stm32l4.dtsi \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/armv7-m.dtsi \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/common/skeleton.dtsi \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/clock/stm32l0_clock.h \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/clock/stm32l4_clock.h \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/clock/stm32_common_clocks.h \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/i2c/i2c.h \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/gpio/gpio.h \
@@ -25,17 +25,19 @@ empty_file.o: \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/sys/util_internal_util_x2.h \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/pwm/stm32_pwm.h \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/dma/stm32_dma.h \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/reset/stm32l0_reset.h \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/reset/stm32g4_l4_5_reset.h \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/reset/stm32-common.h \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/power/stm32_pwr.h \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/sensor/qdec_stm32.h \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/common/freq.h \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/common/mem.h \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/modules/hal/stm32/dts/st/l0/stm32l073r(b-z)tx-pinctrl.dtsi \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arm/st/l4/stm32l4_sai.dtsi \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/arduino_r3_connector.dtsi \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/gpio/arduino-header-r3.h \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/modules/hal/stm32/dts/st/l4/stm32l452r(c-e)tx-pinctrl.dtsi \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl.h \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/pinctrl/stm32-pinctrl-common.h \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/arduino_r3_connector.dtsi \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/gpio/arduino-header-r3.h \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/st_morpho_connector.dtsi \
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/st_morpho_connector.dtsi \
  C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/gpio/st-morpho-header.h \
- C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/dt-bindings/input/input-event-codes.h \
- boards/nucleo_l073rz.overlay
+ C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/boards/nucleo_l452re.overlay

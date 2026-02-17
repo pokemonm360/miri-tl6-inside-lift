@@ -1,2 +1,0 @@
-# Load board Kconfig descriptions.
-osource "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l073rz/Kconfig.nucleo_l073rz"

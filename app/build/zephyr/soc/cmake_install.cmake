@@ -40,7 +40,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/soc/common/cmake_install.cmake")
-  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/soc/soc/stm32l073xx/cmake_install.cmake")
+  include("C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/soc/soc/stm32l452xx/cmake_install.cmake")
 
 endif()
 

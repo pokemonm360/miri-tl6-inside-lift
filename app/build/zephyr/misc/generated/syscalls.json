@@ -289,62 +289,6 @@
     ],
     [
         [
-            "int sensor_attr_set",
-            "const struct device *dev,\n\t\t\t      enum sensor_channel chan,\n\t\t\t      enum sensor_attribute attr,\n\t\t\t      const struct sensor_value *val"
-        ],
-        "sensor.h",
-        true
-    ],
-    [
-        [
-            "int sensor_attr_get",
-            "const struct device *dev,\n\t\t\t      enum sensor_channel chan,\n\t\t\t      enum sensor_attribute attr,\n\t\t\t      struct sensor_value *val"
-        ],
-        "sensor.h",
-        true
-    ],
-    [
-        [
-            "int sensor_sample_fetch",
-            "const struct device *dev"
-        ],
-        "sensor.h",
-        true
-    ],
-    [
-        [
-            "int sensor_sample_fetch_chan",
-            "const struct device *dev,\n\t\t\t\t       enum sensor_channel type"
-        ],
-        "sensor.h",
-        true
-    ],
-    [
-        [
-            "int sensor_channel_get",
-            "const struct device *dev,\n\t\t\t\t enum sensor_channel chan,\n\t\t\t\t struct sensor_value *val"
-        ],
-        "sensor.h",
-        true
-    ],
-    [
-        [
-            "int sensor_get_decoder",
-            "const struct device *dev,\n\t\t\t\t const struct sensor_decoder_api **decoder"
-        ],
-        "sensor.h",
-        true
-    ],
-    [
-        [
-            "int sensor_reconfigure_read_iodev",
-            "const struct rtio_iodev *iodev,\n\t\t\t\t\t    const struct device *sensor,\n\t\t\t\t\t    const struct sensor_chan_spec *channels,\n\t\t\t\t\t    size_t num_channels"
-        ],
-        "sensor.h",
-        true
-    ],
-    [
-        [
             "int uart_err_check",
             "const struct device *dev"
         ],
@@ -533,6 +477,22 @@
             "const struct device *dev, uint32_t cmd, uint32_t p"
         ],
         "uart.h",
+        true
+    ],
+    [
+        [
+            "int spi_transceive",
+            "const struct device *dev,\n\t\t\t     const struct spi_config *config,\n\t\t\t     const struct spi_buf_set *tx_bufs,\n\t\t\t     const struct spi_buf_set *rx_bufs"
+        ],
+        "spi.h",
+        true
+    ],
+    [
+        [
+            "int spi_release",
+            "const struct device *dev,\n\t\t\t  const struct spi_config *config"
+        ],
+        "spi.h",
         true
     ],
     [
@@ -1373,86 +1333,6 @@
             "void"
         ],
         "time_units.h",
-        true
-    ],
-    [
-        [
-            "bool atomic_cas",
-            "atomic_t *target, atomic_val_t old_value,\n\t\t\t atomic_val_t new_value"
-        ],
-        "atomic_c.h",
-        true
-    ],
-    [
-        [
-            "bool atomic_ptr_cas",
-            "atomic_ptr_t *target, atomic_ptr_val_t old_value,\n\t\t\t      atomic_ptr_val_t new_value"
-        ],
-        "atomic_c.h",
-        true
-    ],
-    [
-        [
-            "atomic_val_t atomic_add",
-            "atomic_t *target, atomic_val_t value"
-        ],
-        "atomic_c.h",
-        true
-    ],
-    [
-        [
-            "atomic_val_t atomic_sub",
-            "atomic_t *target, atomic_val_t value"
-        ],
-        "atomic_c.h",
-        true
-    ],
-    [
-        [
-            "atomic_val_t atomic_set",
-            "atomic_t *target, atomic_val_t value"
-        ],
-        "atomic_c.h",
-        true
-    ],
-    [
-        [
-            "atomic_ptr_val_t atomic_ptr_set",
-            "atomic_ptr_t *target, atomic_ptr_val_t value"
-        ],
-        "atomic_c.h",
-        true
-    ],
-    [
-        [
-            "atomic_val_t atomic_or",
-            "atomic_t *target, atomic_val_t value"
-        ],
-        "atomic_c.h",
-        true
-    ],
-    [
-        [
-            "atomic_val_t atomic_xor",
-            "atomic_t *target, atomic_val_t value"
-        ],
-        "atomic_c.h",
-        true
-    ],
-    [
-        [
-            "atomic_val_t atomic_and",
-            "atomic_t *target, atomic_val_t value"
-        ],
-        "atomic_c.h",
-        true
-    ],
-    [
-        [
-            "atomic_val_t atomic_nand",
-            "atomic_t *target, atomic_val_t value"
-        ],
-        "atomic_c.h",
         true
     ],
     [
@@ -3649,6 +3529,62 @@
     ],
     [
         [
+            "int sensor_attr_set",
+            "const struct device *dev,\n\t\t\t      enum sensor_channel chan,\n\t\t\t      enum sensor_attribute attr,\n\t\t\t      const struct sensor_value *val"
+        ],
+        "sensor.h",
+        false
+    ],
+    [
+        [
+            "int sensor_attr_get",
+            "const struct device *dev,\n\t\t\t      enum sensor_channel chan,\n\t\t\t      enum sensor_attribute attr,\n\t\t\t      struct sensor_value *val"
+        ],
+        "sensor.h",
+        false
+    ],
+    [
+        [
+            "int sensor_sample_fetch",
+            "const struct device *dev"
+        ],
+        "sensor.h",
+        false
+    ],
+    [
+        [
+            "int sensor_sample_fetch_chan",
+            "const struct device *dev,\n\t\t\t\t       enum sensor_channel type"
+        ],
+        "sensor.h",
+        false
+    ],
+    [
+        [
+            "int sensor_channel_get",
+            "const struct device *dev,\n\t\t\t\t enum sensor_channel chan,\n\t\t\t\t struct sensor_value *val"
+        ],
+        "sensor.h",
+        false
+    ],
+    [
+        [
+            "int sensor_get_decoder",
+            "const struct device *dev,\n\t\t\t\t const struct sensor_decoder_api **decoder"
+        ],
+        "sensor.h",
+        false
+    ],
+    [
+        [
+            "int sensor_reconfigure_read_iodev",
+            "const struct rtio_iodev *iodev,\n\t\t\t\t\t    const struct device *sensor,\n\t\t\t\t\t    const struct sensor_chan_spec *channels,\n\t\t\t\t\t    size_t num_channels"
+        ],
+        "sensor.h",
+        false
+    ],
+    [
+        [
             "int smbus_configure",
             "const struct device *dev, uint32_t dev_config"
         ],
@@ -3765,22 +3701,6 @@
             "const struct device *dev,\n\t\t\t\tuint16_t addr, uint8_t cmd,\n\t\t\t\tuint8_t snd_count, uint8_t *snd_buf,\n\t\t\t\tuint8_t *rcv_count, uint8_t *rcv_buf"
         ],
         "smbus.h",
-        false
-    ],
-    [
-        [
-            "int spi_transceive",
-            "const struct device *dev,\n\t\t\t     const struct spi_config *config,\n\t\t\t     const struct spi_buf_set *tx_bufs,\n\t\t\t     const struct spi_buf_set *rx_bufs"
-        ],
-        "spi.h",
-        false
-    ],
-    [
-        [
-            "int spi_release",
-            "const struct device *dev,\n\t\t\t  const struct spi_config *config"
-        ],
-        "spi.h",
         false
     ],
     [
@@ -5077,6 +4997,86 @@
             "struct rtio_pool *pool, struct rtio *r"
         ],
         "rtio.h",
+        false
+    ],
+    [
+        [
+            "bool atomic_cas",
+            "atomic_t *target, atomic_val_t old_value,\n\t\t\t atomic_val_t new_value"
+        ],
+        "atomic_c.h",
+        false
+    ],
+    [
+        [
+            "bool atomic_ptr_cas",
+            "atomic_ptr_t *target, atomic_ptr_val_t old_value,\n\t\t\t      atomic_ptr_val_t new_value"
+        ],
+        "atomic_c.h",
+        false
+    ],
+    [
+        [
+            "atomic_val_t atomic_add",
+            "atomic_t *target, atomic_val_t value"
+        ],
+        "atomic_c.h",
+        false
+    ],
+    [
+        [
+            "atomic_val_t atomic_sub",
+            "atomic_t *target, atomic_val_t value"
+        ],
+        "atomic_c.h",
+        false
+    ],
+    [
+        [
+            "atomic_val_t atomic_set",
+            "atomic_t *target, atomic_val_t value"
+        ],
+        "atomic_c.h",
+        false
+    ],
+    [
+        [
+            "atomic_ptr_val_t atomic_ptr_set",
+            "atomic_ptr_t *target, atomic_ptr_val_t value"
+        ],
+        "atomic_c.h",
+        false
+    ],
+    [
+        [
+            "atomic_val_t atomic_or",
+            "atomic_t *target, atomic_val_t value"
+        ],
+        "atomic_c.h",
+        false
+    ],
+    [
+        [
+            "atomic_val_t atomic_xor",
+            "atomic_t *target, atomic_val_t value"
+        ],
+        "atomic_c.h",
+        false
+    ],
+    [
+        [
+            "atomic_val_t atomic_and",
+            "atomic_t *target, atomic_val_t value"
+        ],
+        "atomic_c.h",
+        false
+    ],
+    [
+        [
+            "atomic_val_t atomic_nand",
+            "atomic_t *target, atomic_val_t value"
+        ],
+        "atomic_c.h",
         false
     ],
     [

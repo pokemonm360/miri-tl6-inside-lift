@@ -1,61 +1,50 @@
-#include <stdio.h>
 #include <zephyr/kernel.h>
-#include <zephyr/drivers/gpio.h>
+#include <zephyr/device.h>
+#include <zephyr/drivers/adc.h>
+#include <zephyr/devicetree.h>
 
-//LOG_MODULE_REGISTER(main, CONFIG_APP_LOG_LEVEL);
+static const struct device *adc_dev = DEVICE_DT_GET(DT_NODELABEL(ads1220));
 
-static const int32_t sleep_time_ms = 100;
-static const struct gpio_dt_spec btn = GPIO_DT_SPEC_GET(DT_ALIAS(button_blue), gpios);
-static const struct gpio_dt_spec ledas = GPIO_DT_SPEC_GET(DT_ALIAS(led_ukas), gpios);
-
+static struct adc_channel_cfg ch_cfg = {
+    .gain             = ADC_GAIN_1,
+    .reference        = ADC_REF_INTERNAL,
+    .acquisition_time = ADC_ACQ_TIME_DEFAULT,
+    .channel_id       = 0,
+    .differential     = false,
+    .input_positive   = 0,  /* AIN0 — adjust to your wiring */
+};
 
 int main(void)
 {
     int ret;
-    int state;
+    int32_t buf;
 
-    if(!gpio_is_ready_dt(&btn)) {
-        printk("ERROR: button not ready\n");
-        return 0;
+    struct adc_sequence seq = {
+        .channels    = BIT(0),
+        .buffer      = &buf,
+        .buffer_size = sizeof(buf),
+        .resolution  = 24,
+    };
+
+    if (!device_is_ready(adc_dev)) {
+        printk("ADC device not ready\n");
+        return -ENODEV;
     }
 
-    ret = gpio_pin_configure_dt(&btn, GPIO_INPUT);
-    if(ret < 0) {
-        printk("ERROR: failed to configure button pin\n");
-        return 0;
-    }
-
-    printk("Button spec flags: 0x%x\n", btn.dt_flags);
-
-    if (!gpio_is_ready_dt(&ledas)) {
-        printk("ERROR: LED not ready\n");
-        return 0;
-    }
-
-    ret = gpio_pin_configure_dt(&ledas, GPIO_OUTPUT_INACTIVE);
+    ret = adc_channel_setup(adc_dev, &ch_cfg);
     if (ret < 0) {
-        printk("ERROR: failed to configure LED pin\n");
-        return 0;
+        printk("Channel setup failed (%d)\n", ret);
+        return ret;
     }
 
-    while(1){
-        state = gpio_pin_get_dt(&btn);
-        if(state < 0) {
-            printk("ERROR %d: failed to read button state\n", state);
-        
-        }
-        else {
-            printk("INFO: button state is %d\n", state);
-            if(state) {
-                gpio_pin_set_dt(&ledas, 1);
-            }
-            else {
-                gpio_pin_set_dt(&ledas, 0);
-            }
-        }
+    printk("ADS1220 ready\n");
 
-        k_msleep(sleep_time_ms);
+    ret = adc_read(adc_dev, &seq);
+    if (ret < 0) {
+        printk("ADC read failed (%d)\n", ret);
+        return ret;
     }
 
+    printk("ADC raw value: %d\n", buf);
     return 0;
 }
