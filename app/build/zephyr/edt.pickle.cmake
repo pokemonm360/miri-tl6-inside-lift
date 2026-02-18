@@ -612,7 +612,7 @@ set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_REG|/soc/spi@40013000/
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_UNIT_ADDR|/soc/spi@40013000/ads1220@0" "0x0")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_NODE|/soc/spi@40013000/ads1220@0/channel@0" TRUE)
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/spi@40013000/ads1220@0/channel@0|reg" "0")
-set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/spi@40013000/ads1220@0/channel@0|zephyr,gain" "ADC_GAIN_1")
+set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/spi@40013000/ads1220@0/channel@0|zephyr,gain" "ADC_GAIN_2")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/spi@40013000/ads1220@0/channel@0|zephyr,reference" "ADC_REF_INTERNAL")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/spi@40013000/ads1220@0/channel@0|zephyr,acquisition-time" "0")
 set_target_properties(${DEVICETREE_TARGET} PROPERTIES "DT_PROP|/soc/spi@40013000/ads1220@0/channel@0|zephyr,differential" "False")

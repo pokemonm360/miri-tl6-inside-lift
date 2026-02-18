@@ -192,6 +192,9 @@ C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/buil
 C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/drivers/gpio/CMakeFiles/drivers__gpio.dir
 C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/drivers/gpio/CMakeFiles/edit_cache.dir
 C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/drivers/gpio/CMakeFiles/rebuild_cache.dir
+C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/drivers/i2c/CMakeFiles/drivers__i2c.dir
+C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/drivers/i2c/CMakeFiles/edit_cache.dir
+C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/drivers/i2c/CMakeFiles/rebuild_cache.dir
 C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/drivers/pinctrl/CMakeFiles/drivers__pinctrl.dir
 C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/drivers/pinctrl/CMakeFiles/edit_cache.dir
 C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/drivers/pinctrl/CMakeFiles/rebuild_cache.dir

@@ -1884,7 +1884,7 @@ arduino_i2c: &i2c1 {};
 
         channel@0 {
             reg = <0>;
-            zephyr,gain = "ADC_GAIN_1";
+            zephyr,gain = "ADC_GAIN_2";
             zephyr,reference = "ADC_REF_INTERNAL";
             zephyr,acquisition-time = <0>;
         };

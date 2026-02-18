@@ -405,7 +405,7 @@
 				/* node '/soc/spi@40013000/ads1220@0/channel@0' defined in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:30 */
 				channel@0 {
 					reg = < 0x0 >;                         /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:31 */
-					zephyr,gain = "ADC_GAIN_1";            /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:32 */
+					zephyr,gain = "ADC_GAIN_2";            /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:32 */
 					zephyr,reference = "ADC_REF_INTERNAL"; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:33 */
 					zephyr,acquisition-time = < 0x0 >;     /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:34 */
 				};
