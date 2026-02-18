@@ -20,6 +20,8 @@ static struct adc_channel_cfg ch_cfg = {
 
 int main(void)
 {
+    printk("MAIN START\n");
+
     int ret;
     int32_t buf;
 

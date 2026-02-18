@@ -160,7 +160,7 @@
 				#gpio-cells = < 0x2 >;        /* in zephyr\dts\arm\st\l4\stm32l4.dtsi:189 */
 				reg = < 0x48000400 0x400 >;   /* in zephyr\dts\arm\st\l4\stm32l4.dtsi:190 */
 				clocks = < &rcc 0x4c 0x2 >;   /* in zephyr\dts\arm\st\l4\stm32l4.dtsi:191 */
-				phandle = < 0x1d >;           /* in zephyr\boards\st\nucleo_l432kc\arduino_nano_connector.dtsi:16 */
+				phandle = < 0x10 >;           /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:24 */
 			};
 
 			/* node '/soc/pin-controller@48000000/gpio@48000800' defined in zephyr\dts\arm\st\l4\stm32l4.dtsi:194 */
@@ -170,7 +170,7 @@
 				#gpio-cells = < 0x2 >;        /* in zephyr\dts\arm\st\l4\stm32l4.dtsi:197 */
 				reg = < 0x48000800 0x400 >;   /* in zephyr\dts\arm\st\l4\stm32l4.dtsi:198 */
 				clocks = < &rcc 0x4c 0x4 >;   /* in zephyr\dts\arm\st\l4\stm32l4.dtsi:199 */
-				phandle = < 0x10 >;           /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:24 */
+				phandle = < 0x1d >;           /* in zephyr\boards\st\nucleo_l432kc\arduino_nano_connector.dtsi:16 */
 			};
 
 			/* node '/soc/pin-controller@48000000/gpio@48001c00' defined in zephyr\dts\arm\st\l4\stm32l4.dtsi:202 */
@@ -397,7 +397,7 @@
 				compatible = "ti,ads1220";       /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:19 */
 				reg = < 0x0 >;                   /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:20 */
 				spi-max-frequency = < 0xf4240 >; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:21 */
-				drdy-gpios = < &gpioc 0x9 0x1 >; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:24 */
+				drdy-gpios = < &gpiob 0x4 0x1 >; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:24 */
 				#io-channel-cells = < 0x1 >;     /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:26 */
 				#address-cells = < 0x1 >;        /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:27 */
 				#size-cells = < 0x0 >;           /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:28 */
