@@ -5,7 +5,7 @@ C:\Users\kostas.caplinskas\Documents\zephyrproject\miri-tl6-inside-lift\app\buil
 C:\Users\kostas.caplinskas\Documents\zephyrproject\miri-tl6-inside-lift\app\build\Kconfig\arch\Kconfig
 C:\Users\kostas.caplinskas\Documents\zephyrproject\miri-tl6-inside-lift\app\build\Kconfig\boards\Kconfig
 C:\Users\kostas.caplinskas\Documents\zephyrproject\miri-tl6-inside-lift\app\build\Kconfig\boards\Kconfig.defconfig
-C:\Users\kostas.caplinskas\Documents\zephyrproject\miri-tl6-inside-lift\app\build\Kconfig\boards\Kconfig.nucleo_l452re
+C:\Users\kostas.caplinskas\Documents\zephyrproject\miri-tl6-inside-lift\app\build\Kconfig\boards\Kconfig.nucleo_l432kc
 C:\Users\kostas.caplinskas\Documents\zephyrproject\miri-tl6-inside-lift\app\build\Kconfig\soc\Kconfig
 C:\Users\kostas.caplinskas\Documents\zephyrproject\miri-tl6-inside-lift\app\build\Kconfig\soc\Kconfig.defconfig
 C:\Users\kostas.caplinskas\Documents\zephyrproject\miri-tl6-inside-lift\app\build\Kconfig\soc\Kconfig.soc
@@ -324,8 +324,8 @@ C:\Users\kostas.caplinskas\Documents\zephyrproject\zephyr\boards\shields\x_nucle
 C:\Users\kostas.caplinskas\Documents\zephyrproject\zephyr\boards\shields\x_nucleo_wb05kn1\Kconfig.shield
 C:\Users\kostas.caplinskas\Documents\zephyrproject\zephyr\boards\shields\zc143ac72mipi\Kconfig.defconfig
 C:\Users\kostas.caplinskas\Documents\zephyrproject\zephyr\boards\shields\zc143ac72mipi\Kconfig.shield
-C:\Users\kostas.caplinskas\Documents\zephyrproject\zephyr\boards\st\nucleo_l452re\Kconfig.defconfig
-C:\Users\kostas.caplinskas\Documents\zephyrproject\zephyr\boards\st\nucleo_l452re\Kconfig.nucleo_l452re
+C:\Users\kostas.caplinskas\Documents\zephyrproject\zephyr\boards\st\nucleo_l432kc\Kconfig.defconfig
+C:\Users\kostas.caplinskas\Documents\zephyrproject\zephyr\boards\st\nucleo_l432kc\Kconfig.nucleo_l432kc
 C:\Users\kostas.caplinskas\Documents\zephyrproject\zephyr\drivers\Kconfig
 C:\Users\kostas.caplinskas\Documents\zephyrproject\zephyr\drivers\adc\Kconfig
 C:\Users\kostas.caplinskas\Documents\zephyrproject\zephyr\drivers\adc\Kconfig.ad405x

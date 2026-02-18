@@ -24,10 +24,10 @@ APPLICATION_CONFIG_DIR:PATH=C:/Users/kostas.caplinskas/Documents/zephyrproject/m
 APPLICATION_SOURCE_DIR:PATH=C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app
 
 //Selected board
-BOARD:STRING=nucleo_l452re
+BOARD:STRING=nucleo_l432kc
 
-//Main board directory for board (nucleo_l452re)
-BOARD_DIR:PATH=C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re
+//Main board directory for board (nucleo_l432kc)
+BOARD_DIR:PATH=C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc
 
 //Path to a program.
 BOSSAC:FILEPATH=BOSSAC-NOTFOUND
@@ -42,7 +42,7 @@ BYPRODUCT_KERNEL_ELF_NAME:FILEPATH=C:/Users/kostas.caplinskas/Documents/zephyrpr
 BYPRODUCT_KERNEL_HEX_NAME:FILEPATH=C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/zephyr.hex
 
 //Selected board
-CACHED_BOARD:STRING=nucleo_l452re
+CACHED_BOARD:STRING=nucleo_l432kc
 
 //Selected shield
 CACHED_SHIELD:STRING=
@@ -331,7 +331,7 @@ DTC:FILEPATH=C:/Users/kostas.caplinskas/AppData/Local/Microsoft/WinGet/Packages/
 // parameter. These settings will override the settings in the
 // board's .dts file. Multiple files may be listed, e.g. DTC_OVERLAY_FILE="dts1.overlay
 // dts2.overlay"
-DTC_OVERLAY_FILE:STRING=C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/boards/nucleo_l452re.overlay
+DTC_OVERLAY_FILE:STRING=C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/boards/nucleo_l432kc.overlay
 
 //Path to a program.
 GEN_KOBJECT_LIST:FILEPATH=C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/scripts/build/gen_kobject_list.py
@@ -434,8 +434,8 @@ app_SOURCE_DIR:STATIC=C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl
 # INTERNAL cache entries
 ########################
 
-//List of board directories for board (nucleo_l452re)
-BOARD_DIRECTORIES:INTERNAL=C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re
+//List of board directories for board (nucleo_l432kc)
+BOARD_DIRECTORIES:INTERNAL=C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc
 //DT bindings root directories
 CACHED_DTS_ROOT_BINDINGS:INTERNAL=C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/bindings
 //ADVANCED property for variable: CMAKE_ADDR2LINE
@@ -609,7 +609,7 @@ HWM:INTERNAL=v2
 //Zephyr hardware model
 HWMv2:INTERNAL=True
 KERNEL_META_PATH:INTERNAL=C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/zephyr.meta
-//List of SoC directories for SoC (stm32l452xx)
+//List of SoC directories for SoC (stm32l432xx)
 SOC_DIRECTORIES:INTERNAL=C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32
 SOC_LINKER_SCRIPT:INTERNAL=C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/include/zephyr/arch/arm/cortex_m/scripts/linker.ld
 //West

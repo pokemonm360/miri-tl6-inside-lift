@@ -1,13 +1,13 @@
 [
   [
-    "CONFIG_DT_HAS_ARDUINO_HEADER_R3_ENABLED",
+    "CONFIG_DT_HAS_ARDUINO_NANO_HEADER_ENABLED",
     "n",
     "bool",
     "y",
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      968
+      978
     ]
   ],
   [
@@ -63,17 +63,6 @@
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
       2768
-    ]
-  ],
-  [
-    "CONFIG_DT_HAS_GPIO_KEYS_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      3038
     ]
   ],
   [
@@ -308,17 +297,6 @@
     ]
   ],
   [
-    "CONFIG_DT_HAS_ST_MORPHO_HEADER_ENABLED",
-    "n",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/Kconfig/Kconfig.dts",
-      13158
-    ]
-  ],
-  [
     "CONFIG_DT_HAS_TI_ADS1220_ENABLED",
     "n",
     "bool",
@@ -434,8 +412,8 @@
     "y",
     "assign",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
-      4
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc/nucleo_l432kc_defconfig",
+      10
     ]
   ],
   [
@@ -495,7 +473,7 @@
     "y",
     "default",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/Kconfig.defconfig",
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc/Kconfig.defconfig",
       10
     ]
   ],
@@ -511,11 +489,11 @@
     "CONFIG_NUM_IRQS",
     "n",
     "int",
-    "85",
+    "83",
     "default",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32\\stm32l4x\\Kconfig.defconfig.stm32l452xx",
-      9
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32\\stm32l4x\\Kconfig.defconfig.stm32l432xx",
+      10
     ]
   ],
   [
@@ -533,7 +511,7 @@
     "CONFIG_FLASH_SIZE",
     "y",
     "int",
-    "512",
+    "256",
     "default",
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\arch\\Kconfig",
@@ -968,8 +946,8 @@
     "y",
     "assign",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
-      10
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc/nucleo_l432kc_defconfig",
+      7
     ]
   ],
   [
@@ -987,7 +965,7 @@
     "y",
     "assign",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc/nucleo_l432kc_defconfig",
       13
     ]
   ],
@@ -1019,9 +997,12 @@
     "CONFIG_LOG",
     "y",
     "bool",
-    null,
-    "unset",
-    null
+    "y",
+    "assign",
+    [
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/prj.conf",
+      13
+    ]
   ],
   [
     "CONFIG_CODE_DATA_RELOCATION",
@@ -1053,12 +1034,34 @@
     ]
   ],
   [
+    "CONFIG_LOG_DOMAIN_NAME",
+    "y",
+    "string",
+    "",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.misc",
+      124
+    ]
+  ],
+  [
     "CONFIG_ASSERT",
     "y",
     "bool",
     null,
     "unset",
     null
+  ],
+  [
+    "CONFIG_LOG_PROCESS_THREAD_STACK_SIZE",
+    "y",
+    "int",
+    "768",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.processing",
+      91
+    ]
   ],
   [
     "CONFIG_DEVICE_DEPS",
@@ -1104,7 +1107,7 @@
     "y",
     "assign",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc/nucleo_l432kc_defconfig",
       16
     ]
   ],
@@ -1115,17 +1118,6 @@
     null,
     "unset",
     null
-  ],
-  [
-    "CONFIG_COMMON_LIBC_MALLOC_ARENA_SIZE",
-    "y",
-    "int",
-    "-1",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\common\\Kconfig",
-      64
-    ]
   ],
   [
     "CONFIG_GEN_SW_ISR_TABLE",
@@ -2221,7 +2213,7 @@
     "CONFIG_BOARD",
     "n",
     "string",
-    "nucleo_l452re",
+    "nucleo_l432kc",
     "default",
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\boards\\Kconfig",
@@ -2243,7 +2235,7 @@
     "CONFIG_BOARD_TARGET",
     "n",
     "string",
-    "nucleo_l452re/stm32l452xx",
+    "nucleo_l432kc/stm32l432xx",
     "default",
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\boards\\Kconfig",
@@ -2259,7 +2251,7 @@
     null
   ],
   [
-    "CONFIG_BOARD_NUCLEO_L452RE",
+    "CONFIG_BOARD_NUCLEO_L432KC",
     "n",
     "bool",
     "y",
@@ -2270,7 +2262,7 @@
     ]
   ],
   [
-    "CONFIG_BOARD_NUCLEO_L452RE_STM32L452XX",
+    "CONFIG_BOARD_NUCLEO_L432KC_STM32L432XX",
     "n",
     "bool",
     "y",
@@ -2284,7 +2276,7 @@
     "CONFIG_BOARD_QUALIFIERS",
     "n",
     "string",
-    "stm32l452xx",
+    "stm32l432xx",
     "default",
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\boards\\Kconfig.v2",
@@ -2295,11 +2287,11 @@
     "CONFIG_SOC",
     "n",
     "string",
-    "stm32l452xx",
+    "stm32l432xx",
     "default",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/soc/st/stm32\\stm32l4x\\Kconfig.soc",
-      99
+      96
     ]
   ],
   [
@@ -2341,17 +2333,17 @@
     "y",
     "select",
     [
-      "SOC_STM32L452XX"
+      "SOC_STM32L432XX"
     ]
   ],
   [
-    "CONFIG_SOC_STM32L452XX",
+    "CONFIG_SOC_STM32L432XX",
     "n",
     "bool",
     "y",
     "select",
     [
-      "BOARD_NUCLEO_L452RE"
+      "BOARD_NUCLEO_L432KC"
     ]
   ],
   [
@@ -2416,6 +2408,68 @@
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\gpio\\Kconfig",
       50
+    ]
+  ],
+  [
+    "CONFIG_SOC_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SOC_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SOC_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SOC_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SOC_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SOC_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_SOC_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
     ]
   ],
   [
@@ -2845,8 +2899,70 @@
     "y",
     "assign",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
-      7
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc/nucleo_l432kc_defconfig",
+      4
+    ]
+  ],
+  [
+    "CONFIG_ARCH_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ARCH_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ARCH_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ARCH_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ARCH_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ARCH_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_ARCH_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
     ]
   ],
   [
@@ -2864,7 +2980,7 @@
     "CONFIG_SRAM_SIZE",
     "y",
     "int",
-    "160",
+    "64",
     "default",
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\arch\\Kconfig",
@@ -3190,6 +3306,68 @@
     ]
   ],
   [
+    "CONFIG_MPU_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_MPU_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_MPU_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_MPU_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_MPU_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_MPU_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_MPU_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
+    ]
+  ],
+  [
     "CONFIG_MPU_REQUIRES_POWER_OF_TWO_ALIGNMENT",
     "n",
     "bool",
@@ -3236,6 +3414,68 @@
     "select",
     [
       "CPU_CORTEX_M && ARM"
+    ]
+  ],
+  [
+    "CONFIG_KERNEL_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_KERNEL_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_KERNEL_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_KERNEL_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_KERNEL_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_KERNEL_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_KERNEL_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
     ]
   ],
   [
@@ -3390,16 +3630,6 @@
     ]
   ],
   [
-    "CONFIG_LIBC_ERRNO",
-    "n",
-    "bool",
-    "y",
-    "select",
-    [
-      "PICOLIBC && THREAD_LOCAL_STORAGE && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
-    ]
-  ],
-  [
     "CONFIG_ERRNO",
     "y",
     "bool",
@@ -3408,17 +3638,6 @@
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\kernel\\Kconfig",
       409
-    ]
-  ],
-  [
-    "CONFIG_CURRENT_THREAD_USE_TLS",
-    "y",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\kernel\\Kconfig",
-      433
     ]
   ],
   [
@@ -3683,10 +3902,9 @@
     "y",
     "bool",
     "y",
-    "default",
+    "select",
     [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\kernel\\Kconfig",
-      889
+      "MPSC_PBUF"
     ]
   ],
   [
@@ -3743,11 +3961,9 @@
     "CONFIG_THREAD_LOCAL_STORAGE",
     "y",
     "bool",
-    "y",
-    "select",
-    [
-      "PICOLIBC_USE_TOOLCHAIN && ARCH_HAS_THREAD_LOCAL_STORAGE && TOOLCHAIN_SUPPORTS_THREAD_LOCAL_STORAGE && y = y && <choice PICOLIBC_SOURCE>"
-    ]
+    null,
+    "unset",
+    null
   ],
   [
     "CONFIG_TOOLCHAIN_SUPPORTS_STATIC_INIT_GNU",
@@ -3949,6 +4165,65 @@
     null
   ],
   [
+    "CONFIG_ADC_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ADC_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ADC_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ADC_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ADC_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    "y",
+    "assign",
+    null
+  ],
+  [
+    "CONFIG_ADC_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_ADC_LOG_LEVEL",
+    "n",
+    "int",
+    "4",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      35
+    ]
+  ],
+  [
     "CONFIG_ADC_ADS1220",
     "y",
     "bool",
@@ -4017,6 +4292,68 @@
     null,
     "unset",
     null
+  ],
+  [
+    "CONFIG_CLOCK_CONTROL_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CLOCK_CONTROL_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CLOCK_CONTROL_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CLOCK_CONTROL_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CLOCK_CONTROL_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CLOCK_CONTROL_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_CLOCK_CONTROL_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
+    ]
   ],
   [
     "CONFIG_CLOCK_CONTROL_FIXED_RATE_CLOCK",
@@ -4092,7 +4429,7 @@
     "y",
     "assign",
     [
-      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig",
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc/nucleo_l432kc_defconfig",
       17
     ]
   ],
@@ -4143,6 +4480,68 @@
     null,
     "unset",
     null
+  ],
+  [
+    "CONFIG_UART_CONSOLE_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_UART_CONSOLE_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_UART_CONSOLE_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_UART_CONSOLE_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_UART_CONSOLE_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_UART_CONSOLE_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_UART_CONSOLE_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
+    ]
   ],
   [
     "CONFIG_EFI_CONSOLE",
@@ -4297,6 +4696,68 @@
     null
   ],
   [
+    "CONFIG_GPIO_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_GPIO_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_GPIO_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_GPIO_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_GPIO_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_GPIO_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_GPIO_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
+    ]
+  ],
+  [
     "CONFIG_GPIO_GET_DIRECTION",
     "y",
     "bool",
@@ -4380,6 +4841,68 @@
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\interrupt_controller\\Kconfig",
       52
+    ]
+  ],
+  [
+    "CONFIG_INTC_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_INTC_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_INTC_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_INTC_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_INTC_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_INTC_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_INTC_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
     ]
   ],
   [
@@ -4533,6 +5056,68 @@
     [
       "UART_STM32 && DT_HAS_ST_STM32_UART_ENABLED && SERIAL",
       "SPI_STM32 && DT_HAS_ST_STM32_SPI_ENABLED && SPI"
+    ]
+  ],
+  [
+    "CONFIG_PINCTRL_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_PINCTRL_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_PINCTRL_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_PINCTRL_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_PINCTRL_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_PINCTRL_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_PINCTRL_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
     ]
   ],
   [
@@ -4723,6 +5308,68 @@
     ]
   ],
   [
+    "CONFIG_UART_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_UART_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_UART_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_UART_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_UART_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_UART_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_UART_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
+    ]
+  ],
+  [
     "CONFIG_UART_LINE_CTRL",
     "y",
     "bool",
@@ -4841,6 +5488,68 @@
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\drivers\\spi\\Kconfig",
       83
+    ]
+  ],
+  [
+    "CONFIG_SPI_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SPI_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SPI_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SPI_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SPI_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_SPI_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_SPI_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
     ]
   ],
   [
@@ -5011,6 +5720,68 @@
     null
   ],
   [
+    "CONFIG_STM32_USB_COMMON_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_STM32_USB_COMMON_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_STM32_USB_COMMON_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_STM32_USB_COMMON_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_STM32_USB_COMMON_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_STM32_USB_COMMON_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_STM32_USB_COMMON_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
+    ]
+  ],
+  [
     "CONFIG_USBC_TCPC_DRIVER",
     "y",
     "bool",
@@ -5154,19 +5925,16 @@
     "CONFIG_PICOLIBC",
     "y",
     "bool",
-    "y",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\Kconfig",
-      81
-    ]
+    null,
+    "unset",
+    null
   ],
   [
     "CONFIG_NEWLIB_LIBC",
     "y",
     "bool",
-    null,
-    "unset",
+    "y",
+    "assign",
     null
   ],
   [
@@ -5194,7 +5962,7 @@
     "y",
     "select",
     [
-      "PICOLIBC && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
+      "NEWLIB_LIBC && NEWLIB_LIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
     ]
   ],
   [
@@ -5220,40 +5988,16 @@
     "y",
     "imply",
     [
-      "PICOLIBC && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
+      "NEWLIB_LIBC && NEWLIB_LIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
     ]
   ],
   [
     "CONFIG_COMMON_LIBC_MALLOC",
     "y",
     "bool",
-    "y",
-    "imply",
-    [
-      "PICOLIBC && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
-    ]
-  ],
-  [
-    "CONFIG_COMMON_LIBC_CALLOC",
-    "y",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\common\\Kconfig",
-      88
-    ]
-  ],
-  [
-    "CONFIG_COMMON_LIBC_REALLOCARRAY",
-    "y",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\common\\Kconfig",
-      97
-    ]
+    null,
+    "unset",
+    null
   ],
   [
     "CONFIG_COMMON_LIBC_REMOVE",
@@ -5264,7 +6008,7 @@
     null
   ],
   [
-    "CONFIG_PICOLIBC_USE_MODULE",
+    "CONFIG_NEWLIB_LIBC_NANO",
     "y",
     "bool",
     null,
@@ -5272,18 +6016,29 @@
     null
   ],
   [
-    "CONFIG_PICOLIBC_USE_TOOLCHAIN",
+    "CONFIG_NEWLIB_LIBC_MIN_REQUIRED_HEAP_SIZE",
     "y",
-    "bool",
-    "y",
+    "int",
+    "8192",
     "default",
     [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\picolibc\\Kconfig",
-      8
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\newlib\\Kconfig",
+      27
     ]
   ],
   [
-    "CONFIG_PICOLIBC_IO_FLOAT",
+    "CONFIG_NEWLIB_LIBC_FLOAT_PRINTF",
+    "y",
+    "bool",
+    "y",
+    "assign",
+    [
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/prj.conf",
+      17
+    ]
+  ],
+  [
+    "CONFIG_NEWLIB_LIBC_FLOAT_SCANF",
     "y",
     "bool",
     null,
@@ -5291,14 +6046,30 @@
     null
   ],
   [
-    "CONFIG_PICOLIBC_IO_LONG_LONG",
+    "CONFIG_NEWLIB_LIBC_HEAP_LISTENER",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_NEWLIB_LIBC_CUSTOM_SBRK",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_NEWLIB_LIBC_USE_POSIX_LIMITS_H",
     "y",
     "bool",
     "y",
     "default",
     [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\picolibc\\Kconfig",
-      34
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\newlib\\Kconfig",
+      75
     ]
   ],
   [
@@ -5319,8 +6090,7 @@
     "y",
     "select",
     [
-      "PICOLIBC && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>",
-      "COMMON_LIBC_MALLOC && COMMON_LIBC_MALLOC_ARENA_SIZE != 0"
+      "NEWLIB_LIBC && NEWLIB_LIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
     ]
   ],
   [
@@ -5488,12 +6258,22 @@
     "CONFIG_MPSC_PBUF",
     "y",
     "bool",
+    "y",
+    "select",
+    [
+      "LOG_MODE_DEFERRED && <choice LOG_MODE>"
+    ]
+  ],
+  [
+    "CONFIG_SPSC_PBUF",
+    "y",
+    "bool",
     null,
     "unset",
     null
   ],
   [
-    "CONFIG_SPSC_PBUF",
+    "CONFIG_MPSC_CLEAR_ALLOCATED",
     "y",
     "bool",
     null,
@@ -5573,6 +6353,25 @@
     null
   ],
   [
+    "CONFIG_CBPRINTF_FP_ALWAYS_A",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CBPRINTF_N_SPECIFIER",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\os\\Kconfig.cbprintf",
+      107
+    ]
+  ],
+  [
     "CONFIG_CBPRINTF_LIBC_SUBSTS",
     "y",
     "bool",
@@ -5581,7 +6380,7 @@
     null
   ],
   [
-    "CONFIG_CBPRINTF_PACKAGE_LONGDOUBLE",
+    "CONFIG_CBPRINTF_PACKAGE_LOG_LEVEL_OFF",
     "y",
     "bool",
     null,
@@ -5589,7 +6388,61 @@
     null
   ],
   [
-    "CONFIG_CBPRINTF_STATIC_PACKAGE_CHECK_ALIGNMENT",
+    "CONFIG_CBPRINTF_PACKAGE_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CBPRINTF_PACKAGE_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CBPRINTF_PACKAGE_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CBPRINTF_PACKAGE_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CBPRINTF_PACKAGE_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_CBPRINTF_PACKAGE_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
+    ]
+  ],
+  [
+    "CONFIG_CBPRINTF_PACKAGE_LONGDOUBLE",
     "y",
     "bool",
     null,
@@ -5622,6 +6475,68 @@
     null,
     "unset",
     null
+  ],
+  [
+    "CONFIG_CPU_LOAD_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CPU_LOAD_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CPU_LOAD_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CPU_LOAD_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CPU_LOAD_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CPU_LOAD_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_CPU_LOAD_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
+    ]
   ],
   [
     "CONFIG_POSIX_SYSTEM_INTERFACES",
@@ -5697,7 +6612,7 @@
     "y",
     "select",
     [
-      "PICOLIBC && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
+      "NEWLIB_LIBC && NEWLIB_LIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
     ]
   ],
   [
@@ -6066,6 +6981,17 @@
     null
   ],
   [
+    "CONFIG_CPU_LOAD_LOG_PERIODICALLY",
+    "y",
+    "int",
+    "0",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\debug\\Kconfig",
+      384
+    ]
+  ],
+  [
     "CONFIG_DISK_ACCESS",
     "y",
     "bool",
@@ -6186,12 +7112,661 @@
     null
   ],
   [
-    "CONFIG_LOG_OUTPUT",
+    "CONFIG_LOG_CORE_INIT_PRIORITY",
+    "y",
+    "int",
+    "0",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig",
+      18
+    ]
+  ],
+  [
+    "CONFIG_LOG_MODE_DEFERRED",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.mode",
+      9
+    ]
+  ],
+  [
+    "CONFIG_LOG_MODE_IMMEDIATE",
     "y",
     "bool",
     null,
     "unset",
     null
+  ],
+  [
+    "CONFIG_LOG_MODE_MINIMAL",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_FRONTEND",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_FRONTEND_OPT_API",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_CUSTOM_HEADER",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_MULTIDOMAIN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_FLUSH_SLEEP_US",
+    "y",
+    "int",
+    "10000",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.mode",
+      84
+    ]
+  ],
+  [
+    "CONFIG_LOG_RUNTIME_FILTERING",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_DEFAULT_LEVEL",
+    "y",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.filtering",
+      15
+    ]
+  ],
+  [
+    "CONFIG_LOG_OVERRIDE_LEVEL",
+    "y",
+    "int",
+    "0",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.filtering",
+      30
+    ]
+  ],
+  [
+    "CONFIG_LOG_MAX_LEVEL",
+    "y",
+    "int",
+    "4",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.filtering",
+      47
+    ]
+  ],
+  [
+    "CONFIG_LOG_PRINTK",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.processing",
+      10
+    ]
+  ],
+  [
+    "CONFIG_LOG_MODE_OVERFLOW",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.processing",
+      19
+    ]
+  ],
+  [
+    "CONFIG_LOG_BLOCK_IN_THREAD",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_PROCESS_TRIGGER_THRESHOLD",
+    "y",
+    "int",
+    "10",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.processing",
+      44
+    ]
+  ],
+  [
+    "CONFIG_LOG_PROCESS_THREAD",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.processing",
+      55
+    ]
+  ],
+  [
+    "CONFIG_LOG_PROCESS_THREAD_STARTUP_DELAY_MS",
+    "y",
+    "int",
+    "0",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.processing",
+      66
+    ]
+  ],
+  [
+    "CONFIG_LOG_PROCESS_THREAD_SLEEP_MS",
+    "y",
+    "int",
+    "1000",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.processing",
+      73
+    ]
+  ],
+  [
+    "CONFIG_LOG_PROCESS_THREAD_CUSTOM_PRIORITY",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_BUFFER_SIZE",
+    "y",
+    "int",
+    "1024",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.processing",
+      123
+    ]
+  ],
+  [
+    "CONFIG_LOG_TRACE_SHORT_TIMESTAMP",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.processing",
+      152
+    ]
+  ],
+  [
+    "CONFIG_LOG_TIMESTAMP_64BIT",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_TIMESTAMP_USE_REALTIME",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_SPEED",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_FUNC_NAME_PREFIX_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_FUNC_NAME_PREFIX_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_FUNC_NAME_PREFIX_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_FUNC_NAME_PREFIX_DBG",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.formatting",
+      20
+    ]
+  ],
+  [
+    "CONFIG_LOG_MIPI_SYST_ENABLE",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_DOMAIN_NAME_PREFIX",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_THREAD_ID_PREFIX",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_CUSTOM_FORMAT_SUPPORT",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_BACKEND_SHOW_TIMESTAMP",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.formatting",
+      142
+    ]
+  ],
+  [
+    "CONFIG_LOG_BACKEND_SHOW_LEVEL",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.formatting",
+      148
+    ]
+  ],
+  [
+    "CONFIG_LOG_BACKEND_SHOW_COLOR",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.formatting",
+      155
+    ]
+  ],
+  [
+    "CONFIG_LOG_INFO_COLOR_GREEN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_DBG_COLOR_BLUE",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_TAG_MAX_LEN",
+    "y",
+    "int",
+    "0",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.formatting",
+      171
+    ]
+  ],
+  [
+    "CONFIG_LOG_BACKEND_SUPPORTS_FORMAT_TIMESTAMP",
+    "n",
+    "bool",
+    "y",
+    "select",
+    [
+      "LOG_BACKEND_UART && UART_CONSOLE && !LOG_FRONTEND_ONLY && !LOG_MODE_MINIMAL && LOG"
+    ]
+  ],
+  [
+    "CONFIG_LOG_BACKEND_FORMAT_TIMESTAMP",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.formatting",
+      192
+    ]
+  ],
+  [
+    "CONFIG_LOG_OUTPUT_FORMAT_TIME_TIMESTAMP",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.formatting",
+      199
+    ]
+  ],
+  [
+    "CONFIG_LOG_OUTPUT_FORMAT_DATE_TIMESTAMP",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_OUTPUT_FORMAT_ISO8601_TIMESTAMP",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_OUTPUT_FORMAT_LINUX_TIMESTAMP",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_OUTPUT_FORMAT_CUSTOM_TIMESTAMP",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_BACKEND_CRLF_NONE",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_BACKEND_CRLF_LFONLY",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_BACKEND_SKIP_SOURCE",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_BACKEND_SWO",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_BACKEND_UART",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\backends\\Kconfig.uart",
+      7
+    ]
+  ],
+  [
+    "CONFIG_LOG_BACKEND_UART_BUFFER_SIZE",
+    "y",
+    "int",
+    "1",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\backends\\Kconfig.uart",
+      22
+    ]
+  ],
+  [
+    "CONFIG_LOG_BACKEND_UART_AUTOSTART",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\backends\\Kconfig.uart",
+      33
+    ]
+  ],
+  [
+    "CONFIG_LOG_BACKEND_UART_OUTPUT_TEXT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_format_config",
+      6
+    ]
+  ],
+  [
+    "CONFIG_LOG_BACKEND_UART_OUTPUT_DICTIONARY",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_BACKEND_UART_OUTPUT_CUSTOM",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_BACKEND_UART_OUTPUT_DEFAULT",
+    "n",
+    "int",
+    "0",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_format_config",
+      42
+    ]
+  ],
+  [
+    "CONFIG_LOG_BACKEND_IPC_SERVICE",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_USE_VLA",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.misc",
+      21
+    ]
+  ],
+  [
+    "CONFIG_LOG_SIMPLE_MSG_OPTIMIZE",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.misc",
+      31
+    ]
+  ],
+  [
+    "CONFIG_LOG_ALWAYS_RUNTIME",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_FMT_SECTION",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_FMT_STRING_VALIDATE",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_USE_TAGGED_ARGUMENTS",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_MEM_UTILIZATION",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_FAILURE_REPORT_PERIOD",
+    "y",
+    "int",
+    "1000",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.misc",
+      115
+    ]
+  ],
+  [
+    "CONFIG_LOG_RATELIMIT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig",
+      54
+    ]
+  ],
+  [
+    "CONFIG_LOG_RATELIMIT_INTERVAL_MS",
+    "y",
+    "int",
+    "5000",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig",
+      65
+    ]
+  ],
+  [
+    "CONFIG_LOG_OUTPUT",
+    "y",
+    "bool",
+    "y",
+    "select",
+    [
+      "LOG_BACKEND_UART_OUTPUT_TEXT && <choice LOG_BACKEND_UART_OUTPUT>"
+    ]
   ],
   [
     "CONFIG_MEM_ATTR",
@@ -7249,6 +8824,68 @@
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\Kconfig.zephyr",
       1177
+    ]
+  ],
+  [
+    "CONFIG_APP_LOG_LEVEL_OFF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_APP_LOG_LEVEL_ERR",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_APP_LOG_LEVEL_WRN",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_APP_LOG_LEVEL_INF",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_APP_LOG_LEVEL_DBG",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_APP_LOG_LEVEL_DEFAULT",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      5
+    ]
+  ],
+  [
+    "CONFIG_APP_LOG_LEVEL",
+    "n",
+    "int",
+    "3",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\subsys\\logging\\Kconfig.template.log_config",
+      36
     ]
   ]
 ]

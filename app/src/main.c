@@ -14,6 +14,10 @@ static struct adc_channel_cfg ch_cfg = {
     .input_positive   = 0,  /* AIN0 — adjust to your wiring */
 };
 
+#define ADS1220_FULL_SCALE 8388607.0f
+#define ADS1220_VREF_V     2.048f   // internal ref
+#define ADS1220_GAIN       1.0f
+
 int main(void)
 {
     int ret;
@@ -46,5 +50,13 @@ int main(void)
     }
 
     printk("ADC raw value: %d\n", buf);
+    
+    float vin = ((float)buf / 8388607.0f) * 2.048f;
+
+    int vin_mV = (int)(vin * 1000.0f);
+
+    printk("Vin = %d.%03d V\n", vin_mV / 1000, vin_mV % 1000);
+
+
     return 0;
 }

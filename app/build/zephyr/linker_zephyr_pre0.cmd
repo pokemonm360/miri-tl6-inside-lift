@@ -2,9 +2,9 @@
 _region_min_align = 32;
 MEMORY
     {
-    FLASH (rx) : ORIGIN = (0x8000000 + 0x0), LENGTH = (512 * 1024 - 0x0 - 0x0)
-    RAM (wx) : ORIGIN = 0x20000000, LENGTH = (160 * 1K)
-    SRAM0 ( rw ) : ORIGIN = (536870912), LENGTH = (163840)
+    FLASH (rx) : ORIGIN = (0x8000000 + 0x0), LENGTH = (256 * 1024 - 0x0 - 0x0)
+    RAM (wx) : ORIGIN = 0x20000000, LENGTH = (64 * 1K)
+    SRAM0 ( rw ) : ORIGIN = (536870912), LENGTH = (65536)
     IDT_LIST (wx) : ORIGIN = 0xFFFF7FFF, LENGTH = 32K
     }
 ENTRY("__start")
@@ -49,7 +49,7 @@ FILL(0x00);
 . += 0x0 - (. - __rom_start_address);
 . = ALIGN(4);
 . = ALIGN( 1 << LOG2CEIL(4 * 32) );
-. = ALIGN( 1 << LOG2CEIL(4 * (16 + 85)) );
+. = ALIGN( 1 << LOG2CEIL(4 * (16 + 83)) );
 _vector_start = .;
 KEEP(*(.exc_vector_table))
 KEEP(*(".exc_vector_table.*"))
@@ -244,25 +244,6 @@ ztest :
  shell_subcmds_area : { _shell_subcmds_list_start = .; KEEP(*(SORT_BY_NAME(._shell_subcmds.static.*))); _shell_subcmds_list_end = .;; } > FLASH
  shell_dynamic_subcmds_area : { _shell_dynamic_subcmds_list_start = .; KEEP(*(SORT_BY_NAME(._shell_dynamic_subcmds.static.*))); _shell_dynamic_subcmds_list_end = .;; } > FLASH
  cfb_font_area : { _cfb_font_list_start = .; KEEP(*(SORT_BY_NAME(._cfb_font.static.*))); _cfb_font_list_end = .;; } > FLASH
- tdata : ALIGN_WITH_INPUT
- {
-  *(.tdata .tdata.* .gnu.linkonce.td.*);
- } > FLASH
- tbss (NOLOAD) : ALIGN_WITH_INPUT
- {
-  *(.tbss .tbss.* .gnu.linkonce.tb.* .tcommon);
- } > FLASH
- PROVIDE(__tdata_start = LOADADDR(tdata));
- PROVIDE(__tdata_align = ALIGNOF(tdata));
- PROVIDE(__tdata_size = (SIZEOF(tdata) + __tdata_align - 1) & ~(__tdata_align - 1));
- PROVIDE(__tdata_end = __tdata_start + __tdata_size);
- PROVIDE(__tbss_align = ALIGNOF(tbss));
- PROVIDE(__tbss_start = ADDR(tbss));
- PROVIDE(__tbss_size = (SIZEOF(tbss) + __tbss_align - 1) & ~(__tbss_align - 1));
- PROVIDE(__tbss_end = __tbss_start + __tbss_size);
- PROVIDE(__tls_start = __tdata_start);
- PROVIDE(__tls_end = __tbss_end);
- PROVIDE(__tls_size = __tbss_end - __tdata_start);
     rodata :
  {
  *(.rodata)
@@ -412,7 +393,7 @@ noinit (NOLOAD) :
         *(.noinit)
         *(".noinit.*")
 } > RAM AT > RAM
-    __kernel_ram_end = 0x20000000 + (160 * 1K);
+    __kernel_ram_end = 0x20000000 + (64 * 1K);
     __kernel_ram_size = __kernel_ram_end - __kernel_ram_start;
     .last_ram_section (NOLOAD) :
     {

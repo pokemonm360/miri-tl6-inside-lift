@@ -1337,6 +1337,14 @@
     ],
     [
         [
+            "int *z_errno",
+            "void"
+        ],
+        "errno_private.h",
+        true
+    ],
+    [
+        [
             "int sys_cache_data_flush_range",
             "void *addr, size_t size"
         ],
@@ -5077,14 +5085,6 @@
             "atomic_t *target, atomic_val_t value"
         ],
         "atomic_c.h",
-        false
-    ],
-    [
-        [
-            "int *z_errno",
-            "void"
-        ],
-        "errno_private.h",
         false
     ],
     [

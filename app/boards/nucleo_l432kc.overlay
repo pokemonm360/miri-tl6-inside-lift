@@ -1,20 +1,26 @@
 #include <zephyr/dt-bindings/gpio/gpio.h>
 #include <zephyr/dt-bindings/adc/adc.h>
 
+/ {
+};
+
 &spi1 {
     status = "okay";
-    pinctrl-0 = <&spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7>;
+
+    /* Naudojam default board pinctrl */
+    pinctrl-0 = <&spi1_nss_pa4 &spi1_sck_pa5
+                 &spi1_miso_pa6 &spi1_mosi_pa7>;
     pinctrl-names = "default";
 
-    /* CS ant PC8 */
-    cs-gpios = <&gpioc 8 GPIO_ACTIVE_LOW>;
+    /* CS per PA4 */
+    cs-gpios = <&gpioa 4 GPIO_ACTIVE_LOW>;
 
     ads1220: ads1220@0 {
         compatible = "ti,ads1220";
         reg = <0>;
         spi-max-frequency = <1000000>;
 
-        /* Tik jei turi ATSKIRĄ DRDY piną (ne tą patį kaip DOUT) */
+        /* Atskiras DRDY pinas */
         drdy-gpios = <&gpioc 9 GPIO_ACTIVE_LOW>;
 
         #io-channel-cells = <1>;

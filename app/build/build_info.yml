@@ -3,17 +3,17 @@ cmake:
     configuration-dir: 'C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app'
     source-dir: 'C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app'
   board:
-    name: 'nucleo_l452re'
+    name: 'nucleo_l432kc'
     path:
-     - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re'
-    qualifiers: 'stm32l452xx'
+     - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc'
+    qualifiers: 'stm32l432xx'
     revision: ''
   devicetree:
     bindings-dirs:
      - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/bindings'
     files:
-     - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re.dts'
-     - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/boards/nucleo_l452re.overlay'
+     - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc/nucleo_l432kc.dts'
+     - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/boards/nucleo_l432kc.overlay'
     include-dirs:
      - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/modules/hal/ambiq/dts'
      - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/modules/hal/atmel/include'
@@ -41,10 +41,10 @@ cmake:
      - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts/arc'
      - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/dts'
     user-files:
-     - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/boards/nucleo_l452re.overlay'
+     - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/boards/nucleo_l432kc.overlay'
   kconfig:
     files:
-     - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re/nucleo_l452re_defconfig'
+     - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc/nucleo_l432kc_defconfig'
      - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/prj.conf'
     user-files:
      - 'C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/prj.conf'
@@ -56,6 +56,6 @@ cmake:
     zephyr-base: 'C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr'
 version: '0.1.0'
 west:
-  command: 'C:\Users\kostas.caplinskas\Documents\zephyrproject\.venv\Scripts\west build -p always -b nucleo_l452re'
+  command: 'C:\Users\kostas.caplinskas\Documents\zephyrproject\.venv\Scripts\west build -b nucleo_l432kc -p always'
   topdir: 'C:\Users\kostas.caplinskas\Documents\zephyrproject'
   version: '1.5.0'

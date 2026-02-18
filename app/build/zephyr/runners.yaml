@@ -13,7 +13,7 @@ debug-runner: openocd
 
 # Common runner configuration values.
 config:
-  board_dir: C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l452re
+  board_dir: C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/boards/st/nucleo_l432kc
   # Build outputs:
   elf_file: zephyr.elf
   hex_file: zephyr.hex
@@ -34,7 +34,7 @@ args:
     - --cmd-erase=stm32l4x mass_erase 0
   jlink:
     - --dt-flash=y
-    - --device=STM32L452RE
+    - --device=STM32L432KC
     - --speed=4000
   stlink_gdbserver:
     []
