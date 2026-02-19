@@ -160,7 +160,7 @@
 				#gpio-cells = < 0x2 >;        /* in zephyr\dts\arm\st\l4\stm32l4.dtsi:189 */
 				reg = < 0x48000400 0x400 >;   /* in zephyr\dts\arm\st\l4\stm32l4.dtsi:190 */
 				clocks = < &rcc 0x4c 0x2 >;   /* in zephyr\dts\arm\st\l4\stm32l4.dtsi:191 */
-				phandle = < 0x10 >;           /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:24 */
+				phandle = < 0x10 >;           /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:28 */
 			};
 
 			/* node '/soc/pin-controller@48000000/gpio@48000800' defined in zephyr\dts\arm\st\l4\stm32l4.dtsi:194 */
@@ -317,7 +317,7 @@
 			pinctrl-0 = < &usart2_tx_pa2 &usart2_rx_pa15 >; /* in zephyr\boards\st\nucleo_l432kc\nucleo_l432kc.dts:71 */
 			pinctrl-names = "default";                      /* in zephyr\boards\st\nucleo_l432kc\nucleo_l432kc.dts:72 */
 			status = "okay";                                /* in zephyr\boards\st\nucleo_l432kc\nucleo_l432kc.dts:74 */
-			current-speed = < 0xe1000 >;                    /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:53 */
+			current-speed = < 0xe1000 >;                    /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:81 */
 		};
 
 		/* node '/soc/serial@40008000' defined in zephyr\dts\arm\st\l4\stm32l4.dtsi:243 */
@@ -390,32 +390,52 @@
 			status = "okay";                                                           /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:8 */
 			pinctrl-0 = < &spi1_nss_pa4 &spi1_sck_pa5 &spi1_miso_pa6 &spi1_mosi_pa7 >; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:11 */
 			pinctrl-names = "default";                                                 /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:13 */
-			cs-gpios = < &gpioa 0x4 0x1 >;                                             /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:16 */
+			cs-gpios = < &gpioa 0x4 0x1 &gpioa 0x8 0x1 >;                              /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:16 */
 
-			/* node '/soc/spi@40013000/ads1220@0' defined in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:18 */
-			ads1220: ads1220@0 {
-				compatible = "ti,ads1220";          /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:19 */
-				reg = < 0x0 >;                      /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:20 */
-				spi-max-frequency = < 0xf4240 >;    /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:21 */
-				drdy-gpios = < &gpiob 0x4 0x1 >;    /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:24 */
-				data-rate = < 0x0 >;                /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:27 */
-				operating-mode = < 0x0 >;           /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:28 */
-				idac-magnitude-microamp = < 0xfa >; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:30 */
-				idac1-routing = < 0x4 >;            /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:31 */
-				idac2-routing = < 0x0 >;            /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:32 */
-				#io-channel-cells = < 0x1 >;        /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:34 */
-				#address-cells = < 0x1 >;           /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:35 */
-				#size-cells = < 0x0 >;              /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:36 */
+			/* node '/soc/spi@40013000/ads1220@0' defined in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:22 */
+			ads1220_0: ads1220@0 {
+				compatible = "ti,ads1220";          /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:23 */
+				reg = < 0x0 >;                      /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:24 */
+				spi-max-frequency = < 0xf4240 >;    /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:25 */
+				drdy-gpios = < &gpiob 0x4 0x1 >;    /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:28 */
+				data-rate = < 0x0 >;                /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:31 */
+				operating-mode = < 0x0 >;           /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:32 */
+				idac-magnitude-microamp = < 0xfa >; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:34 */
+				idac1-routing = < 0x4 >;            /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:35 */
+				idac2-routing = < 0x0 >;            /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:36 */
+				#io-channel-cells = < 0x1 >;        /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:38 */
+				#address-cells = < 0x1 >;           /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:39 */
+				#size-cells = < 0x0 >;              /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:40 */
 
-				/* node '/soc/spi@40013000/ads1220@0/channel@0' defined in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:38 */
+				/* node '/soc/spi@40013000/ads1220@0/channel@0' defined in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:42 */
 				channel@0 {
-					reg = < 0x0 >;                          /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:39 */
-					zephyr,differential;                    /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:41 */
-					zephyr,input-positive = < 0x0 >;        /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:42 */
-					zephyr,input-negative = < 0x1 >;        /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:43 */
-					zephyr,gain = "ADC_GAIN_4";             /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:45 */
-					zephyr,reference = "ADC_REF_EXTERNAL0"; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:46 */
-					zephyr,acquisition-time = < 0x0 >;      /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:47 */
+					reg = < 0x0 >;                          /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:43 */
+					zephyr,differential;                    /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:45 */
+					zephyr,input-positive = < 0x0 >;        /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:46 */
+					zephyr,input-negative = < 0x1 >;        /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:47 */
+					zephyr,gain = "ADC_GAIN_4";             /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:49 */
+					zephyr,reference = "ADC_REF_EXTERNAL0"; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:50 */
+					zephyr,acquisition-time = < 0x0 >;      /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:51 */
+				};
+			};
+
+			/* node '/soc/spi@40013000/ads1220@1' defined in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:56 */
+			ads1220_1: ads1220@1 {
+				compatible = "ti,ads1220";       /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:57 */
+				reg = < 0x1 >;                   /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:58 */
+				spi-max-frequency = < 0xf4240 >; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:59 */
+				drdy-gpios = < &gpiob 0x0 0x1 >; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:62 */
+				pga-bypass;                      /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:64 */
+				#io-channel-cells = < 0x1 >;     /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:66 */
+				#address-cells = < 0x1 >;        /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:67 */
+				#size-cells = < 0x0 >;           /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:68 */
+
+				/* node '/soc/spi@40013000/ads1220@1/channel@0' defined in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:70 */
+				channel@0 {
+					reg = < 0x0 >;                         /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:71 */
+					zephyr,gain = "ADC_GAIN_2";            /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:72 */
+					zephyr,reference = "ADC_REF_INTERNAL"; /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:73 */
+					zephyr,acquisition-time = < 0x0 >;     /* in miri-tl6-inside-lift\app\boards\nucleo_l432kc.overlay:74 */
 				};
 			};
 		};

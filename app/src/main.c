@@ -15,25 +15,28 @@
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 
-static const struct device *adc_dev = DEVICE_DT_GET(DT_NODELABEL(ads1220));
+/* Abu ADS1220 */
+static const struct device *adc_pt1000 =
+    DEVICE_DT_GET(DT_NODELABEL(ads1220_0));
 
-/*static struct adc_channel_cfg ch_cfg = {
-    .gain             = ADC_GAIN_2,
-    .reference        = ADC_REF_INTERNAL,
-    .acquisition_time = ADC_ACQ_TIME_DEFAULT,
-    .channel_id       = 0,
-    .differential     = false,
-    .input_positive   = 0,
-};*/
+static const struct device *adc_lm35 =
+    DEVICE_DT_GET(DT_NODELABEL(ads1220_1));
 
-#define ADS1220_FULL_SCALE 8388607.0f
+/* ==== ADS1220 konstantos ==== */
+#define ADS1220_FULL_SCALE 8388607.0f   // 2^23 - 1
 #define ADS1220_VREF_V     2.048f
-#define ADS1220_GAIN       4.0f
+
+/* PT1000 nustatymai */
+#define ADS1220_PT_GAIN    4.0f
 #define RREF_OHM           5085.0f
 
 #define PT1000_R0 1000.0f
 #define PT_A 3.9083e-3f
 #define PT_B -5.775e-7f
+
+/* LM35 nustatymai */
+#define ADS1220_LM35_GAIN  2.0f   //
+#define LM35_MV_PER_C      10.0f  // 10mV / °C
 
 int main(void)
 {
@@ -45,77 +48,79 @@ int main(void)
 
     printk("MAIN START\n");
 
-    int ret;
-    int32_t buf;
-
-    struct adc_sequence seq = {
-        .channels    = BIT(0),
-        .buffer      = &buf,
-        .buffer_size = sizeof(buf),
-        .resolution  = 24,
-    };
-
-    if (!device_is_ready(adc_dev)) {
+    if (!device_is_ready(adc_pt1000) ||
+        !device_is_ready(adc_lm35)) {
         printk("ADC device not ready\n");
         return -ENODEV;
     }
 
-    //ret = adc_channel_setup(adc_dev, &ch_cfg);
-    //if (ret < 0) {
-    //    printk("Channel setup failed (%d)\n", ret);
-    //    return ret;
-    //}
+    int32_t buf_pt;
+    int32_t buf_lm;
+    int ret;
+
+    struct adc_sequence seq_pt = {
+        .channels    = BIT(0),
+        .buffer      = &buf_pt,
+        .buffer_size = sizeof(buf_pt),
+        .resolution  = 24,
+    };
+
+    struct adc_sequence seq_lm = {
+        .channels    = BIT(0),
+        .buffer      = &buf_lm,
+        .buffer_size = sizeof(buf_lm),
+        .resolution  = 24,
+    };
 
     printk("ADS1220 ready\n");
 
     while (1) {
 
-        /* LED toggle kiekvieną ciklą */
         gpio_pin_toggle_dt(&led);
 
-        ret = adc_read(adc_dev, &seq);
-        if (ret < 0) {
-            printk("ADC read failed (%d)\n", ret);
-            continue;
+        /* =========================
+           ===== PT1000 DALIS ======
+           ========================= */
+        ret = adc_read(adc_pt1000, &seq_pt);
+        if (ret == 0) {
+
+            float vin_pt = ((float)buf_pt / ADS1220_FULL_SCALE) *
+                           (ADS1220_VREF_V / ADS1220_PT_GAIN);
+
+            float r_rtd = ((float)buf_pt * RREF_OHM /
+                          (-ADS1220_PT_GAIN)) /
+                          ADS1220_FULL_SCALE;
+
+            float ratio = r_rtd / PT1000_R0;
+
+            float temp_pt = (-PT_A + sqrtf(PT_A * PT_A -
+                             4 * PT_B * (1 - ratio))) /
+                             (2 * PT_B);
+
+            printf("PT1000 raw: %d\n", buf_pt);
+            printf("PT1000 Temp: %.3f C\n\n", temp_pt);
         }
 
-        printk("ADC raw: %d\n", buf);
+        /* =========================
+           ===== LM35 DALIS ========
+           ========================= */
+        ret = adc_read(adc_lm35, &seq_lm);
+        if (ret == 0) {
 
-        float vin = ((float)buf / ADS1220_FULL_SCALE) *
-                    (ADS1220_VREF_V / ADS1220_GAIN);
+            printf("LM35 raw: %d\n", buf_lm);
 
-        /* konvertuojam į mikrovoltus */
-        int vin_uV = (int)(vin * 1000000.0f);
+            /* Įtampa pagal 2.048V reference */
+            float vin_lm = ((float)buf_lm / ADS1220_FULL_SCALE) *
+                           (ADS1220_VREF_V / ADS1220_LM35_GAIN);
 
-        printk("Vin = %d.%06d V\n",
-            vin_uV / 1000000,
-            abs(vin_uV % 1000000));
+            printf("LM35 Voltage: %.6f V\n", vin_lm);
 
-        /* RTD resistance calculation */
-        float r_rtd = ((float)buf * RREF_OHM / (-ADS1220_GAIN)) / ADS1220_FULL_SCALE;
+            /* Temperatūra (10mV/°C) */
+            float temp_lm = (vin_lm * 1000.0f) / LM35_MV_PER_C;
 
-        /* išvedimas su 3 skaičiais po kablelio */
-        int r_milli = (int)(r_rtd * 1000.0f);
+            printf("LM35 Temp: %.3f C\n\n", temp_lm);
+        }
 
-        printk("R_RTD = %d.%03d Ohm\n\n", 
-            r_milli / 1000, 
-            abs(r_milli % 1000));
-        
-        /* Temperature calculation (>= 0°C) */
-
-        float ratio = r_rtd / PT1000_R0;
-
-        float temp = (-PT_A + sqrtf(PT_A * PT_A - 
-                    4 * PT_B * (1 - ratio))) 
-                    / (2 * PT_B);
-
-        /* išvedimas su 3 skaičiais po kablelio */
-        int temp_mC = (int)(temp * 1000.0f);
-
-        printk("Temp = %d.%03d C\n\n",
-            temp_mC / 1000,
-            abs(temp_mC % 1000));
-    
         k_msleep(1000);
     }
 

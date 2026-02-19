@@ -13,9 +13,13 @@
     pinctrl-names = "default";
 
     /* CS per PA4 */
-    cs-gpios = <&gpioa 4 GPIO_ACTIVE_LOW>;
+    cs-gpios = <
+        &gpioa 4 GPIO_ACTIVE_LOW /*PT1000*/
+        &gpioa 8 GPIO_ACTIVE_LOW /*LM35*/
+    >;
 
-    ads1220: ads1220@0 {
+    /*ADS1220 PT1000*/
+    ads1220_0: ads1220@0 {
         compatible = "ti,ads1220";
         reg = <0>;
         spi-max-frequency = <1000000>;
@@ -47,6 +51,30 @@
             zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
         };
     };
+
+    /*ADS1220 LM35*/
+    ads1220_1: ads1220@1 {
+        compatible = "ti,ads1220";
+        reg = <1>;
+        spi-max-frequency = <1000000>;
+
+        /* Atskiras DRDY pinas */
+        drdy-gpios = <&gpiob 0 GPIO_ACTIVE_LOW>;
+
+        pga-bypass;
+
+        #io-channel-cells = <1>;
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        channel@0 {
+            reg = <0>;
+            zephyr,gain = "ADC_GAIN_2";
+            zephyr,reference = "ADC_REF_INTERNAL";
+            zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        };
+    };
+
 };
 
 &usart2 {

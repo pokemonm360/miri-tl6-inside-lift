@@ -1868,9 +1868,13 @@ arduino_i2c: &i2c1 {};
     pinctrl-names = "default";
 
 
-    cs-gpios = <&gpioa 4 (1 << 0)>;
+    cs-gpios = <
+        &gpioa 4 (1 << 0)
+        &gpioa 8 (1 << 0)
+    >;
 
-    ads1220: ads1220@0 {
+
+    ads1220_0: ads1220@0 {
         compatible = "ti,ads1220";
         reg = <0>;
         spi-max-frequency = <1000000>;
@@ -1902,6 +1906,30 @@ arduino_i2c: &i2c1 {};
             zephyr,acquisition-time = <0>;
         };
     };
+
+
+    ads1220_1: ads1220@1 {
+        compatible = "ti,ads1220";
+        reg = <1>;
+        spi-max-frequency = <1000000>;
+
+
+        drdy-gpios = <&gpiob 0 (1 << 0)>;
+
+        pga-bypass;
+
+        #io-channel-cells = <1>;
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        channel@0 {
+            reg = <0>;
+            zephyr,gain = "ADC_GAIN_2";
+            zephyr,reference = "ADC_REF_INTERNAL";
+            zephyr,acquisition-time = <0>;
+        };
+    };
+
 };
 
 &usart2 {
