@@ -6,6 +6,8 @@
 #include <zephyr/sys/printk.h>
 #include <stdlib.h>
 #include <math.h>
+#include <zephyr/drivers/uart.h>
+
 
 #define LED0_NODE DT_ALIAS(led0)
 
@@ -14,6 +16,9 @@
 #endif
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
+
+static const struct device *uart1 =
+    DEVICE_DT_GET(DT_NODELABEL(usart1));
 
 /* Abu ADS1220 */
 static const struct device *adc_pt1000 =
@@ -41,8 +46,24 @@ static const struct device *adc_stm32 =
 #define ADS1220_LM35_GAIN  2.0f   //
 #define LM35_MV_PER_C      10.0f  // 10mV / °C
 
+
+
+void uart1_send_string(const char *str)
+{
+    while (*str) {
+        uart_poll_out(uart1, *str++);
+    }
+}
+
+
 int main(void)
 {
+    if (!device_is_ready(uart1)) {
+        return -ENODEV;
+    }
+    uart1_send_string("test\r\n");
+
+
     if (!device_is_ready(led.port)) {
         return -ENODEV;
     }
@@ -93,6 +114,7 @@ int main(void)
     while (1) {
 
         gpio_pin_toggle_dt(&led);
+        uart1_send_string("test\r\n");
 
         ret = adc_read(adc_stm32, &seq_stm32);
         if (ret == 0) {
