@@ -23,6 +23,8 @@
         /* Atskiras DRDY pinas */
         drdy-gpios = <&gpiob 4 GPIO_ACTIVE_LOW>;
 
+        pga-bypass;
+
         #io-channel-cells = <1>;
         #address-cells = <1>;
         #size-cells = <0>;
@@ -34,4 +36,8 @@
             zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
         };
     };
+};
+
+&usart2 {
+    current-speed = <921600>;
 };

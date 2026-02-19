@@ -19,7 +19,7 @@
 #define APP_VERSION_EXTENDED_STRING  "1.0.0+0"
 #define APP_VERSION_TWEAK_STRING     "1.0.0+0"
 
-#define APP_BUILD_VERSION 56ab2ded8c96
+#define APP_BUILD_VERSION fdcf9215a894
 
 
 #endif /* _APP_VERSION_H_ */

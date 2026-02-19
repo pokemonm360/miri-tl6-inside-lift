@@ -1878,6 +1878,8 @@ arduino_i2c: &i2c1 {};
 
         drdy-gpios = <&gpiob 4 (1 << 0)>;
 
+        pga-bypass;
+
         #io-channel-cells = <1>;
         #address-cells = <1>;
         #size-cells = <0>;
@@ -1889,6 +1891,10 @@ arduino_i2c: &i2c1 {};
             zephyr,acquisition-time = <0>;
         };
     };
+};
+
+&usart2 {
+    current-speed = <921600>;
 };
 # 0 "<command-line>" 2
 # 1 "C:/Users/kostas.caplinskas/Documents/zephyrproject/zephyr/misc/empty_file.c"
