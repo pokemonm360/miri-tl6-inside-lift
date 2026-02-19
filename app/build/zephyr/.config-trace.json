@@ -1120,17 +1120,6 @@
     null
   ],
   [
-    "CONFIG_COMMON_LIBC_MALLOC_ARENA_SIZE",
-    "y",
-    "int",
-    "-1",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\common\\Kconfig",
-      64
-    ]
-  ],
-  [
     "CONFIG_GEN_SW_ISR_TABLE",
     "y",
     "bool",
@@ -3638,16 +3627,6 @@
     ]
   ],
   [
-    "CONFIG_LIBC_ERRNO",
-    "n",
-    "bool",
-    "y",
-    "select",
-    [
-      "PICOLIBC && THREAD_LOCAL_STORAGE && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
-    ]
-  ],
-  [
     "CONFIG_ERRNO",
     "y",
     "bool",
@@ -3656,17 +3635,6 @@
     [
       "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\kernel\\Kconfig",
       409
-    ]
-  ],
-  [
-    "CONFIG_CURRENT_THREAD_USE_TLS",
-    "y",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\kernel\\Kconfig",
-      433
     ]
   ],
   [
@@ -3990,11 +3958,9 @@
     "CONFIG_THREAD_LOCAL_STORAGE",
     "y",
     "bool",
-    "y",
-    "select",
-    [
-      "PICOLIBC_USE_TOOLCHAIN && ARCH_HAS_THREAD_LOCAL_STORAGE && TOOLCHAIN_SUPPORTS_THREAD_LOCAL_STORAGE && y = y && <choice PICOLIBC_SOURCE>"
-    ]
+    null,
+    "unset",
+    null
   ],
   [
     "CONFIG_TOOLCHAIN_SUPPORTS_STATIC_INIT_GNU",
@@ -5953,19 +5919,16 @@
     "CONFIG_PICOLIBC",
     "y",
     "bool",
-    "y",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\Kconfig",
-      81
-    ]
+    null,
+    "unset",
+    null
   ],
   [
     "CONFIG_NEWLIB_LIBC",
     "y",
     "bool",
-    null,
-    "unset",
+    "y",
+    "assign",
     null
   ],
   [
@@ -5993,7 +5956,7 @@
     "y",
     "select",
     [
-      "PICOLIBC && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
+      "NEWLIB_LIBC && NEWLIB_LIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
     ]
   ],
   [
@@ -6019,40 +5982,16 @@
     "y",
     "imply",
     [
-      "PICOLIBC && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
+      "NEWLIB_LIBC && NEWLIB_LIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
     ]
   ],
   [
     "CONFIG_COMMON_LIBC_MALLOC",
     "y",
     "bool",
-    "y",
-    "imply",
-    [
-      "PICOLIBC && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
-    ]
-  ],
-  [
-    "CONFIG_COMMON_LIBC_CALLOC",
-    "y",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\common\\Kconfig",
-      88
-    ]
-  ],
-  [
-    "CONFIG_COMMON_LIBC_REALLOCARRAY",
-    "y",
-    "bool",
-    "y",
-    "default",
-    [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\common\\Kconfig",
-      97
-    ]
+    null,
+    "unset",
+    null
   ],
   [
     "CONFIG_COMMON_LIBC_REMOVE",
@@ -6063,7 +6002,7 @@
     null
   ],
   [
-    "CONFIG_PICOLIBC_USE_MODULE",
+    "CONFIG_NEWLIB_LIBC_NANO",
     "y",
     "bool",
     null,
@@ -6071,18 +6010,29 @@
     null
   ],
   [
-    "CONFIG_PICOLIBC_USE_TOOLCHAIN",
+    "CONFIG_NEWLIB_LIBC_MIN_REQUIRED_HEAP_SIZE",
     "y",
-    "bool",
-    "y",
+    "int",
+    "8192",
     "default",
     [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\picolibc\\Kconfig",
-      8
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\newlib\\Kconfig",
+      27
     ]
   ],
   [
-    "CONFIG_PICOLIBC_IO_FLOAT",
+    "CONFIG_NEWLIB_LIBC_FLOAT_PRINTF",
+    "y",
+    "bool",
+    "y",
+    "assign",
+    [
+      "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/prj.conf",
+      24
+    ]
+  ],
+  [
+    "CONFIG_NEWLIB_LIBC_FLOAT_SCANF",
     "y",
     "bool",
     null,
@@ -6090,14 +6040,30 @@
     null
   ],
   [
-    "CONFIG_PICOLIBC_IO_LONG_LONG",
+    "CONFIG_NEWLIB_LIBC_HEAP_LISTENER",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_NEWLIB_LIBC_CUSTOM_SBRK",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_NEWLIB_LIBC_USE_POSIX_LIMITS_H",
     "y",
     "bool",
     "y",
     "default",
     [
-      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\picolibc\\Kconfig",
-      34
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\libc\\newlib\\Kconfig",
+      75
     ]
   ],
   [
@@ -6118,8 +6084,7 @@
     "y",
     "select",
     [
-      "PICOLIBC && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>",
-      "COMMON_LIBC_MALLOC && COMMON_LIBC_MALLOC_ARENA_SIZE != 0"
+      "NEWLIB_LIBC && NEWLIB_LIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
     ]
   ],
   [
@@ -6382,6 +6347,25 @@
     null
   ],
   [
+    "CONFIG_CBPRINTF_FP_ALWAYS_A",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_CBPRINTF_N_SPECIFIER",
+    "y",
+    "bool",
+    "y",
+    "default",
+    [
+      "C:\\Users\\kostas.caplinskas\\Documents\\zephyrproject\\zephyr\\lib\\os\\Kconfig.cbprintf",
+      107
+    ]
+  ],
+  [
     "CONFIG_CBPRINTF_LIBC_SUBSTS",
     "y",
     "bool",
@@ -6622,7 +6606,7 @@
     "y",
     "select",
     [
-      "PICOLIBC && PICOLIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
+      "NEWLIB_LIBC && NEWLIB_LIBC_SUPPORTED && <choice LIBC_IMPLEMENTATION>"
     ]
   ],
   [
@@ -7333,7 +7317,7 @@
     "assign",
     [
       "C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/prj.conf",
-      22
+      21
     ]
   ],
   [
@@ -7713,6 +7697,14 @@
   ],
   [
     "CONFIG_LOG_FMT_STRING_VALIDATE",
+    "y",
+    "bool",
+    null,
+    "unset",
+    null
+  ],
+  [
+    "CONFIG_LOG_USE_TAGGED_ARGUMENTS",
     "y",
     "bool",
     null,

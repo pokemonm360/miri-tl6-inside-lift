@@ -1878,7 +1878,13 @@ arduino_i2c: &i2c1 {};
 
         drdy-gpios = <&gpiob 4 (1 << 0)>;
 
-        pga-bypass;
+
+        data-rate = <0>;
+        operating-mode = <0>;
+
+        idac-magnitude-microamp = <250>;
+        idac1-routing = <4>;
+        idac2-routing = <0>;
 
         #io-channel-cells = <1>;
         #address-cells = <1>;
@@ -1886,8 +1892,13 @@ arduino_i2c: &i2c1 {};
 
         channel@0 {
             reg = <0>;
-            zephyr,gain = "ADC_GAIN_2";
-            zephyr,reference = "ADC_REF_INTERNAL";
+
+            zephyr,differential;
+            zephyr,input-positive = <0>;
+            zephyr,input-negative = <1>;
+
+            zephyr,gain = "ADC_GAIN_4";
+            zephyr,reference = "ADC_REF_EXTERNAL0";
             zephyr,acquisition-time = <0>;
         };
     };

@@ -11,7 +11,7 @@
 		"C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/arch/arch/arm/core/mpu/cmake_install.cmake",
 		"C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/cmake_install.cmake",
 		"C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/libc/cmake_install.cmake",
-		"C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/libc/picolibc/cmake_install.cmake",
+		"C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/libc/newlib/cmake_install.cmake",
 		"C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/libc/common/cmake_install.cmake",
 		"C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/posix/cmake_install.cmake",
 		"C:/Users/kostas.caplinskas/Documents/zephyrproject/miri-tl6-inside-lift/app/build/zephyr/lib/posix/c_lang_support_r/cmake_install.cmake",

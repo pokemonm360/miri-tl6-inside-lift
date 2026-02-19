@@ -171,6 +171,7 @@ extern __weak ALIAS_OF(no_syscall_impl) void * const z_impl_uart_rx_enable_u16;
 extern __weak ALIAS_OF(no_syscall_impl) void * const z_impl_uart_tx;
 extern __weak ALIAS_OF(no_syscall_impl) void * const z_impl_uart_tx_abort;
 extern __weak ALIAS_OF(no_syscall_impl) void * const z_impl_uart_tx_u16;
+extern __weak ALIAS_OF(no_syscall_impl) void * const z_impl_z_errno;
 extern __weak ALIAS_OF(no_syscall_impl) void * const z_impl_z_log_msg_simple_create_0;
 extern __weak ALIAS_OF(no_syscall_impl) void * const z_impl_z_log_msg_simple_create_1;
 extern __weak ALIAS_OF(no_syscall_impl) void * const z_impl_z_log_msg_simple_create_2;
