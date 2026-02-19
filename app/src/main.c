@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <zephyr/drivers/uart.h>
-
+#include <stdio.h>
 
 #define LED0_NODE DT_ALIAS(led0)
 
