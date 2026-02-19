@@ -80,3 +80,11 @@
 &usart2 {
     current-speed = <921600>;
 };
+
+&adc1 {
+    status = "okay";
+    st,adc-clock-source = "SYNC";
+    st,adc-prescaler = <4>;
+    pinctrl-0 = <&adc1_in6_pa1>;
+    pinctrl-names = "default";
+};

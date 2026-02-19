@@ -22,6 +22,9 @@ static const struct device *adc_pt1000 =
 static const struct device *adc_lm35 =
     DEVICE_DT_GET(DT_NODELABEL(ads1220_1));
 
+static const struct device *adc_stm32 =
+    DEVICE_DT_GET(DT_NODELABEL(adc1));
+
 /* ==== ADS1220 konstantos ==== */
 #define ADS1220_FULL_SCALE 8388607.0f   // 2^23 - 1
 #define ADS1220_VREF_V     2.048f
@@ -54,8 +57,14 @@ int main(void)
         return -ENODEV;
     }
 
+    if (!device_is_ready(adc_stm32)) {
+    printk("STM32 ADC not ready\n");
+    return -ENODEV;
+    }
+
     int32_t buf_pt;
     int32_t buf_lm;
+    int16_t stm32_buf;
     int ret;
 
     struct adc_sequence seq_pt = {
@@ -72,11 +81,25 @@ int main(void)
         .resolution  = 24,
     };
 
+    struct adc_sequence seq_stm32 = {
+        .channels = BIT(6),
+        .buffer = &stm32_buf,
+        .buffer_size = sizeof(stm32_buf),
+        .resolution = 12,
+    };
+
     printk("ADS1220 ready\n");
 
     while (1) {
 
         gpio_pin_toggle_dt(&led);
+
+        ret = adc_read(adc_stm32, &seq_stm32);
+        if (ret == 0) {
+            printk("STM32 ADC raw: %d\n", stm32_buf);
+            float voltage = (stm32_buf * 3.3f) / 4095.0f;
+            printf("Voltage: %.3f V\n", voltage);
+        }
 
         /* =========================
            ===== PT1000 DALIS ======
