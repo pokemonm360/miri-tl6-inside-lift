@@ -1,5 +1,0 @@
-west:
-  command: C:\Users\kostas.caplinskas\Documents\zephyrproject\.venv\Scripts\west build
-    -b nucleo_l432kc -p always
-  topdir: C:\Users\kostas.caplinskas\Documents\zephyrproject
-  version: 1.5.0
