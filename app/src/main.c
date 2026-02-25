@@ -8,14 +8,9 @@
 #include <math.h>
 #include <zephyr/drivers/uart.h>
 #include <stdio.h>
+#include <zephyr/drivers/pwm.h>
+#include <zephyr/drivers/sensor.h>
 
-#define LED0_NODE DT_ALIAS(led0)
-
-#if !DT_NODE_HAS_STATUS(LED0_NODE, okay)
-#error "led0 alias not defined"
-#endif
-
-static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 
 static const struct device *uart1 =
     DEVICE_DT_GET(DT_NODELABEL(usart1));
@@ -29,6 +24,16 @@ static const struct device *adc_lm35 =
 
 static const struct device *adc_stm32 =
     DEVICE_DT_GET(DT_NODELABEL(adc1));
+
+#define PWM_NODE DT_NODELABEL(pwm2)
+
+static const struct device *pwm_dev =
+    DEVICE_DT_GET(PWM_NODE);
+
+static const struct device *ina219_0 =
+    DEVICE_DT_GET(DT_NODELABEL(ina219_0));
+static const struct device *ina219_1 =
+    DEVICE_DT_GET(DT_NODELABEL(ina219_1));
 
 /* ==== ADS1220 konstantos ==== */
 #define ADS1220_FULL_SCALE 8388607.0f   // 2^23 - 1
@@ -57,18 +62,11 @@ void uart1_send_string(const char *str)
 
 
 int main(void)
-{
+{   
     if (!device_is_ready(uart1)) {
         return -ENODEV;
     }
     uart1_send_string("test\r\n");
-
-
-    if (!device_is_ready(led.port)) {
-        return -ENODEV;
-    }
-
-    gpio_pin_configure_dt(&led, GPIO_OUTPUT_INACTIVE);
 
     printk("MAIN START\n");
 
@@ -103,7 +101,7 @@ int main(void)
     };
 
     struct adc_sequence seq_stm32 = {
-        .channels = BIT(6),
+        .channels = BIT(16),
         .buffer = &stm32_buf,
         .buffer_size = sizeof(stm32_buf),
         .resolution = 12,
@@ -111,9 +109,25 @@ int main(void)
 
     printk("ADS1220 ready\n");
 
+    if (!device_is_ready(ina219_0) ||  !device_is_ready(ina219_1)) {
+        printk("INA219 not ready\n");
+        return -ENODEV;
+    }
+
+
     while (1) {
 
-        gpio_pin_toggle_dt(&led);
+
+        uint32_t period = 1000000; // 1 ms = 1 kHz
+
+        uint32_t pulse0 = (period * 70) / 100;
+        uint32_t pulse1 = (period * 20) / 100;
+
+        pwm_set(pwm_dev, 2, period, pulse0, 0);
+        pwm_set(pwm_dev, 4, period, pulse1, 0);
+       
+        printk("CH1=70%%  CH2=20%%\n");
+
         uart1_send_string("test\r\n");
 
         ret = adc_read(adc_stm32, &seq_stm32);
@@ -164,6 +178,64 @@ int main(void)
             float temp_lm = (vin_lm * 1000.0f) / LM35_MV_PER_C;
 
             printf("LM35 Temp: %.3f C\n\n", temp_lm);
+        }
+
+        struct sensor_value bus_voltage;
+        struct sensor_value current;
+        struct sensor_value power;
+
+        if (sensor_sample_fetch(ina219_0) == 0) {
+
+            sensor_channel_get(ina219_0,
+                            SENSOR_CHAN_VOLTAGE,
+                            &bus_voltage);
+
+            sensor_channel_get(ina219_0,
+                            SENSOR_CHAN_CURRENT,
+                            &current);
+
+            sensor_channel_get(ina219_0,
+                            SENSOR_CHAN_POWER,
+                            &power);
+
+            printf("INA219_0 Bus: %d.%06d V\n",
+                bus_voltage.val1,
+                bus_voltage.val2);
+
+            printf("INA219_0 Current: %d.%06d A\n",
+                current.val1,
+                current.val2);
+
+            printf("INA219_0 Power: %d.%06d W\n\n",
+                power.val1,
+                power.val2);
+        }
+
+        if (sensor_sample_fetch(ina219_1) == 0) {
+
+            sensor_channel_get(ina219_1,
+                            SENSOR_CHAN_VOLTAGE,
+                            &bus_voltage);
+
+            sensor_channel_get(ina219_1,
+                            SENSOR_CHAN_CURRENT,
+                            &current);
+
+            sensor_channel_get(ina219_1,
+                            SENSOR_CHAN_POWER,
+                            &power);
+
+            printf("INA219_1 Bus: %d.%06d V\n",
+                bus_voltage.val1,
+                bus_voltage.val2);
+
+            printf("INA219_1 Current: %d.%06d A\n",
+                current.val1,
+                current.val2);
+
+            printf("INA219_1 Power: %d.%06d W\n\n",
+                power.val1,
+                power.val2);
         }
 
         k_msleep(1000);
