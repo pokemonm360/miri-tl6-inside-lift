@@ -157,7 +157,15 @@ k_timer_start(&sample_timer,
         /* =========================
            ===== PT1000 DALIS ======
            ========================= */
-        ret = adc_read(adc_pt1000, &seq_pt);
+
+        int32_t buf_pt, buf_lm; 
+        ads1220_trigger(adc_pt1000);
+        ads1220_trigger(adc_lm35);
+        
+        ads1220_fetch(adc_pt1000, &buf_pt);
+        ads1220_fetch(adc_lm35, &buf_lm);
+
+        //ret = adc_read(adc_pt1000, &seq_pt);
         if (ret == 0) {
 
             float vin_pt = ((float)buf_pt / ADS1220_FULL_SCALE) *
@@ -180,7 +188,7 @@ k_timer_start(&sample_timer,
         /* =========================
            ===== LM35 DALIS ========
            ========================= */
-        ret = adc_read(adc_lm35, &seq_lm);
+        //ret = adc_read(adc_lm35, &seq_lm);
         if (ret == 0) {
 
             //printf("LM35 raw: %d\n", buf_lm);
@@ -257,7 +265,7 @@ k_timer_start(&sample_timer,
         #endif
         //int64_t elapsed = k_uptime_get() - start;
         //printk("Loop time: %lld ms\n", elapsed);
-        //  k_timer_status_sync(&sample_timer);
+        //k_timer_status_sync(&sample_timer);
         }
 
     return 0;
