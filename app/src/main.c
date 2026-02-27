@@ -51,7 +51,16 @@ static const struct device *ina219_1 =
 #define ADS1220_LM35_GAIN  2.0f   //
 #define LM35_MV_PER_C      10.0f  // 10mV / °C
 
+#define SAMPLE_PERIOD_MS 50
 
+static struct k_timer sample_timer;
+
+void timer_handler(struct k_timer *dummy)
+{
+    ARG_UNUSED(dummy);
+}
+
+#define TEMPERATURE_LOGGING_MODE 
 
 void uart1_send_string(const char *str)
 {
@@ -63,11 +72,16 @@ void uart1_send_string(const char *str)
 
 int main(void)
 {   
-    if (!device_is_ready(uart1)) {
-        return -ENODEV;
-    }
-    uart1_send_string("test\r\n");
+    k_timer_init(&sample_timer, timer_handler, NULL);
+k_timer_start(&sample_timer,
+              K_MSEC(SAMPLE_PERIOD_MS),
+              K_MSEC(SAMPLE_PERIOD_MS));
 
+        if (!device_is_ready(uart1)) {
+            return -ENODEV;
+        }
+        uart1_send_string("test\r\n");
+    
     printk("MAIN START\n");
 
     if (!device_is_ready(adc_pt1000) ||
@@ -76,10 +90,12 @@ int main(void)
         return -ENODEV;
     }
 
-    if (!device_is_ready(adc_stm32)) {
-    printk("STM32 ADC not ready\n");
-    return -ENODEV;
-    }
+   
+        if (!device_is_ready(adc_stm32)) {
+            printk("STM32 ADC not ready\n");
+            return -ENODEV;
+        }
+   
 
     int32_t buf_pt;
     int32_t buf_lm;
@@ -116,27 +132,28 @@ int main(void)
 
 
     while (1) {
-
-
-        uint32_t period = 1000000; // 1 ms = 1 kHz
+        int64_t start = k_uptime_get();
+        uint32_t period = 10000000; // 1 ms = 1 kHz
 
         uint32_t pulse0 = (period * 70) / 100;
         uint32_t pulse1 = (period * 20) / 100;
 
         pwm_set(pwm_dev, 2, period, pulse0, 0);
         pwm_set(pwm_dev, 4, period, pulse1, 0);
-       
-        printk("CH1=70%%  CH2=20%%\n");
 
+        #ifndef TEMPERATURE_LOGGING_MODE 
+            printk("CH1=70%%  CH2=20%%\n");
+        #endif
         uart1_send_string("test\r\n");
 
-        ret = adc_read(adc_stm32, &seq_stm32);
-        if (ret == 0) {
-            printk("STM32 ADC raw: %d\n", stm32_buf);
-            float voltage = (stm32_buf * 3.3f) / 4095.0f;
-            printf("Voltage: %.3f V\n", voltage);
-        }
-
+        #ifndef TEMPERATURE_LOGGING_MODE 
+            ret = adc_read(adc_stm32, &seq_stm32);
+            if (ret == 0) {
+                printk("STM32 ADC raw: %d\n", stm32_buf);
+                float voltage = (stm32_buf * 3.3f) / 4095.0f;
+                printf("Voltage: %.3f V\n", voltage);
+            }
+         #endif
         /* =========================
            ===== PT1000 DALIS ======
            ========================= */
@@ -156,8 +173,8 @@ int main(void)
                              4 * PT_B * (1 - ratio))) /
                              (2 * PT_B);
 
-            printf("PT1000 raw: %d\n", buf_pt);
-            printf("PT1000 Temp: %.3f C\n\n", temp_pt);
+            //printf("PT1000 raw: %d\n", buf_pt);
+            printf("PT1000 Temp: %.3f C\n", temp_pt);
         }
 
         /* =========================
@@ -166,13 +183,13 @@ int main(void)
         ret = adc_read(adc_lm35, &seq_lm);
         if (ret == 0) {
 
-            printf("LM35 raw: %d\n", buf_lm);
+            //printf("LM35 raw: %d\n", buf_lm);
 
             /* Įtampa pagal 2.048V reference */
             float vin_lm = ((float)buf_lm / ADS1220_FULL_SCALE) *
                            (ADS1220_VREF_V / ADS1220_LM35_GAIN);
 
-            printf("LM35 Voltage: %.6f V\n", vin_lm);
+            //printf("LM35 Voltage: %.6f V\n", vin_lm);
 
             /* Temperatūra (10mV/°C) */
             float temp_lm = (vin_lm * 1000.0f) / LM35_MV_PER_C;
@@ -182,8 +199,8 @@ int main(void)
 
         struct sensor_value bus_voltage;
         struct sensor_value current;
-        struct sensor_value power;
-
+        struct sensor_value power;  
+        #ifndef TEMPERATURE_LOGGING_MODE
         if (sensor_sample_fetch(ina219_0) == 0) {
 
             sensor_channel_get(ina219_0,
@@ -237,9 +254,11 @@ int main(void)
                 power.val1,
                 power.val2);
         }
-
-        k_msleep(1000);
-    }
+        #endif
+        //int64_t elapsed = k_uptime_get() - start;
+        //printk("Loop time: %lld ms\n", elapsed);
+        //  k_timer_status_sync(&sample_timer);
+        }
 
     return 0;
 }
