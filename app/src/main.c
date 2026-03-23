@@ -174,8 +174,8 @@ int main(void)
 
             float voltage = (stm32_buf * 3.3f) / 4095.0f;
 
-            printf("STM32 ADC raw: %d\n", stm32_buf);
-            printf("Voltage: %.3f V\n", voltage);
+        printf("STM32 ADC raw: %d\n", stm32_buf);
+            //printf("Voltage: %.3f V\n", voltage);
         }
 
         /* ================= ADS1220 ================= */
@@ -188,11 +188,8 @@ int main(void)
 
         /* ================= PT1000 ================= */
 
-        float vin_pt = ((float)buf_pt / ADS1220_FULL_SCALE) *
-                       (ADS1220_VREF_V / ADS1220_PT_GAIN);
-
-        float r_rtd = ((float)buf_pt * RREF_OHM /
-                      (-ADS1220_PT_GAIN)) /
+        float r_rtd = (fabsf((float)buf_pt) * RREF_OHM /
+                      (ADS1220_PT_GAIN)) /
                       ADS1220_FULL_SCALE;
 
         float ratio = r_rtd / PT1000_R0;
@@ -202,7 +199,7 @@ int main(void)
                          (2 * PT_B);
 
         printf("PT1000 Temp: %.3f C\n", temp_pt);
-
+        printf("Raw PT1000: %d\n", buf_pt);
         /* ================= PWM CONTROL ================= */
 
         float pwm_percent = 70;
@@ -210,14 +207,16 @@ int main(void)
         if (control_enabled) {
 
             float error = target_temp - temp_pt;
-
-            if (error > 0) {
-                pwm_percent = error * 10.0;
-                if (pwm_percent > 100)
+            static float integral = 0;
+            integral += error * 0.2;   // dt ≈ 200 ms
+            if (integral > 100) integral = 100;
+            if (integral < 0) integral = 0;
+            pwm_percent = error * 10 + integral;    
+            if (pwm_percent > 100)
                     pwm_percent = 100;
-            } else {
+            if (pwm_percent < 0)
                 pwm_percent = 0;
-            }
+
         }
 
         uint32_t pulse0 = (period * pwm_percent) / 100;
@@ -237,7 +236,7 @@ int main(void)
 
         printf("LM35 Temp: %.3f C\n\n", temp_lm);
 
-        /* ================= INA219 ================= */
+        /* ================= INA219 ================= 
 
         struct sensor_value bus_voltage;
         struct sensor_value current;
@@ -292,7 +291,7 @@ int main(void)
 
             serial_send(buf);
         }
-
+        */
         /* ================= RS485 STATUS ================= */
 
         if (k_uptime_get() - last_rs485 > 1000) {
