@@ -70,6 +70,62 @@ static const struct device *ina219_1 =
 #define ADS1220_LM35_GAIN  2.0f
 #define LM35_MV_PER_C      10.0f
 
+/* ================= PID ================= */
+typedef struct {
+    float Kp;
+    float Ki;
+    float Kd;
+
+    float integral;
+    float prev_error;
+
+    float out_min;
+    float out_max;
+} PID;
+
+float target_pt = 37.2;
+float target_lm = 37.0;
+
+float pid_compute(PID *pid, float setpoint, float measurement, float dt)
+{
+    float error = setpoint - measurement;
+
+    pid->integral += error * dt;
+
+    // anti-windup
+    if (pid->integral > pid->out_max) pid->integral = pid->out_max;
+    if (pid->integral < pid->out_min) pid->integral = pid->out_min;
+
+    float derivative = (error - pid->prev_error) / dt;
+
+    float output = pid->Kp * error +
+                   pid->Ki * pid->integral +
+                   pid->Kd * derivative;
+
+    if (output > pid->out_max) output = pid->out_max;
+    if (output < pid->out_min) output = pid->out_min;
+
+    pid->prev_error = error;
+
+    return output;
+}
+
+PID pid_pt1000 = {
+    .Kp = 4.0,
+    .Ki = 0.3,
+    .Kd = 0.0,
+    .out_min = 0,
+    .out_max = 100
+};
+
+PID pid_lm35 = {
+    .Kp = 4.0,
+    .Ki = 0.3,
+    .Kd = 0.0,
+    .out_min = 0,
+    .out_max = 100
+};
+
 /* ================= RS485 RX ================= */
 
 static char rx_buffer[32];
@@ -99,6 +155,8 @@ void rs485_send(const char *data)
 
 /* ================= UART RX CALLBACK ================= */
 
+/* ================= UART RX CALLBACK ================= */
+
 static void uart_cb(const struct device *dev, void *user_data)
 {
     uint8_t c;
@@ -111,22 +169,41 @@ static void uart_cb(const struct device *dev, void *user_data)
         if (uart_fifo_read(dev, &c, 1) <= 0)
             return;
 
+        // End of line → parse
         if (c == '\n' || c == '\r') {
 
-            rx_buffer[rx_pos] = 0;
+            rx_buffer[rx_pos] = '\0';
 
             if (rx_pos > 0) {
-                current_value = atoi(rx_buffer);
-                target_temp = current_value / 10.0f;
-                control_enabled = true;
+
+                float t_pt, t_lm;
+
+                // Expect: "37.2,37.0"
+                if (sscanf(rx_buffer, "%f,%f", &t_pt, &t_lm) == 2) {
+
+                    target_pt = t_pt;
+                    target_lm = t_lm;
+
+                    control_enabled = true;
+
+                    printk("NEW SETPOINTS: PT=%.2f LM=%.2f\n",
+                           target_pt, target_lm);
+
+                } else {
+                    printk("UART parse error: %s\n", rx_buffer);
+                }
             }
 
             rx_pos = 0;
             return;
         }
 
+        // Store character
         if (rx_pos < sizeof(rx_buffer) - 1) {
             rx_buffer[rx_pos++] = c;
+        } else {
+            // Overflow protection
+            rx_pos = 0;
         }
     }
 }
@@ -164,10 +241,14 @@ int main(void)
 
     int64_t last_rs485 = 0;
 
+
+
     while (1) {
 
-        uint32_t period = 10000000;
-
+        uint32_t period = 1000000;   // 1 ms = 1,000,000 ns    1000 Hz
+        //uint32_t period = 10000000;  // 10 ms = 10,000,000 ns  100 Hz
+        //uint32_t period = 100000000; // 100 ms = 100,000,000 ns 10 Hz
+        //uint32_t period = 1000000000; // 1 s = 1,000,000,000 ns
         /* ================= STM32 ADC ================= */
 
         if (adc_read(adc_stm32, &seq_stm32) == 0) {
@@ -175,7 +256,7 @@ int main(void)
             float voltage = (stm32_buf * 3.3f) / 4095.0f;
 
         printf("STM32 ADC raw: %d\n", stm32_buf);
-            //printf("Voltage: %.3f V\n", voltage);
+            printf("Voltage: %.3f V\n", voltage);
         }
 
         /* ================= ADS1220 ================= */
@@ -200,34 +281,8 @@ int main(void)
 
         printf("PT1000 Temp: %.3f C\n", temp_pt);
         printf("Raw PT1000: %d\n", buf_pt);
-        /* ================= PWM CONTROL ================= */
 
-        float pwm_percent = 70;
-
-        if (control_enabled) {
-
-            float error = target_temp - temp_pt;
-            static float integral = 0;
-            integral += error * 0.2;   // dt ≈ 200 ms
-            if (integral > 100) integral = 100;
-            if (integral < 0) integral = 0;
-            pwm_percent = error * 10 + integral;    
-            if (pwm_percent > 100)
-                    pwm_percent = 100;
-            if (pwm_percent < 0)
-                pwm_percent = 0;
-
-        }
-
-        uint32_t pulse0 = (period * pwm_percent) / 100;
-        uint32_t pulse1 = (period * 20) / 100;
-
-        pwm_set(pwm_dev, 2, period, pulse0, 0);
-        pwm_set(pwm_dev, 4, period, pulse1, 0);
-
-        printf("PWM: %.1f %%\n", pwm_percent);
-
-        /* ================= LM35 ================= */
+         /* ================= LM35 ================= */
 
         float vin_lm = ((float)buf_lm / ADS1220_FULL_SCALE) *
                        (ADS1220_VREF_V / ADS1220_LM35_GAIN);
@@ -236,11 +291,54 @@ int main(void)
 
         printf("LM35 Temp: %.3f C\n\n", temp_lm);
 
-        /* ================= INA219 ================= 
+        /* ================= PWM CONTROL ================= */
+
+        float pwm_pt1000 = 0;
+        float pwm_lm35 = 0;
+
+        float dt = 0.2; // 200 ms loop
+
+        if (1) {
+
+        static float temp_pt_f = 0.0f;
+        static bool temp_pt_f_init = false;
+
+        temp_pt_f =  temp_pt;
+        
+
+        pwm_pt1000 = pid_compute(&pid_pt1000,
+                           target_pt,
+                           temp_pt_f,
+                           dt);
+
+        pwm_lm35 = pid_compute(&pid_lm35,
+                           target_lm,
+                           temp_lm,
+                           dt);
+        }
+
+
+    //uint32_t pulse0 = (period * pwm_pt1000) / 100;
+    //uint32_t pulse1 = (period * pwm_lm35) / 100;
+
+    uint32_t pulse_pt1000 = (period * 70) / 100;
+    uint32_t pulse_lm35 = (period * 0) / 100;
+
+    pwm_set(pwm_dev, 2, period, pulse_pt1000, 0);
+    pwm_set(pwm_dev, 4, period, pulse_lm35, 0);
+
+    printf("PWM_PT1000: %.1f %%\n", pwm_pt1000);
+    printf("PWM_LM35: %.1f %%\n\n", pwm_lm35);
+       
+        /* ================= INA219 ================= */
 
         struct sensor_value bus_voltage;
         struct sensor_value current;
         struct sensor_value power;
+
+        if (sensor_sample_fetch(ina219_0) != 0) {
+            printk("INA219_0 FAIL\n");
+        }
 
         if (sensor_sample_fetch(ina219_0) == 0) {
 
@@ -291,7 +389,7 @@ int main(void)
 
             serial_send(buf);
         }
-        */
+        
         /* ================= RS485 STATUS ================= */
 
         if (k_uptime_get() - last_rs485 > 1000) {
@@ -299,8 +397,9 @@ int main(void)
             char buf[32];
 
             snprintf(buf, sizeof(buf),
-                     "TSET %.1f\n",
-                     target_temp);
+                    "SET PT=%.2f LM=%.2f\n",
+                    target_pt,
+                    target_lm);
 
             rs485_send(buf);
 
