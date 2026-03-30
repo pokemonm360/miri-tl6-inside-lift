@@ -29,6 +29,19 @@ static const struct device *uart_serial =
 
 static const struct device *gpioa = DEVICE_DT_GET(RS485_DE_NODE);
 
+
+
+
+
+static const uint8_t *tx_buf;
+static size_t tx_len;
+static size_t tx_pos;
+static bool tx_active = false;
+
+
+
+
+
 /* ================= ADC ================= */
 
 static const struct device *adc_pt1000 =
@@ -139,21 +152,19 @@ static float target_temp = 37.0;
 static bool control_enabled = false;
 
 /* ================= RS485 SEND ================= */
-
-void rs485_send(const char *data)
+void rs485_send_irq(const uint8_t *data, size_t len)
 {
-    gpio_pin_set(gpioa, RS485_DE_PIN, 1);
+    if (tx_active) return; // optional: arba queue
 
-    while (*data) {
-        uart_poll_out(uart_rs485, *data++);
-    }
+    tx_buf = data;
+    tx_len = len;
+    tx_pos = 0;
+    tx_active = true;
 
-    while (!uart_irq_tx_complete(uart_rs485)) {}
+    gpio_pin_set(gpioa, RS485_DE_PIN, 1);  // DE = TX
 
-    gpio_pin_set(gpioa, RS485_DE_PIN, 0);
+    uart_irq_tx_enable(uart_rs485);
 }
-
-/* ================= UART RX CALLBACK ================= */
 
 /* ================= UART RX CALLBACK ================= */
 
@@ -164,10 +175,11 @@ static void uart_cb(const struct device *dev, void *user_data)
     if (!uart_irq_update(dev))
         return;
 
+    /* ================= RX ================= */
     while (uart_irq_rx_ready(dev)) {
 
         if (uart_fifo_read(dev, &c, 1) <= 0)
-            return;
+            break;
 
         // End of line → parse
         if (c == '\n' || c == '\r') {
@@ -178,12 +190,10 @@ static void uart_cb(const struct device *dev, void *user_data)
 
                 float t_pt, t_lm;
 
-                // Expect: "37.2,37.0"
                 if (sscanf(rx_buffer, "%f,%f", &t_pt, &t_lm) == 2) {
 
                     target_pt = t_pt;
                     target_lm = t_lm;
-
                     control_enabled = true;
 
                     printk("NEW SETPOINTS: PT=%.2f LM=%.2f\n",
@@ -195,15 +205,46 @@ static void uart_cb(const struct device *dev, void *user_data)
             }
 
             rx_pos = 0;
-            return;
+            continue;
         }
 
         // Store character
         if (rx_pos < sizeof(rx_buffer) - 1) {
             rx_buffer[rx_pos++] = c;
         } else {
-            // Overflow protection
-            rx_pos = 0;
+            rx_pos = 0; // overflow reset
+        }
+    }
+
+    /* ================= TX ================= */
+    if (uart_irq_tx_ready(dev) && tx_active) {
+
+        while (tx_pos < tx_len) {
+
+            int sent = uart_fifo_fill(dev,
+                                     &tx_buf[tx_pos],
+                                     tx_len - tx_pos);
+
+            tx_pos += sent;
+
+            if (sent == 0)
+                break;
+        }
+
+        // TX finished
+        if (tx_pos >= tx_len) {
+
+            uart_irq_tx_disable(dev);
+
+            /* Palaukiam kol shift registras ištuštės */
+            while (!uart_irq_tx_complete(dev)) {
+                /* labai trumpas wait */
+            }
+
+            /* RS485 → RX režimas */
+            gpio_pin_set(gpioa, RS485_DE_PIN, 0);
+
+            tx_active = false;
         }
     }
 }
@@ -391,19 +432,24 @@ int main(void)
         }
         
         /* ================= RS485 STATUS ================= */
+        static char rs485_buf[64];
 
         if (k_uptime_get() - last_rs485 > 1000) {
 
-            char buf[32];
+            if (!tx_active) {   // labai svarbu
 
-            snprintf(buf, sizeof(buf),
-                    "SET PT=%.2f LM=%.2f\n",
-                    target_pt,
-                    target_lm);
+                printk("QUEUE RS485\n");
 
-            rs485_send(buf);
+                snprintf(rs485_buf, sizeof(rs485_buf),
+                        "SET PT=%.2f LM=%.2f\n",
+                        target_pt,
+                        target_lm);
 
-            last_rs485 = k_uptime_get();
+                rs485_send_irq((uint8_t *)rs485_buf,
+                            strlen(rs485_buf));
+
+                last_rs485 = k_uptime_get();
+            }
         }
 
         k_sleep(K_MSEC(200));
