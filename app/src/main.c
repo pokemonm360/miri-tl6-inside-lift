@@ -22,17 +22,7 @@ static const struct device *uart_rs485 =
 static const struct device *uart_serial =
     DEVICE_DT_GET(UART_SERIAL_NODE);
 
-/* ================= RS485 DE ================= */
-
-#define RS485_DE_NODE DT_NODELABEL(gpioa)
-#define RS485_DE_PIN 12
-
-static const struct device *gpioa = DEVICE_DT_GET(RS485_DE_NODE);
-
-
-
-
-
+/* ================= RS485 ================= */
 static const uint8_t *tx_buf;
 static size_t tx_len;
 static size_t tx_pos;
@@ -161,8 +151,6 @@ void rs485_send_irq(const uint8_t *data, size_t len)
     tx_pos = 0;
     tx_active = true;
 
-    gpio_pin_set(gpioa, RS485_DE_PIN, 1);  // DE = TX
-
     uart_irq_tx_enable(uart_rs485);
 }
 
@@ -220,30 +208,15 @@ static void uart_cb(const struct device *dev, void *user_data)
     if (uart_irq_tx_ready(dev) && tx_active) {
 
         while (tx_pos < tx_len) {
-
-            int sent = uart_fifo_fill(dev,
-                                     &tx_buf[tx_pos],
-                                     tx_len - tx_pos);
-
-            tx_pos += sent;
-
-            if (sent == 0)
+            int sent = uart_fifo_fill(dev, &tx_buf[tx_pos], tx_len - tx_pos);
+            if (sent <= 0) {
                 break;
+            }
+            tx_pos += sent;
         }
 
-        // TX finished
         if (tx_pos >= tx_len) {
-
             uart_irq_tx_disable(dev);
-
-            /* Palaukiam kol shift registras ištuštės */
-            while (!uart_irq_tx_complete(dev)) {
-                /* labai trumpas wait */
-            }
-
-            /* RS485 → RX režimas */
-            gpio_pin_set(gpioa, RS485_DE_PIN, 0);
-
             tx_active = false;
         }
     }
@@ -263,9 +236,6 @@ void serial_send(const char *str)
 int main(void)
 {
     printk("SYSTEM START\n");
-
-    gpio_pin_configure(gpioa, RS485_DE_PIN, GPIO_OUTPUT);
-    gpio_pin_set(gpioa, RS485_DE_PIN, 0);
 
     uart_irq_callback_user_data_set(uart_rs485, uart_cb, NULL);
     uart_irq_rx_enable(uart_rs485);

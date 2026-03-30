@@ -99,6 +99,10 @@
         &usart1_de_pa12
     >;
 
+    de-enable;
+    de-assert-time = <1>;
+    de-deassert-time = <1>;
+
     pinctrl-names = "default";
 };
 
