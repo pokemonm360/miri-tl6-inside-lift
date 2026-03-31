@@ -332,8 +332,8 @@ int main(void)
     //uint32_t pulse0 = (period * pwm_pt1000) / 100;
     //uint32_t pulse1 = (period * pwm_lm35) / 100;
 
-    uint32_t pulse_pt1000 = (period * 70) / 100;
-    uint32_t pulse_lm35 = (period * 0) / 100;
+    uint32_t pulse_pt1000 = (period * 0) / 100;
+    uint32_t pulse_lm35 = (period * 40) / 100;
 
     pwm_set(pwm_dev, 2, period, pulse_pt1000, 0);
     pwm_set(pwm_dev, 4, period, pulse_lm35, 0);
@@ -341,7 +341,7 @@ int main(void)
     printf("PWM_PT1000: %.1f %%\n", pwm_pt1000);
     printf("PWM_LM35: %.1f %%\n\n", pwm_lm35);
        
-        /* ================= INA219 ================= */
+        /* ================= INA219 ================= 
 
         struct sensor_value bus_voltage;
         struct sensor_value current;
@@ -400,7 +400,7 @@ int main(void)
 
             serial_send(buf);
         }
-        
+        */
         /* ================= RS485 STATUS ================= */
         static char rs485_buf[64];
 
