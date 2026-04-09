@@ -6,8 +6,8 @@
 
     pwm2: pwm {
         status = "okay";
-        pinctrl-0 = <&tim2_ch2_pa1 &tim2_ch4_pa3>;
-        //pinctrl-0 = <&tim2_ch2_pa1 &tim2_ch1_pa15>;
+        //pinctrl-0 = <&tim2_ch2_pa1 &tim2_ch4_pa3>;
+        pinctrl-0 = <&tim2_ch2_pa1 &tim2_ch1_pa15>;
         pinctrl-names = "default";
     };
 };
@@ -22,8 +22,8 @@
 
     /* CS per PA4 */
     cs-gpios = <
-        &gpioa 8 GPIO_ACTIVE_LOW /*PT1000*/
-        &gpioa 11 GPIO_ACTIVE_LOW /*LM35*/
+        &gpiob 5 GPIO_ACTIVE_LOW /*PT1000*/
+        &gpioa 4 GPIO_ACTIVE_LOW /*LM35*/
     >;
 
     /*ADS1220 PT1000*/
@@ -33,10 +33,9 @@
         spi-max-frequency = <1000000>;
 
         /* Atskiras DRDY pinas */
-        //drdy-gpios = <&gpiob 4 GPIO_ACTIVE_LOW>;
-        drdy-gpios = <&gpioa 4 GPIO_ACTIVE_LOW>; //TESTAVIMUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+        drdy-gpios = <&gpiob 4 GPIO_ACTIVE_LOW>;
         // pga-bypass;
-        data-rate = <0>; 
+        data-rate = <0>;
         operating-mode = <0>;
 
         idac-magnitude-microamp = <250>;
@@ -67,8 +66,7 @@
         spi-max-frequency = <1000000>;
         data-rate = <0>; 
         /* Atskiras DRDY pinas */
-        //drdy-gpios = <&gpiob 0 GPIO_ACTIVE_LOW>;
-        drdy-gpios = <&gpiob 5 GPIO_ACTIVE_LOW>; //TESTAVIMUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
+        drdy-gpios = <&gpiob 0 GPIO_ACTIVE_LOW>; 
         pga-bypass;
 
         #io-channel-cells = <1>;
@@ -88,7 +86,7 @@
 &usart2 {
     current-speed = <921600>;
     //<&usart2_tx_pa2 &usart2_rx_pa15>;
-    //pinctrl-0 = <&usart2_tx_pa2 &usart2_rx_pa3>;
+    pinctrl-0 = <&usart2_tx_pa2 &usart2_rx_pa3>;
 };
 
 &usart1 {
