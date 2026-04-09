@@ -7,6 +7,7 @@
     pwm2: pwm {
         status = "okay";
         pinctrl-0 = <&tim2_ch2_pa1 &tim2_ch4_pa3>;
+        //pinctrl-0 = <&tim2_ch2_pa1 &tim2_ch1_pa15>;
         pinctrl-names = "default";
     };
 };
@@ -86,7 +87,8 @@
 
 &usart2 {
     current-speed = <921600>;
-    // <&usart2_tx_pa2 &usart2_rx_pa15>;
+    //<&usart2_tx_pa2 &usart2_rx_pa15>;
+    //pinctrl-0 = <&usart2_tx_pa2 &usart2_rx_pa3>;
 };
 
 &usart1 {
