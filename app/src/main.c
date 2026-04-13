@@ -29,8 +29,12 @@ static size_t tx_pos;
 static bool tx_active = false;
 
 
+/* ================ LEDS =============== */
+#define LED1_NODE DT_NODELABEL(led1)
+#define LED2_NODE DT_NODELABEL(led2)
 
-
+static const struct gpio_dt_spec led1 = GPIO_DT_SPEC_GET(LED1_NODE, gpios);
+static const struct gpio_dt_spec led2 = GPIO_DT_SPEC_GET(LED2_NODE, gpios);
 
 /* ================= ADC ================= */
 
@@ -252,9 +256,24 @@ int main(void)
 
     int64_t last_rs485 = 0;
 
+    if (!gpio_is_ready_dt(&led1) || !gpio_is_ready_dt(&led2)) {
+        printk("LED GPIO not ready!\n");
+        return 0;
+    }
 
+    gpio_pin_configure_dt(&led1, GPIO_OUTPUT_INACTIVE);
+    gpio_pin_configure_dt(&led2, GPIO_OUTPUT_INACTIVE);
 
     while (1) {
+
+
+        static int64_t last_led1 = 0;
+        static int64_t last_led2 = 0;
+        static bool led1_state = false;
+        static bool led2_state = false;
+
+        int64_t now = k_uptime_get();
+
 
         uint32_t period = 1000000;   // 1 ms = 1,000,000 ns    1000 Hz
         //uint32_t period = 10000000;  // 10 ms = 10,000,000 ns  100 Hz
@@ -421,6 +440,25 @@ int main(void)
                 last_rs485 = k_uptime_get();
             }
         }
+
+
+
+        /* ===== LED BLINK ===== */
+
+        /* PA11 – kas 1 sekundę */
+        if (now - last_led1 >= 1000) {
+            led1_state = !led1_state;
+            gpio_pin_set_dt(&led1, led1_state);
+            last_led1 = now;
+        }
+
+        /* PA8 – kas 4 sekundes */
+        if (now - last_led2 >= 4000) {
+            led2_state = !led2_state;
+            gpio_pin_set_dt(&led2, led2_state);
+            last_led2 = now;
+        }
+
 
         k_sleep(K_MSEC(200));
     }

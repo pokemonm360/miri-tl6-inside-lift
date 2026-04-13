@@ -1,6 +1,22 @@
 #include <zephyr/dt-bindings/gpio/gpio.h>
 #include <zephyr/dt-bindings/adc/adc.h>
 
+/ {
+    leds {
+        compatible = "gpio-leds";
+
+        led1: led_1 {
+            gpios = <&gpioa 11 GPIO_ACTIVE_HIGH>;
+            label = "LED1_PA11";
+        };
+
+        led2: led_2 {
+            gpios = <&gpioa 8 GPIO_ACTIVE_HIGH>;
+            label = "LED2_PA8";
+        };
+    };
+};
+
 &timers2 {
     status = "okay";
 
@@ -129,7 +145,7 @@
         shunt-milliohm = <100>; /* 0.1 ohm */
         lsb-microamp = <100>;         /* 100 µA LSB */
     };
-    
+
     ina219_1: ina219@41 {
         compatible = "ti,ina219";
         reg = <0x41>;              /* default address */
