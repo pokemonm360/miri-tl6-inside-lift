@@ -274,7 +274,7 @@ int main(void)
 
         int64_t now = k_uptime_get();
 
-
+ 
         uint32_t period = 1000000;   // 1 ms = 1,000,000 ns    1000 Hz
         //uint32_t period = 10000000;  // 10 ms = 10,000,000 ns  100 Hz
         //uint32_t period = 100000000; // 100 ms = 100,000,000 ns 10 Hz
