@@ -51,7 +51,7 @@ static const struct device *ina219_1 = DEVICE_DT_GET(DT_NODELABEL(ina219_1));
 #define PWM_CHANNEL_LM35   4U /* Real PCB uses channel 1. */
 
 #define CONTROL_PERIOD_MS      200
-#define TELEMETRY_PERIOD_MS     50
+#define TELEMETRY_PERIOD_MS    200
 #define RS485_STATUS_PERIOD_MS 1000
 #define LED1_BLINK_MS         1000
 #define LED2_BLINK_MS         4000
@@ -103,6 +103,7 @@ struct control_targets {
 };
 
 struct control_snapshot {
+    uint32_t sequence;
     int64_t timestamp_ms;
     float dt_s;
     float target_pt;
@@ -122,19 +123,19 @@ struct rs485_tx_state {
 /* ================= Shared State ================= */
 
 static PID pid_pt1000 = {
-    .Kp = 100.0f,
-    .Ki = 0.5f,
+    .Kp = 800.0f, //800.0f
+    .Ki = 50.0f, //50.0f
     .Kd = 0.0f,
     .out_min = 0.0f,
     .out_max = 100.0f,
 };
 
 static PID pid_lm35 = {
-    .Kp = 0.0f,
-    .Ki = 0.0f,
+    .Kp = 300.0f, //300.0f,
+    .Ki = 20.0f, //5.0f,
     .Kd = 0.0f,
-    .out_min = -1000.0f,
-    .out_max = 1000.0f,
+    .out_min = 0.0f,
+    .out_max = 100.0f,
 };
 
 static struct control_targets g_targets = {
@@ -175,21 +176,56 @@ static float clampf(float value, float min_value, float max_value)
     return value;
 }
 
+#define INTEGRAL_ENABLE_ERROR 5.0f   // °C
+
+#define INTEGRAL_ENABLE_ERROR 5.0f   // °C
+
 static float pid_compute(PID *pid, float setpoint, float measurement, float dt)
 {
     float error = setpoint - measurement;
 
-    pid->integral += error * dt;
-    pid->integral = clampf(pid->integral, pid->out_min, pid->out_max);
+    /* Apsauga nuo blogo dt */
+    float derivative = 0.0f;
+    if (dt > 0.0f) {
+        derivative = (error - pid->prev_error) / dt;
+    }
 
-    float derivative = (error - pid->prev_error) / dt;
-    float output = pid->Kp * error +
-                   pid->Ki * pid->integral +
-                   pid->Kd * derivative;
+    float p_term = pid->Kp * error;
+    float i_term = pid->Ki * pid->integral;
+    float d_term = pid->Kd * derivative;
 
-    output = clampf(output, pid->out_min, pid->out_max);
+    float output_unsat = p_term + i_term + d_term;
+    float output = clampf(output_unsat, pid->out_min, pid->out_max);
+
+    /* --- Integratoriaus įjungimo sąlyga --- */
+    bool integral_enabled = (fabsf(error) < INTEGRAL_ENABLE_ERROR);
+
+    /* --- Anti-windup logika --- */
+    bool upper_sat = (output_unsat > pid->out_max);
+    bool lower_sat = (output_unsat < pid->out_min);
+
+    if (integral_enabled &&
+        ((!upper_sat && !lower_sat) ||
+         (upper_sat && error < 0.0f) ||
+         (lower_sat && error > 0.0f))) {
+
+        pid->integral += error * dt;
+
+        /* Teisingas integralo ribojimas pagal Ki */
+        if (pid->Ki > 0.0f) {
+            float i_max = pid->out_max / pid->Ki;
+            float i_min = pid->out_min / pid->Ki;
+
+            /* Jei išėjimas 0–100%, leidžiam simetriškai */
+            if (pid->out_min == 0.0f) {
+                i_min = -i_max;
+            }
+
+            pid->integral = clampf(pid->integral, i_min, i_max);
+        }
+    }
+
     pid->prev_error = error;
-
     return output;
 }
 
@@ -453,8 +489,10 @@ static void capture_snapshot(const struct temperature_readings *readings,
                              float target_pt,
                              float target_lm)
 {
+    static uint32_t next_sequence = 0;
     k_spinlock_key_t key = k_spin_lock(&control_lock);
 
+    g_snapshot.sequence = next_sequence++;
     g_snapshot.timestamp_ms = now_ms;
     g_snapshot.dt_s = dt_s;
     g_snapshot.target_pt = target_pt;
@@ -575,7 +613,8 @@ static void log_snapshot(const struct control_snapshot *snapshot,
     }
 
     snprintf(buf, sizeof(buf),
-             "TEL,%lld,%.3f,%.3f,%.3f,%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%.6f,%.6f,%.6f,%d,%.6f,%.6f,%.6f\r\n",
+             "TEL,%lu,%lld,%.3f,%.3f,%.3f,%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%.6f,%.6f,%.6f,%d,%.6f,%.6f,%.6f\r\n",
+             (unsigned long)snapshot->sequence,
              snapshot->timestamp_ms,
              snapshot->dt_s,
              snapshot->readings.pt1000_temp_c,
@@ -639,6 +678,8 @@ static void control_thread(void *arg1, void *arg2, void *arg3)
                                    targets.target_lm,
                                    readings.lm35_temp_c,
                                    dt_s);
+            //pwm_pt1000 = 60.0f;   // force 60%
+            //pwm_lm35   = 0.0f;    // force 0%    
         }
 
         apply_pwm_outputs(pwm_pt1000, pwm_lm35);
