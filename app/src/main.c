@@ -131,8 +131,8 @@ static PID pid_pt1000 = {
 };
 
 static PID pid_lm35 = {
-    .Kp = 100.0f, //300.0f,
-    .Ki = 20.0f, //5.0f,
+    .Kp = 60.0f, //300.0f,
+    .Ki = 5.0f, //5.0f,
     .Kd = 0.0f,
     .out_min = 0.0f,
     .out_max = 100.0f,
