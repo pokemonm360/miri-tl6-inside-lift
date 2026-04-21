@@ -123,7 +123,7 @@ struct rs485_tx_state {
 /* ================= Shared State ================= */
 
 static PID pid_pt1000 = {
-    .Kp = 800.0f, //800.0f
+    .Kp = 300.0f, //800.0f
     .Ki = 50.0f, //50.0f
     .Kd = 0.0f,
     .out_min = 0.0f,
@@ -131,7 +131,7 @@ static PID pid_pt1000 = {
 };
 
 static PID pid_lm35 = {
-    .Kp = 300.0f, //300.0f,
+    .Kp = 100.0f, //300.0f,
     .Ki = 20.0f, //5.0f,
     .Kd = 0.0f,
     .out_min = 0.0f,
