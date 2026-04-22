@@ -15,6 +15,12 @@
 #include <stdio.h>
 #include <string.h>
 
+
+/* ================= Calibration offsets ================= */
+
+#define PT1000_OFFSET_C -0.24f  // -20 is 40 i 20 nukrito B kanalas
+#define LM35_OFFSET_C   -1.05f   // +10 is 40 i 50 pakilo A kanalas
+
 /* ================= Hardware ================= */
 
 #define UART_RS485_NODE DT_NODELABEL(usart1)
@@ -447,7 +453,7 @@ static float pt1000_raw_to_temp_c(int32_t raw)
         discriminant = 0.0f;
     }
 
-    return (-PT_A + sqrtf(discriminant)) / (2.0f * PT_B);
+    return ((-PT_A + sqrtf(discriminant)) / (2.0f * PT_B) - PT1000_OFFSET_C);
 }
 
 static float lm35_raw_to_temp_c(int32_t raw)
@@ -455,7 +461,7 @@ static float lm35_raw_to_temp_c(int32_t raw)
     float vin_lm = ((float)raw / ADS1220_FULL_SCALE) *
                    (ADS1220_VREF_V / ADS1220_LM35_GAIN);
 
-    return (vin_lm * 1000.0f) / LM35_MV_PER_C;
+    return (((vin_lm * 1000.0f) / LM35_MV_PER_C) - LM35_OFFSET_C);
 }
 
 static void read_temperatures(struct temperature_readings *readings,
