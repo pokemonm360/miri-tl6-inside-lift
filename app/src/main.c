@@ -18,8 +18,8 @@
 
 /* ================= Calibration offsets ================= */
 
-#define PT1000_OFFSET_C -0.24f  // -20 is 40 i 20 nukrito B kanalas
-#define LM35_OFFSET_C   -1.05f   // +10 is 40 i 50 pakilo A kanalas
+#define PT1000_OFFSET_C 0.00f //-0.39f  // -20 is 40 i 20 nukrito B kanalas
+#define LM35_OFFSET_C   0.00f //-1.06f   // +10 is 40 i 50 pakilo A kanalas
 
 /* ================= Hardware ================= */
 
@@ -145,10 +145,22 @@ static PID pid_lm35 = {
 };
 
 static struct control_targets g_targets = {
-    .target_pt = 37.2f,
-    .target_lm = 37.0f,
+    .target_pt = 25.2f,
+    .target_lm = 25.0f,
     .enabled = true,
 };
+
+static float pt1000_compensate(float t)
+{
+    float error = (-0.0052f * t) - 0.2503f;
+    return t - error;
+}
+
+static float lm35_compensate(float t)
+{
+    float error = (-0.043f * t) + 0.4421f;
+    return t - error;
+}
 
 static struct control_snapshot g_snapshot;
 static struct rs485_tx_state g_rs485_tx;
@@ -411,9 +423,12 @@ static bool init_devices(void)
         return false;
     }
 
-    if (!device_is_ready(ina219_0) || !device_is_ready(ina219_1)) {
-        printk("INA219 device not ready!\n");
-        return false;
+    if (!device_is_ready(ina219_0)) {
+        printk("INA219_0 not ready, continuing without power meter 0\n");
+    }
+
+    if (!device_is_ready(ina219_1)) {
+        printk("INA219_1 not ready, continuing without power meter 1\n");
     }
 
     return init_leds();
@@ -474,8 +489,10 @@ static void read_temperatures(struct temperature_readings *readings,
     trigger_external_adcs();
     fetch_external_adc_samples(readings);
 
-    readings->pt1000_temp_c = pt1000_raw_to_temp_c(readings->pt1000_raw);
-    readings->lm35_temp_c = lm35_raw_to_temp_c(readings->lm35_raw);
+    readings->pt1000_temp_c = pt1000_compensate(
+        pt1000_raw_to_temp_c(readings->pt1000_raw));
+    readings->lm35_temp_c = lm35_compensate(
+        lm35_raw_to_temp_c(readings->lm35_raw));
 }
 
 static void apply_pwm_outputs(float pwm_pt1000, float pwm_lm35)
@@ -535,13 +552,29 @@ static struct control_snapshot get_control_snapshot(void)
 static bool read_power_measurement(const struct device *dev,
                                    struct power_measurement *measurement)
 {
+    if (!device_is_ready(dev)) {
+        return false;
+    }
+
     if (sensor_sample_fetch(dev) != 0) {
         return false;
     }
 
-    sensor_channel_get(dev, SENSOR_CHAN_VOLTAGE, &measurement->voltage);
-    sensor_channel_get(dev, SENSOR_CHAN_CURRENT, &measurement->current);
-    sensor_channel_get(dev, SENSOR_CHAN_POWER, &measurement->power);
+    if (sensor_channel_get(dev, SENSOR_CHAN_VOLTAGE,
+                           &measurement->voltage) != 0) {
+        return false;
+    }
+
+    if (sensor_channel_get(dev, SENSOR_CHAN_CURRENT,
+                           &measurement->current) != 0) {
+        return false;
+    }
+
+    if (sensor_channel_get(dev, SENSOR_CHAN_POWER,
+                           &measurement->power) != 0) {
+        return false;
+    }
+
     return true;
 }
 
