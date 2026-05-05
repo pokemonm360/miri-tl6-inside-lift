@@ -1,13 +1,13 @@
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
+#include <zephyr/devicetree.h>
 #include <zephyr/drivers/adc.h>
 #include <zephyr/drivers/gpio.h>
-#include <zephyr/devicetree.h>
-#include <zephyr/sys/printk.h>
-#include <zephyr/drivers/uart.h>
 #include <zephyr/drivers/pwm.h>
 #include <zephyr/drivers/sensor.h>
+#include <zephyr/drivers/uart.h>
 #include <zephyr/spinlock.h>
+#include <zephyr/sys/printk.h>
 
 #include <math.h>
 #include <stdbool.h>
@@ -15,15 +15,8 @@
 #include <stdio.h>
 #include <string.h>
 
-
-/* ================= Calibration offsets ================= */
-
-#define PT1000_OFFSET_C 0.00f //-0.39f  // -20 is 40 i 20 nukrito B kanalas
-#define LM35_OFFSET_C   0.00f //-1.06f   // +10 is 40 i 50 pakilo A kanalas
-
-/* ================= Hardware ================= */
-
-#define UART_RS485_NODE DT_NODELABEL(usart1)
+/* Hardware */
+#define UART_RS485_NODE  DT_NODELABEL(usart1)
 #define UART_SERIAL_NODE DT_NODELABEL(usart2)
 #define LED1_NODE        DT_NODELABEL(led1)
 #define LED2_NODE        DT_NODELABEL(led2)
@@ -40,8 +33,7 @@ static const struct device *pwm_dev = DEVICE_DT_GET(PWM_NODE);
 static const struct device *ina219_0 = DEVICE_DT_GET(DT_NODELABEL(ina219_0));
 static const struct device *ina219_1 = DEVICE_DT_GET(DT_NODELABEL(ina219_1));
 
-/* ================= Constants ================= */
-
+/* Constants */
 #define ADS1220_FULL_SCALE 8388607.0f
 #define ADS1220_VREF_V     2.048f
 #define ADS1220_PT_GAIN    4.0f
@@ -52,9 +44,12 @@ static const struct device *ina219_1 = DEVICE_DT_GET(DT_NODELABEL(ina219_1));
 #define PT_B              -5.775e-7f
 #define LM35_MV_PER_C      10.0f
 
+#define PT1000_OFFSET_C 0.0f
+#define LM35_OFFSET_C   0.0f
+
 #define PWM_PERIOD_NS      1000000U
 #define PWM_CHANNEL_PT1000 2U
-#define PWM_CHANNEL_LM35   4U /* Real PCB uses channel 1. */
+#define PWM_CHANNEL_LM35   4U
 
 #define CONTROL_PERIOD_MS      200
 #define TELEMETRY_PERIOD_MS    200
@@ -63,191 +58,105 @@ static const struct device *ina219_1 = DEVICE_DT_GET(DT_NODELABEL(ina219_1));
 #define LED2_BLINK_MS         4000
 #define MIN_CONTROL_DT_S      0.05f
 #define MAX_CONTROL_DT_S      1.0f
+#define INTEGRAL_ENABLE_ERROR 5.0f
 
-#define CONTROL_STACK_SIZE    3072
-#define TELEMETRY_STACK_SIZE  3072
-#define CONTROL_PRIORITY      4
-#define TELEMETRY_PRIORITY    7
+#define CONTROL_STACK_SIZE   3072
+#define TELEMETRY_STACK_SIZE 3072
+#define CONTROL_PRIORITY     4
+#define TELEMETRY_PRIORITY   7
 
-/* ================= Types ================= */
+int ads1220_trigger(const struct device *dev);
+int ads1220_fetch(const struct device *dev, int32_t *value);
 
-typedef struct {
-    float Kp;
-    float Ki;
-    float Kd;
+struct pi_controller {
+    float kp;
+    float ki;
     float integral;
-    float prev_error;
-    float out_min;
-    float out_max;
-} PID;
+};
 
-struct temperature_readings {
+struct temperatures {
     int16_t stm32_raw;
-    int32_t pt1000_raw;
-    int32_t lm35_raw;
-    float stm32_voltage;
-    float pt1000_temp_c;
-    float lm35_temp_c;
+    int32_t pt_raw;
+    int32_t lm_raw;
+    float stm32_v;
+    float pt_c;
+    float lm_c;
 };
 
-struct power_measurement {
-    struct sensor_value voltage;
-    struct sensor_value current;
-    struct sensor_value power;
-    bool valid;
-};
-
-struct led_blink_state {
-    int64_t last_toggle_ms;
-    bool state;
-};
-
-struct control_targets {
-    float target_pt;
-    float target_lm;
-    bool enabled;
-};
-
-struct control_snapshot {
-    uint32_t sequence;
-    int64_t timestamp_ms;
+struct status {
+    uint32_t seq;
+    int64_t time_ms;
     float dt_s;
     float target_pt;
     float target_lm;
-    float pwm_pt1000;
-    float pwm_lm35;
-    struct temperature_readings readings;
+    float pwm_pt;
+    float pwm_lm;
+    struct temperatures temp;
 };
 
-struct rs485_tx_state {
+struct rs485_tx {
     const uint8_t *buf;
     size_t len;
     size_t pos;
-    bool active;
+    bool busy;
 };
 
-/* ================= Shared State ================= */
-
-static PID pid_pt1000 = {
-    .Kp = 300.0f, //800.0f
-    .Ki = 50.0f, //50.0f
-    .Kd = 0.0f,
-    .out_min = 0.0f,
-    .out_max = 100.0f,
-};
-
-static PID pid_lm35 = {
-    .Kp = 60.0f, //300.0f,
-    .Ki = 5.0f, //5.0f,
-    .Kd = 0.0f,
-    .out_min = 0.0f,
-    .out_max = 100.0f,
-};
-
-static struct control_targets g_targets = {
-    .target_pt = 25.2f,
-    .target_lm = 25.0f,
-    .enabled = true,
-};
-
-static float pt1000_compensate(float t)
-{
-    float error = (-0.0052f * t) - 0.2503f;
-    return t - error;
-}
-
-static float lm35_compensate(float t)
-{
-    float error = (-0.043f * t) + 0.4421f;
-    return t - error;
-}
-
-static struct control_snapshot g_snapshot;
-static struct rs485_tx_state g_rs485_tx;
-
-static struct k_spinlock control_lock;
+static struct pi_controller pi_pt = {.kp = 300.0f, .ki = 50.0f};
+static struct pi_controller pi_lm = {.kp = 60.0f, .ki = 5.0f};
+static float target_pt = 25.2f;
+static float target_lm = 25.0f;
+static struct status last_status;
+static struct rs485_tx rs485_tx;
+static struct k_spinlock target_lock;
 static struct k_spinlock rs485_lock;
 
 K_TIMER_DEFINE(control_timer, NULL, NULL);
 K_TIMER_DEFINE(telemetry_timer, NULL, NULL);
-
+K_MUTEX_DEFINE(status_mutex);
 K_THREAD_STACK_DEFINE(control_stack, CONTROL_STACK_SIZE);
 K_THREAD_STACK_DEFINE(telemetry_stack, TELEMETRY_STACK_SIZE);
 
 static struct k_thread control_thread_data;
 static struct k_thread telemetry_thread_data;
 
-/* ================= Helpers ================= */
-
-int ads1220_trigger(const struct device *dev);
-int ads1220_fetch(const struct device *dev, int32_t *value);
-
-static float clampf(float value, float min_value, float max_value)
+static float clampf(float value, float min, float max)
 {
-    if (value < min_value) {
-        return min_value;
+    if (value < min) {
+        return min;
     }
-    if (value > max_value) {
-        return max_value;
+    if (value > max) {
+        return max;
     }
-
     return value;
 }
 
-#define INTEGRAL_ENABLE_ERROR 5.0f   // °C
-
-#define INTEGRAL_ENABLE_ERROR 5.0f   // °C
-
-static float pid_compute(PID *pid, float setpoint, float measurement, float dt)
+static float pi_update(struct pi_controller *pi, float target, float measured,
+                       float dt_s)
 {
-    float error = setpoint - measurement;
+    float error = target - measured;
+    float output;
+    float new_integral = pi->integral;
 
-    /* Apsauga nuo blogo dt */
-    float derivative = 0.0f;
-    if (dt > 0.0f) {
-        derivative = (error - pid->prev_error) / dt;
-    }
-
-    float p_term = pid->Kp * error;
-    float i_term = pid->Ki * pid->integral;
-    float d_term = pid->Kd * derivative;
-
-    float output_unsat = p_term + i_term + d_term;
-    float output = clampf(output_unsat, pid->out_min, pid->out_max);
-
-    /* --- Integratoriaus įjungimo sąlyga --- */
-    bool integral_enabled = (fabsf(error) < INTEGRAL_ENABLE_ERROR);
-
-    /* --- Anti-windup logika --- */
-    bool upper_sat = (output_unsat > pid->out_max);
-    bool lower_sat = (output_unsat < pid->out_min);
-
-    if (integral_enabled &&
-        ((!upper_sat && !lower_sat) ||
-         (upper_sat && error < 0.0f) ||
-         (lower_sat && error > 0.0f))) {
-
-        pid->integral += error * dt;
-
-        /* Teisingas integralo ribojimas pagal Ki */
-        if (pid->Ki > 0.0f) {
-            float i_max = pid->out_max / pid->Ki;
-            float i_min = pid->out_min / pid->Ki;
-
-            /* Jei išėjimas 0–100%, leidžiam simetriškai */
-            if (pid->out_min == 0.0f) {
-                i_min = -i_max;
-            }
-
-            pid->integral = clampf(pid->integral, i_min, i_max);
+    if (fabsf(error) < INTEGRAL_ENABLE_ERROR) {
+        new_integral += error * dt_s;
+        if (pi->ki > 0.0f) {
+            float limit = 100.0f / pi->ki;
+            new_integral = clampf(new_integral, -limit, limit);
         }
     }
 
-    pid->prev_error = error;
+    output = clampf((pi->kp * error) + (pi->ki * new_integral), 0.0f, 100.0f);
+
+    if ((output > 0.0f && output < 100.0f) ||
+        (output == 100.0f && error < 0.0f) ||
+        (output == 0.0f && error > 0.0f)) {
+        pi->integral = new_integral;
+    }
+
     return output;
 }
 
-static float compute_dt_s(int64_t now_ms, int64_t *last_ms)
+static float control_dt(int64_t now_ms, int64_t *last_ms)
 {
     float dt_s = (float)CONTROL_PERIOD_MS / 1000.0f;
 
@@ -260,6 +169,102 @@ static float compute_dt_s(int64_t now_ms, int64_t *last_ms)
     return dt_s;
 }
 
+static float pt1000_compensate(float t)
+{
+    return t - ((-0.0052f * t) - 0.2503f);
+}
+
+static float lm35_compensate(float t)
+{
+    return t - ((-0.043f * t) + 0.4421f);
+}
+
+static float pt1000_temp_c(int32_t raw)
+{
+    float r_rtd = (fabsf((float)raw) * RREF_OHM / ADS1220_PT_GAIN) /
+                  ADS1220_FULL_SCALE;
+    float ratio = r_rtd / PT1000_R0;
+    float d = PT_A * PT_A - 4.0f * PT_B * (1.0f - ratio);
+
+    if (d < 0.0f) {
+        d = 0.0f;
+    }
+
+    return ((-PT_A + sqrtf(d)) / (2.0f * PT_B)) - PT1000_OFFSET_C;
+}
+
+static float lm35_temp_c(int32_t raw)
+{
+    float vin = ((float)raw / ADS1220_FULL_SCALE) *
+                (ADS1220_VREF_V / ADS1220_LM35_GAIN);
+
+    return ((vin * 1000.0f) / LM35_MV_PER_C) - LM35_OFFSET_C;
+}
+
+static void read_temperatures(struct temperatures *t,
+                              struct adc_sequence *stm32_seq)
+{
+    t->stm32_v = 0.0f;
+    if (adc_read(adc_stm32, stm32_seq) == 0) {
+        t->stm32_v = ((float)t->stm32_raw * 3.3f) / 4095.0f;
+    }
+
+    ads1220_trigger(adc_pt1000);
+    ads1220_trigger(adc_lm35);
+    ads1220_fetch(adc_pt1000, &t->pt_raw);
+    ads1220_fetch(adc_lm35, &t->lm_raw);
+
+    t->pt_c = pt1000_compensate(pt1000_temp_c(t->pt_raw));
+    t->lm_c = lm35_compensate(lm35_temp_c(t->lm_raw));
+}
+
+static void set_pwm(float pt_percent, float lm_percent)
+{
+    uint32_t pt_pulse = (uint32_t)((PWM_PERIOD_NS * pt_percent) / 100.0f);
+    uint32_t lm_pulse = (uint32_t)((PWM_PERIOD_NS * lm_percent) / 100.0f);
+
+    pwm_set(pwm_dev, PWM_CHANNEL_PT1000, PWM_PERIOD_NS, pt_pulse, 0);
+    pwm_set(pwm_dev, PWM_CHANNEL_LM35, PWM_PERIOD_NS, lm_pulse, 0);
+}
+
+static void save_status(const struct status *status)
+{
+    k_mutex_lock(&status_mutex, K_FOREVER);
+    last_status = *status;
+    k_mutex_unlock(&status_mutex);
+}
+
+static struct status get_status(void)
+{
+    struct status status;
+
+    k_mutex_lock(&status_mutex, K_FOREVER);
+    status = last_status;
+    k_mutex_unlock(&status_mutex);
+
+    return status;
+}
+
+static void get_targets(float *pt, float *lm)
+{
+    k_spinlock_key_t key = k_spin_lock(&target_lock);
+
+    *pt = target_pt;
+    *lm = target_lm;
+
+    k_spin_unlock(&target_lock, key);
+}
+
+static void set_targets(float pt, float lm)
+{
+    k_spinlock_key_t key = k_spin_lock(&target_lock);
+
+    target_pt = pt;
+    target_lm = lm;
+
+    k_spin_unlock(&target_lock, key);
+}
+
 static void serial_send(const char *str)
 {
     while (*str != '\0') {
@@ -267,117 +272,97 @@ static void serial_send(const char *str)
     }
 }
 
-static void rs485_send_irq(const uint8_t *data, size_t len)
+static bool rs485_is_busy(void)
 {
-    bool should_enable_tx = false;
+    bool busy;
     k_spinlock_key_t key = k_spin_lock(&rs485_lock);
 
-    if (!g_rs485_tx.active) {
-        g_rs485_tx.buf = data;
-        g_rs485_tx.len = len;
-        g_rs485_tx.pos = 0U;
-        g_rs485_tx.active = true;
-        should_enable_tx = true;
+    busy = rs485_tx.busy;
+
+    k_spin_unlock(&rs485_lock, key);
+    return busy;
+}
+
+static void rs485_send(const char *text)
+{
+    bool start_tx = false;
+    k_spinlock_key_t key = k_spin_lock(&rs485_lock);
+
+    if (!rs485_tx.busy) {
+        rs485_tx.buf = (const uint8_t *)text;
+        rs485_tx.len = strlen(text);
+        rs485_tx.pos = 0U;
+        rs485_tx.busy = true;
+        start_tx = true;
     }
 
     k_spin_unlock(&rs485_lock, key);
 
-    if (should_enable_tx) {
+    if (start_tx) {
         uart_irq_tx_enable(uart_rs485);
     }
 }
 
-static bool parse_setpoints(const char *buffer)
+static bool parse_setpoints(const char *text)
 {
-    float new_target_pt;
-    float new_target_lm;
+    float pt;
+    float lm;
 
-    if (sscanf(buffer, "%f,%f", &new_target_pt, &new_target_lm) != 2) {
+    if (sscanf(text, "%f,%f", &pt, &lm) != 2) {
         return false;
     }
 
-    k_spinlock_key_t key = k_spin_lock(&control_lock);
-    g_targets.target_pt = new_target_pt;
-    g_targets.target_lm = new_target_lm;
-    g_targets.enabled = true;
-    k_spin_unlock(&control_lock, key);
-
-    printk("NEW SETPOINTS: PT=%.2f LM=%.2f\n", new_target_pt, new_target_lm);
+    set_targets(pt, lm);
+    printk("NEW SETPOINTS: PT=%.2f LM=%.2f\n", pt, lm);
     return true;
 }
 
-static void handle_uart_rx(const struct device *dev)
+static void uart_rx(const struct device *dev)
 {
-    static char rx_buffer[32];
-    static size_t rx_pos;
+    static char buf[32];
+    static size_t pos;
     uint8_t c;
 
-    while (uart_irq_rx_ready(dev)) {
-        if (uart_fifo_read(dev, &c, 1) <= 0) {
-            break;
-        }
-
+    while (uart_irq_rx_ready(dev) && uart_fifo_read(dev, &c, 1) > 0) {
         if (c == '\n' || c == '\r') {
-            rx_buffer[rx_pos] = '\0';
-
-            if (rx_pos > 0U && !parse_setpoints(rx_buffer)) {
-                printk("UART parse error: %s\n", rx_buffer);
+            buf[pos] = '\0';
+            if (pos > 0U && !parse_setpoints(buf)) {
+                printk("UART parse error: %s\n", buf);
             }
-
-            rx_pos = 0U;
-            continue;
-        }
-
-        if (rx_pos < sizeof(rx_buffer) - 1U) {
-            rx_buffer[rx_pos++] = (char)c;
+            pos = 0U;
+        } else if (pos < sizeof(buf) - 1U) {
+            buf[pos++] = (char)c;
         } else {
-            rx_pos = 0U;
+            pos = 0U;
         }
     }
 }
 
-static void handle_uart_tx(const struct device *dev)
+static void rs485_uart_tx_irq(const struct device *dev)
 {
-    bool disable_tx = false;
+    k_spinlock_key_t key;
 
     while (uart_irq_tx_ready(dev)) {
-        const uint8_t *buf;
-        size_t len;
-        size_t pos;
-        int sent;
-
-        k_spinlock_key_t key = k_spin_lock(&rs485_lock);
-
-        if (!g_rs485_tx.active) {
-            k_spin_unlock(&rs485_lock, key);
-            break;
-        }
-
-        buf = g_rs485_tx.buf;
-        len = g_rs485_tx.len;
-        pos = g_rs485_tx.pos;
-        k_spin_unlock(&rs485_lock, key);
-
-        sent = uart_fifo_fill(dev, &buf[pos], len - pos);
-        if (sent <= 0) {
-            break;
-        }
-
         key = k_spin_lock(&rs485_lock);
-        g_rs485_tx.pos += (size_t)sent;
-        if (g_rs485_tx.pos >= g_rs485_tx.len) {
-            g_rs485_tx.active = false;
-            disable_tx = true;
+
+        if (!rs485_tx.busy) {
+            k_spin_unlock(&rs485_lock, key);
+            uart_irq_tx_disable(dev);
+            return;
         }
+
+        int sent = uart_fifo_fill(dev, &rs485_tx.buf[rs485_tx.pos],
+                                  rs485_tx.len - rs485_tx.pos);
+        if (sent > 0) {
+            rs485_tx.pos += (size_t)sent;
+            rs485_tx.busy = rs485_tx.pos < rs485_tx.len;
+        }
+
         k_spin_unlock(&rs485_lock, key);
 
-        if (disable_tx) {
-            break;
+        if (sent <= 0) {
+            return;
         }
-    }
-
-    if (disable_tx) {
-        uart_irq_tx_disable(dev);
     }
 }
 
@@ -385,294 +370,83 @@ static void uart_cb(const struct device *dev, void *user_data)
 {
     ARG_UNUSED(user_data);
 
-    if (!uart_irq_update(dev)) {
-        return;
+    if (uart_irq_update(dev)) {
+        uart_rx(dev);
+        rs485_uart_tx_irq(dev);
     }
-
-    handle_uart_rx(dev);
-    handle_uart_tx(dev);
 }
 
-static bool init_leds(void)
+static bool init_devices(void)
 {
+    if (!device_is_ready(uart_rs485) || !device_is_ready(uart_serial) ||
+        !device_is_ready(adc_pt1000) || !device_is_ready(adc_lm35) ||
+        !device_is_ready(adc_stm32) || !device_is_ready(pwm_dev)) {
+        printk("Required device not ready\n");
+        return false;
+    }
+
     if (!gpio_is_ready_dt(&led1) || !gpio_is_ready_dt(&led2)) {
-        printk("LED GPIO not ready!\n");
+        printk("LED GPIO not ready\n");
         return false;
     }
 
     gpio_pin_configure_dt(&led1, GPIO_OUTPUT_INACTIVE);
     gpio_pin_configure_dt(&led2, GPIO_OUTPUT_INACTIVE);
-    return true;
-}
-
-static bool init_devices(void)
-{
-    if (!device_is_ready(uart_rs485) || !device_is_ready(uart_serial)) {
-        printk("UART device not ready!\n");
-        return false;
-    }
-
-    if (!device_is_ready(adc_pt1000) || !device_is_ready(adc_lm35) ||
-        !device_is_ready(adc_stm32)) {
-        printk("ADC device not ready!\n");
-        return false;
-    }
-
-    if (!device_is_ready(pwm_dev)) {
-        printk("PWM device not ready!\n");
-        return false;
-    }
 
     if (!device_is_ready(ina219_0)) {
-        printk("INA219_0 not ready, continuing without power meter 0\n");
+        printk("INA219_0 not ready, telemetry will show invalid power 0\n");
     }
-
     if (!device_is_ready(ina219_1)) {
-        printk("INA219_1 not ready, continuing without power meter 1\n");
-    }
-
-    return init_leds();
-}
-
-static bool read_stm32_adc(struct temperature_readings *readings,
-                           struct adc_sequence *seq_stm32)
-{
-    if (adc_read(adc_stm32, seq_stm32) != 0) {
-        return false;
-    }
-
-    readings->stm32_voltage = (readings->stm32_raw * 3.3f) / 4095.0f;
-    return true;
-}
-
-static void trigger_external_adcs(void)
-{
-    ads1220_trigger(adc_pt1000);
-    ads1220_trigger(adc_lm35);
-}
-
-static void fetch_external_adc_samples(struct temperature_readings *readings)
-{
-    ads1220_fetch(adc_pt1000, &readings->pt1000_raw);
-    ads1220_fetch(adc_lm35, &readings->lm35_raw);
-}
-
-static float pt1000_raw_to_temp_c(int32_t raw)
-{
-    float r_rtd = (fabsf((float)raw) * RREF_OHM / ADS1220_PT_GAIN) /
-                  ADS1220_FULL_SCALE;
-    float ratio = r_rtd / PT1000_R0;
-    float discriminant = PT_A * PT_A - 4.0f * PT_B * (1.0f - ratio);
-
-    if (discriminant < 0.0f) {
-        discriminant = 0.0f;
-    }
-
-    return ((-PT_A + sqrtf(discriminant)) / (2.0f * PT_B) - PT1000_OFFSET_C);
-}
-
-static float lm35_raw_to_temp_c(int32_t raw)
-{
-    float vin_lm = ((float)raw / ADS1220_FULL_SCALE) *
-                   (ADS1220_VREF_V / ADS1220_LM35_GAIN);
-
-    return (((vin_lm * 1000.0f) / LM35_MV_PER_C) - LM35_OFFSET_C);
-}
-
-static void read_temperatures(struct temperature_readings *readings,
-                              struct adc_sequence *seq_stm32)
-{
-    if (!read_stm32_adc(readings, seq_stm32)) {
-        readings->stm32_voltage = 0.0f;
-    }
-
-    trigger_external_adcs();
-    fetch_external_adc_samples(readings);
-
-    readings->pt1000_temp_c = pt1000_compensate(
-        pt1000_raw_to_temp_c(readings->pt1000_raw));
-    readings->lm35_temp_c = lm35_compensate(
-        lm35_raw_to_temp_c(readings->lm35_raw));
-}
-
-static void apply_pwm_outputs(float pwm_pt1000, float pwm_lm35)
-{
-    uint32_t pulse_pt1000 = (uint32_t)((PWM_PERIOD_NS * pwm_pt1000) / 100.0f);
-    uint32_t pulse_lm35 = (uint32_t)((PWM_PERIOD_NS * pwm_lm35) / 100.0f);
-
-    pwm_set(pwm_dev, PWM_CHANNEL_PT1000, PWM_PERIOD_NS, pulse_pt1000, 0);
-    pwm_set(pwm_dev, PWM_CHANNEL_LM35, PWM_PERIOD_NS, pulse_lm35, 0);
-}
-
-static void capture_snapshot(const struct temperature_readings *readings,
-                             int64_t now_ms,
-                             float dt_s,
-                             float pwm_pt1000,
-                             float pwm_lm35,
-                             float target_pt,
-                             float target_lm)
-{
-    static uint32_t next_sequence = 0;
-    k_spinlock_key_t key = k_spin_lock(&control_lock);
-
-    g_snapshot.sequence = next_sequence++;
-    g_snapshot.timestamp_ms = now_ms;
-    g_snapshot.dt_s = dt_s;
-    g_snapshot.target_pt = target_pt;
-    g_snapshot.target_lm = target_lm;
-    g_snapshot.pwm_pt1000 = pwm_pt1000;
-    g_snapshot.pwm_lm35 = pwm_lm35;
-    g_snapshot.readings = *readings;
-
-    k_spin_unlock(&control_lock, key);
-}
-
-static struct control_targets get_control_targets(void)
-{
-    struct control_targets targets;
-    k_spinlock_key_t key = k_spin_lock(&control_lock);
-
-    targets = g_targets;
-
-    k_spin_unlock(&control_lock, key);
-    return targets;
-}
-
-static struct control_snapshot get_control_snapshot(void)
-{
-    struct control_snapshot snapshot;
-    k_spinlock_key_t key = k_spin_lock(&control_lock);
-
-    snapshot = g_snapshot;
-
-    k_spin_unlock(&control_lock, key);
-    return snapshot;
-}
-
-static bool read_power_measurement(const struct device *dev,
-                                   struct power_measurement *measurement)
-{
-    if (!device_is_ready(dev)) {
-        return false;
-    }
-
-    if (sensor_sample_fetch(dev) != 0) {
-        return false;
-    }
-
-    if (sensor_channel_get(dev, SENSOR_CHAN_VOLTAGE,
-                           &measurement->voltage) != 0) {
-        return false;
-    }
-
-    if (sensor_channel_get(dev, SENSOR_CHAN_CURRENT,
-                           &measurement->current) != 0) {
-        return false;
-    }
-
-    if (sensor_channel_get(dev, SENSOR_CHAN_POWER,
-                           &measurement->power) != 0) {
-        return false;
+        printk("INA219_1 not ready, telemetry will show invalid power 1\n");
     }
 
     return true;
 }
 
-static bool rs485_tx_is_active(void)
+static bool read_power(const struct device *dev, struct sensor_value *voltage,
+                       struct sensor_value *current, struct sensor_value *power)
 {
-    bool active;
-    k_spinlock_key_t key = k_spin_lock(&rs485_lock);
-
-    active = g_rs485_tx.active;
-
-    k_spin_unlock(&rs485_lock, key);
-    return active;
+    return device_is_ready(dev) &&
+           sensor_sample_fetch(dev) == 0 &&
+           sensor_channel_get(dev, SENSOR_CHAN_VOLTAGE, voltage) == 0 &&
+           sensor_channel_get(dev, SENSOR_CHAN_CURRENT, current) == 0 &&
+           sensor_channel_get(dev, SENSOR_CHAN_POWER, power) == 0;
 }
 
-static void publish_rs485_status(const struct control_snapshot *snapshot)
-{
-    static char rs485_buf[64];
-
-    if (rs485_tx_is_active()) {
-        return;
-    }
-
-    snprintf(rs485_buf, sizeof(rs485_buf),
-             "SET PT=%.2f LM=%.2f\n",
-             snapshot->target_pt,
-             snapshot->target_lm);
-
-    rs485_send_irq((const uint8_t *)rs485_buf, strlen(rs485_buf));
-}
-
-static void update_led(const struct gpio_dt_spec *led,
-                       struct led_blink_state *blink,
-                       int64_t now_ms,
-                       int64_t interval_ms)
-{
-    if ((now_ms - blink->last_toggle_ms) < interval_ms) {
-        return;
-    }
-
-    blink->state = !blink->state;
-    gpio_pin_set_dt(led, blink->state);
-    blink->last_toggle_ms = now_ms;
-}
-
-static void update_leds(int64_t now_ms,
-                        struct led_blink_state *led1_blink,
-                        struct led_blink_state *led2_blink)
-{
-    update_led(&led1, led1_blink, now_ms, LED1_BLINK_MS);
-    update_led(&led2, led2_blink, now_ms, LED2_BLINK_MS);
-}
-
-static void log_snapshot(const struct control_snapshot *snapshot,
-                         const struct power_measurement *power0,
-                         const struct power_measurement *power1)
+static void log_telemetry(const struct status *s)
 {
     char buf[320];
-    double power0_voltage = NAN;
-    double power0_current = NAN;
-    double power0_power = NAN;
-    double power1_voltage = NAN;
-    double power1_current = NAN;
-    double power1_power = NAN;
-
-    if (power0->valid) {
-        power0_voltage = sensor_value_to_double(&power0->voltage);
-        power0_current = sensor_value_to_double(&power0->current);
-        power0_power = sensor_value_to_double(&power0->power);
-    }
-
-    if (power1->valid) {
-        power1_voltage = sensor_value_to_double(&power1->voltage);
-        power1_current = sensor_value_to_double(&power1->current);
-        power1_power = sensor_value_to_double(&power1->power);
-    }
+    struct sensor_value v0;
+    struct sensor_value c0;
+    struct sensor_value p0;
+    struct sensor_value v1;
+    struct sensor_value c1;
+    struct sensor_value p1;
+    bool power0_ok = read_power(ina219_0, &v0, &c0, &p0);
+    bool power1_ok = read_power(ina219_1, &v1, &c1, &p1);
 
     snprintf(buf, sizeof(buf),
              "TEL,%lu,%lld,%.3f,%.3f,%.3f,%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%.6f,%.6f,%.6f,%d,%.6f,%.6f,%.6f\r\n",
-             (unsigned long)snapshot->sequence,
-             snapshot->timestamp_ms,
-             snapshot->dt_s,
-             snapshot->readings.pt1000_temp_c,
-             snapshot->readings.lm35_temp_c,
-             snapshot->target_pt,
-             snapshot->target_lm,
-             snapshot->pwm_pt1000,
-             snapshot->pwm_lm35,
-             snapshot->readings.pt1000_raw,
-             snapshot->readings.lm35_raw,
-             snapshot->readings.stm32_raw,
-             power0->valid ? 1 : 0,
-             power0_voltage,
-             power0_current,
-             power0_power,
-             power1->valid ? 1 : 0,
-             power1_voltage,
-             power1_current,
-             power1_power);
+             (unsigned long)s->seq,
+             s->time_ms,
+             s->dt_s,
+             s->temp.pt_c,
+             s->temp.lm_c,
+             s->target_pt,
+             s->target_lm,
+             s->pwm_pt,
+             s->pwm_lm,
+             s->temp.pt_raw,
+             s->temp.lm_raw,
+             s->temp.stm32_raw,
+             power0_ok ? 1 : 0,
+             power0_ok ? sensor_value_to_double(&v0) : NAN,
+             power0_ok ? sensor_value_to_double(&c0) : NAN,
+             power0_ok ? sensor_value_to_double(&p0) : NAN,
+             power1_ok ? 1 : 0,
+             power1_ok ? sensor_value_to_double(&v1) : NAN,
+             power1_ok ? sensor_value_to_double(&c1) : NAN,
+             power1_ok ? sensor_value_to_double(&p1) : NAN);
 
     serial_send(buf);
 }
@@ -683,52 +457,30 @@ static void control_thread(void *arg1, void *arg2, void *arg3)
     ARG_UNUSED(arg2);
     ARG_UNUSED(arg3);
 
-    struct temperature_readings readings = {0};
-    struct adc_sequence seq_stm32 = {
+    static uint32_t seq;
+    int64_t last_ms = 0;
+    struct status s = {0};
+    struct adc_sequence stm32_seq = {
         .channels = BIT(16),
-        .buffer = &readings.stm32_raw,
-        .buffer_size = sizeof(readings.stm32_raw),
+        .buffer = &s.temp.stm32_raw,
+        .buffer_size = sizeof(s.temp.stm32_raw),
         .resolution = 12,
     };
-    int64_t last_control_ms = 0;
 
-    while (1) {
-        struct control_targets targets;
-        int64_t now_ms;
-        float dt_s;
-        float pwm_pt1000 = 0.0f;
-        float pwm_lm35 = 0.0f;
-
+    while (true) {
         k_timer_status_sync(&control_timer);
 
-        now_ms = k_uptime_get();
-        dt_s = compute_dt_s(now_ms, &last_control_ms);
-        targets = get_control_targets();
+        s.seq = seq++;
+        s.time_ms = k_uptime_get();
+        s.dt_s = control_dt(s.time_ms, &last_ms);
+        get_targets(&s.target_pt, &s.target_lm);
 
-        read_temperatures(&readings, &seq_stm32);
+        read_temperatures(&s.temp, &stm32_seq);
+        s.pwm_pt = pi_update(&pi_pt, s.target_pt, s.temp.pt_c, s.dt_s);
+        s.pwm_lm = pi_update(&pi_lm, s.target_lm, s.temp.lm_c, s.dt_s);
 
-        if (targets.enabled) {
-            pwm_pt1000 = pid_compute(&pid_pt1000,
-                                     targets.target_pt,
-                                     readings.pt1000_temp_c,
-                                     dt_s);
-
-            pwm_lm35 = pid_compute(&pid_lm35,
-                                   targets.target_lm,
-                                   readings.lm35_temp_c,
-                                   dt_s);
-            //pwm_pt1000 = 60.0f;   // force 60%
-            //pwm_lm35   = 0.0f;    // force 0%    
-        }
-
-        apply_pwm_outputs(pwm_pt1000, pwm_lm35);
-        capture_snapshot(&readings,
-                         now_ms,
-                         dt_s,
-                         pwm_pt1000,
-                         pwm_lm35,
-                         targets.target_pt,
-                         targets.target_lm);
+        set_pwm(s.pwm_pt, s.pwm_lm);
+        save_status(&s);
     }
 }
 
@@ -738,35 +490,44 @@ static void telemetry_thread(void *arg1, void *arg2, void *arg3)
     ARG_UNUSED(arg2);
     ARG_UNUSED(arg3);
 
-    struct led_blink_state led1_blink = {0};
-    struct led_blink_state led2_blink = {0};
-    int64_t last_rs485_status_ms = 0;
+    bool led1_on = false;
+    bool led2_on = false;
+    int64_t last_led1_ms = 0;
+    int64_t last_led2_ms = 0;
+    int64_t last_rs485_ms = 0;
+    static char rs485_buf[64];
 
-    while (1) {
-        struct control_snapshot snapshot;
-        struct power_measurement power0 = {0};
-        struct power_measurement power1 = {0};
+    while (true) {
         int64_t now_ms;
+        struct status s;
 
         k_timer_status_sync(&telemetry_timer);
 
         now_ms = k_uptime_get();
-        snapshot = get_control_snapshot();
+        s = get_status();
+        log_telemetry(&s);
 
-        power0.valid = read_power_measurement(ina219_0, &power0);
-        power1.valid = read_power_measurement(ina219_1, &power1);
+        if ((now_ms - last_led1_ms) >= LED1_BLINK_MS) {
+            led1_on = !led1_on;
+            gpio_pin_set_dt(&led1, led1_on);
+            last_led1_ms = now_ms;
+        }
 
-        log_snapshot(&snapshot, &power0, &power1);
-        update_leds(now_ms, &led1_blink, &led2_blink);
+        if ((now_ms - last_led2_ms) >= LED2_BLINK_MS) {
+            led2_on = !led2_on;
+            gpio_pin_set_dt(&led2, led2_on);
+            last_led2_ms = now_ms;
+        }
 
-        if ((now_ms - last_rs485_status_ms) >= RS485_STATUS_PERIOD_MS) {
-            publish_rs485_status(&snapshot);
-            last_rs485_status_ms = now_ms;
+        if (!rs485_is_busy() &&
+            (now_ms - last_rs485_ms) >= RS485_STATUS_PERIOD_MS) {
+            snprintf(rs485_buf, sizeof(rs485_buf), "SET PT=%.2f LM=%.2f\n",
+                     s.target_pt, s.target_lm);
+            rs485_send(rs485_buf);
+            last_rs485_ms = now_ms;
         }
     }
 }
-
-/* ================= Main ================= */
 
 int main(void)
 {
@@ -782,27 +543,14 @@ int main(void)
     k_timer_start(&control_timer, K_NO_WAIT, K_MSEC(CONTROL_PERIOD_MS));
     k_timer_start(&telemetry_timer, K_NO_WAIT, K_MSEC(TELEMETRY_PERIOD_MS));
 
-    k_thread_create(&control_thread_data,
-                    control_stack,
-                    K_THREAD_STACK_SIZEOF(control_stack),
-                    control_thread,
-                    NULL, NULL, NULL,
-                    CONTROL_PRIORITY,
-                    0,
-                    K_NO_WAIT);
+    k_thread_create(&control_thread_data, control_stack,
+                    K_THREAD_STACK_SIZEOF(control_stack), control_thread,
+                    NULL, NULL, NULL, CONTROL_PRIORITY, 0, K_NO_WAIT);
 
-    k_thread_create(&telemetry_thread_data,
-                    telemetry_stack,
-                    K_THREAD_STACK_SIZEOF(telemetry_stack),
-                    telemetry_thread,
-                    NULL, NULL, NULL,
-                    TELEMETRY_PRIORITY,
-                    0,
-                    K_NO_WAIT);
+    k_thread_create(&telemetry_thread_data, telemetry_stack,
+                    K_THREAD_STACK_SIZEOF(telemetry_stack), telemetry_thread,
+                    NULL, NULL, NULL, TELEMETRY_PRIORITY, 0, K_NO_WAIT);
 
-    while (1) {
-        k_sleep(K_FOREVER);
-    }
-
+    k_sleep(K_FOREVER);
     return 0;
 }
