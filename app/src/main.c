@@ -156,7 +156,7 @@ static float pi_update(struct pi_controller *pi, float target, float measured,
     return output;
 }
 
-static float control_dt(int64_t now_ms, int64_t *last_ms)
+static float control_dt(int64_t now_ms, int64_t *last_ms) //Apskaiciuojamas realus laikas integracijai, o ne fiksuotas 200ms
 {
     float dt_s = (float)CONTROL_PERIOD_MS / 1000.0f;
 
@@ -245,7 +245,7 @@ static struct status get_status(void)
     return status;
 }
 
-static void get_targets(float *pt, float *lm)
+static void get_targets(float *pt, float *lm) //Naudojam spinlock, nes ISR negalim naudot mutex, o ir set_targets gali but iskviestas is ISR, tai reikia apsaugot nuo konkurencijos
 {
     k_spinlock_key_t key = k_spin_lock(&target_lock);
 
