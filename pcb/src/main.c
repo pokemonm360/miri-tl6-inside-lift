@@ -3,6 +3,7 @@
 #include <zephyr/devicetree.h>
 #include <zephyr/drivers/adc.h>
 #include <zephyr/drivers/gpio.h>
+#include <zephyr/drivers/pwm.h>
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/drivers/uart.h>
 #include <zephyr/spinlock.h>
@@ -19,6 +20,7 @@
 #define UART_SERIAL_NODE DT_NODELABEL(usart2)
 #define LED1_NODE        DT_NODELABEL(led1)
 #define LED2_NODE        DT_NODELABEL(led2)
+#define PWM_NODE         DT_NODELABEL(pwm2)
 
 static const struct device *uart_rs485 = DEVICE_DT_GET(UART_RS485_NODE);
 static const struct device *uart_serial = DEVICE_DT_GET(UART_SERIAL_NODE);
@@ -27,6 +29,7 @@ static const struct gpio_dt_spec led2 = GPIO_DT_SPEC_GET(LED2_NODE, gpios);
 static const struct device *adc_pt1000 = DEVICE_DT_GET(DT_NODELABEL(ads1220_0));
 static const struct device *adc_lm35 = DEVICE_DT_GET(DT_NODELABEL(ads1220_1));
 static const struct device *adc_stm32 = DEVICE_DT_GET(DT_NODELABEL(adc1));
+static const struct device *pwm_dev = DEVICE_DT_GET(PWM_NODE);
 static const struct device *ina236_0 = DEVICE_DT_GET(DT_NODELABEL(ina236_0));
 static const struct device *ina236_1 = DEVICE_DT_GET(DT_NODELABEL(ina236_1));
 
@@ -44,6 +47,10 @@ static const struct device *ina236_1 = DEVICE_DT_GET(DT_NODELABEL(ina236_1));
 #define PT1000_OFFSET_C 0.0f
 #define LM35_OFFSET_C   0.0f
 
+#define PWM_PERIOD_NS      1000000U
+#define PWM_CHANNEL_PT1000 2U
+#define PWM_CHANNEL_LM35   1U
+
 #define CONTROL_PERIOD_MS      200
 #define TELEMETRY_PERIOD_MS    200
 #define RS485_STATUS_PERIOD_MS 1000
@@ -51,6 +58,7 @@ static const struct device *ina236_1 = DEVICE_DT_GET(DT_NODELABEL(ina236_1));
 #define LED2_BLINK_MS         4000
 #define MIN_CONTROL_DT_S      0.05f
 #define MAX_CONTROL_DT_S      1.0f
+#define INTEGRAL_ENABLE_ERROR 5.0f
 
 #define CONTROL_STACK_SIZE   3072
 #define TELEMETRY_STACK_SIZE 3072
@@ -59,6 +67,12 @@ static const struct device *ina236_1 = DEVICE_DT_GET(DT_NODELABEL(ina236_1));
 
 int ads1220_trigger(const struct device *dev);
 int ads1220_fetch(const struct device *dev, int32_t *value);
+
+struct pi_controller {
+    float kp;
+    float ki;
+    float integral;
+};
 
 struct temperatures {
     int16_t stm32_raw;
@@ -75,8 +89,8 @@ struct status {
     float dt_s;
     float target_pt;
     float target_lm;
-    float output_pt;
-    float output_lm;
+    float pwm_pt;
+    float pwm_lm;
     struct temperatures temp;
 };
 
@@ -87,6 +101,8 @@ struct rs485_tx {
     bool busy;
 };
 
+static struct pi_controller pi_pt = {.kp = 300.0f, .ki = 50.0f};
+static struct pi_controller pi_lm = {.kp = 60.0f, .ki = 5.0f};
 static float target_pt = 25.2f;
 static float target_lm = 25.0f;
 static struct status last_status;
@@ -112,6 +128,32 @@ static float clampf(float value, float min, float max)
         return max;
     }
     return value;
+}
+
+static float pi_update(struct pi_controller *pi, float target, float measured,
+                       float dt_s)
+{
+    float error = target - measured;
+    float output;
+    float new_integral = pi->integral;
+
+    if (fabsf(error) < INTEGRAL_ENABLE_ERROR) {
+        new_integral += error * dt_s;
+        if (pi->ki > 0.0f) {
+            float limit = 100.0f / pi->ki;
+            new_integral = clampf(new_integral, -limit, limit);
+        }
+    }
+
+    output = clampf((pi->kp * error) + (pi->ki * new_integral), 0.0f, 100.0f);
+
+    if ((output > 0.0f && output < 100.0f) ||
+        (output == 100.0f && error < 0.0f) ||
+        (output == 0.0f && error > 0.0f)) {
+        pi->integral = new_integral;
+    }
+
+    return output;
 }
 
 static float control_dt(int64_t now_ms, int64_t *last_ms) //Apskaiciuojamas realus laikas integracijai, o ne fiksuotas 200ms
@@ -174,6 +216,15 @@ static void read_temperatures(struct temperatures *t,
 
     t->pt_c = pt1000_compensate(pt1000_temp_c(t->pt_raw));
     t->lm_c = lm35_compensate(lm35_temp_c(t->lm_raw));
+}
+
+static void set_pwm(float pt_percent, float lm_percent)
+{
+    uint32_t pt_pulse = (uint32_t)((PWM_PERIOD_NS * pt_percent) / 100.0f);
+    uint32_t lm_pulse = (uint32_t)((PWM_PERIOD_NS * lm_percent) / 100.0f);
+
+    pwm_set(pwm_dev, PWM_CHANNEL_PT1000, PWM_PERIOD_NS, pt_pulse, 0);
+    pwm_set(pwm_dev, PWM_CHANNEL_LM35, PWM_PERIOD_NS, lm_pulse, 0);
 }
 
 static void save_status(const struct status *status)
@@ -329,7 +380,7 @@ static bool init_devices(void)
 {
     if (!device_is_ready(uart_rs485) || !device_is_ready(uart_serial) ||
         !device_is_ready(adc_pt1000) || !device_is_ready(adc_lm35) ||
-        !device_is_ready(adc_stm32)) {
+        !device_is_ready(adc_stm32) || !device_is_ready(pwm_dev)) {
         printk("Required device not ready\n");
         return false;
     }
@@ -383,8 +434,8 @@ static void log_telemetry(const struct status *s)
              s->temp.lm_c,
              s->target_pt,
              s->target_lm,
-             s->output_pt,
-             s->output_lm,
+             s->pwm_pt,
+             s->pwm_lm,
              s->temp.pt_raw,
              s->temp.lm_raw,
              s->temp.stm32_raw,
@@ -425,8 +476,10 @@ static void control_thread(void *arg1, void *arg2, void *arg3)
         get_targets(&s.target_pt, &s.target_lm);
 
         read_temperatures(&s.temp, &stm32_seq);
-        s.output_pt = 0.0f;
-        s.output_lm = 0.0f;
+        s.pwm_pt = pi_update(&pi_pt, s.target_pt, s.temp.pt_c, s.dt_s);
+        s.pwm_lm = pi_update(&pi_lm, s.target_lm, s.temp.lm_c, s.dt_s);
+
+        set_pwm(s.pwm_pt, s.pwm_lm);
         save_status(&s);
     }
 }

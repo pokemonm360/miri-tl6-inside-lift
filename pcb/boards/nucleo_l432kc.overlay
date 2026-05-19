@@ -2,6 +2,8 @@
 #include <zephyr/dt-bindings/adc/adc.h>
 #include <zephyr/dt-bindings/sensor/ina230.h>
 
+// To change pwm channels change it in main.c as well as here.
+
 / {
     leds {
         compatible = "gpio-leds";
@@ -15,6 +17,17 @@
             gpios = <&gpioa 8 GPIO_ACTIVE_HIGH>;
             label = "LED2_PA8";
         };
+    };
+};
+
+&timers2 {
+    status = "okay";
+
+    pwm2: pwm {
+        status = "okay";
+        //pinctrl-0 = <&tim2_ch2_pa1 &tim2_ch4_pa3>;
+        pinctrl-0 = <&tim2_ch2_pa1 &tim2_ch1_pa15>;
+        pinctrl-names = "default";
     };
 };
 
