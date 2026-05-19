@@ -50,6 +50,7 @@ static const struct device *ina236_1 = DEVICE_DT_GET(DT_NODELABEL(ina236_1));
 #define PWM_PERIOD_NS      1000000U
 #define PWM_CHANNEL_PT1000 2U
 #define PWM_CHANNEL_LM35   1U
+#define PWM_MAX_PERCENT    30.0f
 
 #define CONTROL_PERIOD_MS      200
 #define TELEMETRY_PERIOD_MS    200
@@ -145,10 +146,11 @@ static float pi_update(struct pi_controller *pi, float target, float measured,
         }
     }
 
-    output = clampf((pi->kp * error) + (pi->ki * new_integral), 0.0f, 100.0f);
+    output = clampf((pi->kp * error) + (pi->ki * new_integral), 0.0f,
+                    PWM_MAX_PERCENT);
 
-    if ((output > 0.0f && output < 100.0f) ||
-        (output == 100.0f && error < 0.0f) ||
+    if ((output > 0.0f && output < PWM_MAX_PERCENT) ||
+        (output == PWM_MAX_PERCENT && error < 0.0f) ||
         (output == 0.0f && error > 0.0f)) {
         pi->integral = new_integral;
     }
