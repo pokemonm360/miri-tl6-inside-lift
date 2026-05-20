@@ -48,9 +48,9 @@ static const struct device *ina236_1 = DEVICE_DT_GET(DT_NODELABEL(ina236_1));
 #define LM35_OFFSET_C   0.0f
 
 #define PWM_PERIOD_NS      1000000U
-#define PWM_CHANNEL_PT1000 2U
-#define PWM_CHANNEL_LM35   1U
-#define PWM_MAX_PERCENT    30.0f
+#define PWM_CHANNEL_PT1000 1U
+#define PWM_CHANNEL_LM35   2U
+#define PWM_MAX_PERCENT    100.0f
 
 #define CONTROL_PERIOD_MS      200
 #define TELEMETRY_PERIOD_MS    200
@@ -173,12 +173,12 @@ static float control_dt(int64_t now_ms, int64_t *last_ms) //Apskaiciuojamas real
 
 static float pt1000_compensate(float t)
 {
-    return t - ((-0.0052f * t) - 0.2503f);
+    return t ;//- ((-0.0052f * t) - 0.2503f);
 }
 
 static float lm35_compensate(float t)
 {
-    return t - ((-0.043f * t) + 0.4421f);
+    return t ;//- ((-0.043f * t) + 0.4421f);
 }
 
 static float pt1000_temp_c(int32_t raw)
