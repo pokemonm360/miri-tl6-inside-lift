@@ -38,7 +38,7 @@ static const struct device *ina236_1 = DEVICE_DT_GET(DT_NODELABEL(ina236_1));
 #define ADS1220_VREF_V     2.048f
 #define ADS1220_PT_GAIN    4.0f
 #define ADS1220_LM35_GAIN  4.0f
-#define RREF_OHM           5085.0f
+#define RREF_OHM           4990.0f
 #define PT1000_R0          1000.0f
 #define PT_A               3.9083e-3f
 #define PT_B              -5.775e-7f
