@@ -173,12 +173,12 @@ static float control_dt(int64_t now_ms, int64_t *last_ms) //Apskaiciuojamas real
 
 static float pt1000_compensate(float t)
 {
-    return t ;//- ((-0.0052f * t) - 0.2503f);
+    return t - ((-0.0052f * t) - 0.2485f);
 }
 
 static float lm35_compensate(float t)
 {
-    return t ;//- ((-0.043f * t) + 0.4421f);
+    return t - ((-0.0429f * t) + 0.4414f);
 }
 
 static float pt1000_temp_c(int32_t raw)
