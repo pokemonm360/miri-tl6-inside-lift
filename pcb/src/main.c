@@ -173,12 +173,20 @@ static float control_dt(int64_t now_ms, int64_t *last_ms) //Apskaiciuojamas real
 
 static float pt1000_compensate(float t)
 {
-    return t - ((-0.0052f * t) - 0.2485f);
+    //float err = (-0.0003f * t * t) + (0.0173f * t) -0.0225f; pradine lygtis kur daugmaz ok
+    //float err = (-0.0008f * t * t) + (0.0539f * t) - 0.6158f;
+    //float err = (-0.0007f * t * t) + (0.0505f * t) - 0.5457f;
+    float err = (-0.00003f * t * t) + (-0.0041f * t) + 0.3738f;
+    return t - err;
 }
 
 static float lm35_compensate(float t)
 {
-    return t - ((-0.0429f * t) + 0.4414f);
+    //float err = (-0.0012f * t * t) + (0.0583f * t) - 1.1303f; pradine lygtis kur daugmaz ok
+    //float err = (0.0017f * t * t) - (0.1433f * t) + 2.1326f;
+    //float err = (0.001f * t * t) - (0.0884f * t) + 1.0116f;
+    float err = (0.0002f * t * t) - (0.0327f * t) + 0.124f;
+    return t - err;
 }
 
 static float pt1000_temp_c(int32_t raw)
