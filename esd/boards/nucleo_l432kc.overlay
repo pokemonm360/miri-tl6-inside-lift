@@ -1,0 +1,160 @@
+#include <zephyr/dt-bindings/gpio/gpio.h>
+#include <zephyr/dt-bindings/adc/adc.h>
+#include <zephyr/dt-bindings/sensor/ina230.h>
+
+// To change pwm channels change it in main.c as well as here.
+
+/ {
+    leds {
+        compatible = "gpio-leds";
+
+        led1: led_1 {
+            gpios = <&gpioa 11 GPIO_ACTIVE_HIGH>;
+            label = "LED1_PA11";
+        };
+
+        led2: led_2 {
+            gpios = <&gpioa 8 GPIO_ACTIVE_HIGH>;
+            label = "LED2_PA8";
+        };
+    };
+};
+
+&timers2 {
+    status = "okay";
+
+    pwm2: pwm {
+        status = "okay";
+        //pinctrl-0 = <&tim2_ch2_pa1 &tim2_ch4_pa3>;
+        pinctrl-0 = <&tim2_ch2_pa1 &tim2_ch1_pa15>;
+        pinctrl-names = "default";
+    };
+};
+
+&spi1 {
+    status = "okay";
+
+    /* Naudojam default board pinctrl */
+    pinctrl-0 = </*&spi1_nss_pa4*/ &spi1_sck_pa5
+                 &spi1_miso_pa6 &spi1_mosi_pa7>;
+    pinctrl-names = "default";
+
+    /* CS per PA4 */
+    cs-gpios = <
+        &gpiob 5 GPIO_ACTIVE_LOW /*PT1000*/
+        &gpioa 4 GPIO_ACTIVE_LOW /*LM35*/
+    >;
+
+    /*ADS1220 PT1000*/
+    ads1220_0: ads1220@0 {
+        compatible = "ti,ads1220";
+        reg = <0>;
+        spi-max-frequency = <1000000>;
+
+        /* Atskiras DRDY pinas */
+        drdy-gpios = <&gpiob 4 GPIO_ACTIVE_LOW>;
+        // pga-bypass;
+        data-rate = <0>;
+        operating-mode = <0>;
+
+        idac-magnitude-microamp = <250>;
+        idac1-routing = <4>;        /* AIN3 */
+        idac2-routing = <0>;        /* Disabled */
+
+        #io-channel-cells = <1>;
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        channel@0 {
+            reg = <0>;
+
+            zephyr,differential;
+            zephyr,input-positive = <0>;   /* AIN0 */
+            zephyr,input-negative = <1>;   /* AIN1 */
+
+            zephyr,gain = "ADC_GAIN_4";
+            zephyr,reference = "ADC_REF_EXTERNAL0";
+            zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        };
+    };
+
+    /*ADS1220 LM35*/
+    ads1220_1: ads1220@1 {
+        compatible = "ti,ads1220";
+        reg = <1>;
+        spi-max-frequency = <1000000>;
+        data-rate = <0>;
+        /* Atskiras DRDY pinas */
+        drdy-gpios = <&gpiob 0 GPIO_ACTIVE_LOW>;
+        pga-bypass;
+
+        #io-channel-cells = <1>;
+        #address-cells = <1>;
+        #size-cells = <0>;
+
+        channel@0 {
+            reg = <0>;
+            zephyr,gain = "ADC_GAIN_4";
+            zephyr,reference = "ADC_REF_INTERNAL";
+            zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+        };
+    };
+
+};
+
+&usart2 {
+    current-speed = <921600>;
+    //pinctrl-0 = <&usart2_tx_pa2 &usart2_rx_pa15>;
+
+    pinctrl-0 = <&usart2_tx_pa2 &usart2_rx_pa3>;
+};
+
+&usart1 {
+    status = "okay";
+    current-speed = <115200>;
+
+    pinctrl-0 = <
+        &usart1_tx_pa9
+        &usart1_rx_pa10
+        &usart1_de_pa12
+    >;
+
+    de-enable;
+    de-assert-time = <1>;
+    de-deassert-time = <1>;
+
+    pinctrl-names = "default";
+};
+
+&adc1 {
+    status = "okay";
+    st,adc-clock-source = "SYNC";
+    st,adc-prescaler = <4>;
+    pinctrl-0 = <&adc1_in16_pb1>;
+    pinctrl-names = "default";
+};
+
+&i2c1 {
+    pinctrl-0 = <&i2c1_scl_pb6 &i2c1_sda_pb7>;
+    pinctrl-names = "default";
+    clock-frequency = <I2C_BITRATE_FAST>;
+    status = "okay";
+
+    ina236_0: ina236@40 {
+        compatible = "ti,ina236";
+        reg = <0x40>;
+        label = "INA236_0";
+
+        rshunt-micro-ohms = <100000>;
+        current-lsb-microamps = <100>;
+    };
+
+    ina236_1: ina236@41 {
+        compatible = "ti,ina236";
+        reg = <0x41>;
+        label = "INA236_1";
+
+        rshunt-micro-ohms = <100000>;
+        current-lsb-microamps = <100>;
+    };
+};

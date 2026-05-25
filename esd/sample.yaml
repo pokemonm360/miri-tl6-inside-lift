@@ -1,0 +1,15 @@
+# This file is provided so that the application can be compiled using Twister,
+# the Zephyr testing tool. In this file, multiple combinations can be specified,
+# so that you can easily test all of them locally or in CI.
+sample:
+  description: PCB application without heater outputs
+  name: pcb-application
+common:
+  build_only: true
+  integration_platforms:
+    - nucleo_l432kc
+tests:
+  app.default: {}
+  app.debug:
+    extra_overlay_confs:
+      - debug.conf
