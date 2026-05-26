@@ -103,8 +103,8 @@ struct rs485_tx {
 
 static struct pi_controller pi_pt = {.kp = 300.0f, .ki = 50.0f};
 static struct pi_controller pi_lm = {.kp = 60.0f, .ki = 5.0f};
-static float target_pt = 25.2f;
-static float target_lm = 25.0f;
+static float target_pt = 37.2f;
+static float target_lm = 37.0f;
 static struct status last_status;
 static struct rs485_tx rs485_tx;
 static struct k_spinlock target_lock;
@@ -185,7 +185,7 @@ static float lm35_compensate(float t)
     //float err = (0.0017f * t * t) - (0.1433f * t) + 2.1326f;
     //float err = (0.001f * t * t) - (0.0884f * t) + 1.0116f;
     float err = (0.0002f * t * t) - (0.0327f * t) + 0.124f;
-    return t - err;
+    return t - err + 1.3f;
 }
 
 static float pt1000_temp_c(int32_t raw)
