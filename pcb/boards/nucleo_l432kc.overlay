@@ -146,8 +146,12 @@
         reg = <0x40>;
         label = "INA236_0";
 
-        rshunt-micro-ohms = <100000>;
-        current-lsb-microamps = <100>;
+        rshunt-micro-ohms = <15000>;
+        current-lsb-microamps = <30>;
+        high-precision;
+        vshunt-conversion-time-us = <8244>;
+        vbus-conversion-time-us = <8244>;
+        avg-count = <16>;
     };
 
     ina236_1: ina236@41 {
@@ -155,8 +159,12 @@
         reg = <0x41>;
         label = "INA236_1";
 
-        rshunt-micro-ohms = <100000>;
-        current-lsb-microamps = <100>;
+        rshunt-micro-ohms = <15000>;
+        current-lsb-microamps = <30>;
+        high-precision;
+        vshunt-conversion-time-us = <8244>;
+        vbus-conversion-time-us = <8244>;
+        avg-count = <16>;
     };
 };
 
