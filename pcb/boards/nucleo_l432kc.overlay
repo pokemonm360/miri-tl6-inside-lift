@@ -102,8 +102,6 @@
 
 &usart2 {
     current-speed = <921600>;
-    //pinctrl-0 = <&usart2_tx_pa2 &usart2_rx_pa15>;
-
     pinctrl-0 = <&usart2_tx_pa2 &usart2_rx_pa3>;
 };
 
@@ -122,6 +120,11 @@
     de-deassert-time = <1>;
 
     pinctrl-names = "default";
+
+    modbus0 {
+        compatible = "zephyr,modbus-serial";
+        status = "okay";
+    };
 };
 
 &adc1 {

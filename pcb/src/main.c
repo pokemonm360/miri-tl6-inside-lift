@@ -6,6 +6,7 @@
 #include <zephyr/drivers/pwm.h>
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/drivers/uart.h>
+#include <zephyr/modbus/modbus.h>
 #include <zephyr/spinlock.h>
 #include <zephyr/sys/printk.h>
 
@@ -15,13 +16,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
-#include <string.h>
 
 /* Hardware */
 #define UART_RS485_NODE  DT_NODELABEL(usart1)
 #define UART_SERIAL_NODE DT_NODELABEL(usart2)
 #define LED1_NODE        DT_NODELABEL(led1)
 #define PWM_NODE         DT_NODELABEL(pwm2)
+#define MODBUS_NODE      DT_COMPAT_GET_ANY_STATUS_OKAY(zephyr_modbus_serial)
 
 static const struct device *uart_rs485 = DEVICE_DT_GET(UART_RS485_NODE);
 static const struct device *uart_serial = DEVICE_DT_GET(UART_SERIAL_NODE);
@@ -54,11 +55,14 @@ static const struct device *ina236_1 = DEVICE_DT_GET(DT_NODELABEL(ina236_1));
 
 #define CONTROL_PERIOD_MS      200
 #define TELEMETRY_PERIOD_MS    200
-#define RS485_STATUS_PERIOD_MS 1000
 #define LED1_BLINK_MS         1000
 #define MIN_CONTROL_DT_S      0.05f
 #define MAX_CONTROL_DT_S      1.0f
 #define INTEGRAL_ENABLE_ERROR 5.0f
+#define LID_CLOSED_THRESHOLD_MV 1650
+
+#define MODBUS_UNIT_ID 1
+#define MODBUS_BAUD    115200
 
 #define CONTROL_STACK_SIZE   3072
 #define TELEMETRY_STACK_SIZE 3072
@@ -83,6 +87,13 @@ struct temperatures {
     float lm_c;
 };
 
+struct power_sample {
+    bool ok;
+    int32_t voltage_mv;
+    int32_t current_ua;
+    int32_t power_uw;
+};
+
 struct status {
     uint32_t seq;
     int64_t time_ms;
@@ -92,13 +103,7 @@ struct status {
     float pwm_pt;
     float pwm_lm;
     struct temperatures temp;
-};
-
-struct rs485_tx {
-    const uint8_t *buf;
-    size_t len;
-    size_t pos;
-    bool busy;
+    struct power_sample power[2];
 };
 
 static struct pi_controller pi_pt = {.kp = 300.0f, .ki = 50.0f};
@@ -106,9 +111,7 @@ static struct pi_controller pi_lm = {.kp = 60.0f, .ki = 5.0f};
 static float target_pt = 25.2f;
 static float target_lm = 25.0f;
 static struct status last_status;
-static struct rs485_tx rs485_tx;
 static struct k_spinlock target_lock;
-static struct k_spinlock rs485_lock;
 
 K_TIMER_DEFINE(control_timer, NULL, NULL);
 K_TIMER_DEFINE(telemetry_timer, NULL, NULL);
@@ -238,8 +241,22 @@ static void set_pwm(float pt_percent, float lm_percent)
 
 static void save_status(const struct status *status)
 {
+    struct power_sample power[2];
+
     k_mutex_lock(&status_mutex, K_FOREVER);
+    power[0] = last_status.power[0];
+    power[1] = last_status.power[1];
     last_status = *status;
+    last_status.power[0] = power[0];
+    last_status.power[1] = power[1];
+    k_mutex_unlock(&status_mutex);
+}
+
+static void save_power_status(const struct power_sample power[2])
+{
+    k_mutex_lock(&status_mutex, K_FOREVER);
+    last_status.power[0] = power[0];
+    last_status.power[1] = power[1];
     k_mutex_unlock(&status_mutex);
 }
 
@@ -296,108 +313,227 @@ static void report_lse_status(void)
 #endif
 }
 
-static bool rs485_is_busy(void)
+static bool lse_ready(void)
 {
-    bool busy;
-    k_spinlock_key_t key = k_spin_lock(&rs485_lock);
-
-    busy = rs485_tx.busy;
-
-    k_spin_unlock(&rs485_lock, key);
-    return busy;
+#if defined(RCC_BDCR_LSERDY)
+    return (RCC->BDCR & RCC_BDCR_LSERDY) != 0U;
+#else
+    return false;
+#endif
 }
 
-static void rs485_send(const char *text)
+static uint16_t u32_reg(uint32_t value, uint16_t word)
 {
-    bool start_tx = false;
-    k_spinlock_key_t key = k_spin_lock(&rs485_lock);
+    return (uint16_t)(value >> (word * 16U));
+}
 
-    if (!rs485_tx.busy) {
-        rs485_tx.buf = (const uint8_t *)text;
-        rs485_tx.len = strlen(text);
-        rs485_tx.pos = 0U;
-        rs485_tx.busy = true;
-        start_tx = true;
-    }
+static uint16_t i32_reg(int32_t value, uint16_t word)
+{
+    return u32_reg((uint32_t)value, word);
+}
 
-    k_spin_unlock(&rs485_lock, key);
+static uint16_t f_to_s16_reg(float value, float scale)
+{
+    return (uint16_t)(int16_t)(value * scale);
+}
 
-    if (start_tx) {
-        uart_irq_tx_enable(uart_rs485);
+static bool lid_closed_from_mv(int32_t mv)
+{
+    return mv >= LID_CLOSED_THRESHOLD_MV;
+}
+
+static int discrete_input_rd(uint16_t addr, bool *state)
+{
+    struct status s = get_status();
+    int32_t lid_mv = (int32_t)(s.temp.stm32_v * 1000.0f);
+
+    switch (addr) {
+    case 0:
+        *state = lid_closed_from_mv(lid_mv);
+        return 0;
+    case 1:
+        *state = s.power[0].ok;
+        return 0;
+    case 2:
+        *state = s.power[1].ok;
+        return 0;
+    case 3:
+        *state = lse_ready();
+        return 0;
+    default:
+        return -ENOTSUP;
     }
 }
 
-static bool parse_setpoints(const char *text)
+static int input_reg_rd(uint16_t addr, uint16_t *reg)
+{
+    struct status s = get_status();
+    int32_t stm32_mv = (int32_t)(s.temp.stm32_v * 1000.0f);
+
+    switch (addr) {
+    case 0:
+        *reg = 1U;
+        return 0;
+    case 1:
+        *reg = u32_reg(s.seq, 0);
+        return 0;
+    case 2:
+        *reg = u32_reg(s.seq, 1);
+        return 0;
+    case 3:
+        *reg = u32_reg((uint32_t)s.time_ms, 0);
+        return 0;
+    case 4:
+        *reg = u32_reg((uint32_t)s.time_ms, 1);
+        return 0;
+    case 10:
+        *reg = f_to_s16_reg(s.temp.pt_c, 100.0f);
+        return 0;
+    case 11:
+        *reg = f_to_s16_reg(s.temp.lm_c, 100.0f);
+        return 0;
+    case 12:
+        *reg = (uint16_t)(int16_t)stm32_mv;
+        return 0;
+    case 13:
+        *reg = i32_reg(s.temp.pt_raw, 0);
+        return 0;
+    case 14:
+        *reg = i32_reg(s.temp.pt_raw, 1);
+        return 0;
+    case 15:
+        *reg = i32_reg(s.temp.lm_raw, 0);
+        return 0;
+    case 16:
+        *reg = i32_reg(s.temp.lm_raw, 1);
+        return 0;
+    case 20:
+        *reg = f_to_s16_reg(s.pwm_pt, 10.0f);
+        return 0;
+    case 21:
+        *reg = f_to_s16_reg(s.pwm_lm, 10.0f);
+        return 0;
+    case 22:
+        *reg = f_to_s16_reg(s.target_pt, 100.0f);
+        return 0;
+    case 23:
+        *reg = f_to_s16_reg(s.target_lm, 100.0f);
+        return 0;
+    case 30:
+    case 31:
+        *reg = i32_reg(s.power[0].voltage_mv, addr - 30);
+        return 0;
+    case 32:
+    case 33:
+        *reg = i32_reg(s.power[0].current_ua, addr - 32);
+        return 0;
+    case 34:
+    case 35:
+        *reg = i32_reg(s.power[0].power_uw, addr - 34);
+        return 0;
+    case 40:
+    case 41:
+        *reg = i32_reg(s.power[1].voltage_mv, addr - 40);
+        return 0;
+    case 42:
+    case 43:
+        *reg = i32_reg(s.power[1].current_ua, addr - 42);
+        return 0;
+    case 44:
+    case 45:
+        *reg = i32_reg(s.power[1].power_uw, addr - 44);
+        return 0;
+    default:
+        return -ENOTSUP;
+    }
+}
+
+static int holding_reg_rd(uint16_t addr, uint16_t *reg)
 {
     float pt;
     float lm;
 
-    if (sscanf(text, "%f,%f", &pt, &lm) != 2) {
-        return false;
-    }
+    get_targets(&pt, &lm);
 
-    set_targets(pt, lm);
-    printk("NEW SETPOINTS: PT=%.2f LM=%.2f\n", pt, lm);
-    return true;
-}
-
-static void uart_rx(const struct device *dev)
-{
-    static char buf[32];
-    static size_t pos;
-    uint8_t c;
-
-    while (uart_irq_rx_ready(dev) && uart_fifo_read(dev, &c, 1) > 0) {
-        if (c == '\n' || c == '\r') {
-            buf[pos] = '\0';
-            if (pos > 0U && !parse_setpoints(buf)) {
-                printk("UART parse error: %s\n", buf);
-            }
-            pos = 0U;
-        } else if (pos < sizeof(buf) - 1U) {
-            buf[pos++] = (char)c;
-        } else {
-            pos = 0U;
-        }
+    switch (addr) {
+    case 0:
+        *reg = f_to_s16_reg(pt, 100.0f);
+        return 0;
+    case 1:
+        *reg = f_to_s16_reg(lm, 100.0f);
+        return 0;
+    default:
+        return -ENOTSUP;
     }
 }
 
-static void rs485_uart_tx_irq(const struct device *dev)
+static int holding_reg_wr(uint16_t addr, uint16_t reg)
 {
-    k_spinlock_key_t key;
+    float pt;
+    float lm;
+    float value = (float)(int16_t)reg / 100.0f;
 
-    while (uart_irq_tx_ready(dev)) {
-        key = k_spin_lock(&rs485_lock);
+    get_targets(&pt, &lm);
 
-        if (!rs485_tx.busy) {
-            k_spin_unlock(&rs485_lock, key);
-            uart_irq_tx_disable(dev);
-            return;
-        }
-
-        int sent = uart_fifo_fill(dev, &rs485_tx.buf[rs485_tx.pos],
-                                  rs485_tx.len - rs485_tx.pos);
-        if (sent > 0) {
-            rs485_tx.pos += (size_t)sent;
-            rs485_tx.busy = rs485_tx.pos < rs485_tx.len;
-        }
-
-        k_spin_unlock(&rs485_lock, key);
-
-        if (sent <= 0) {
-            return;
-        }
+    switch (addr) {
+    case 0:
+        set_targets(value, lm);
+        return 0;
+    case 1:
+        set_targets(pt, value);
+        return 0;
+    default:
+        return -ENOTSUP;
     }
 }
 
-static void uart_cb(const struct device *dev, void *user_data)
-{
-    ARG_UNUSED(user_data);
+static struct modbus_user_callbacks mbs_cbs = {
+    .discrete_input_rd = discrete_input_rd,
+    .input_reg_rd = input_reg_rd,
+    .holding_reg_rd = holding_reg_rd,
+    .holding_reg_wr = holding_reg_wr,
+};
 
-    if (uart_irq_update(dev)) {
-        uart_rx(dev);
-        rs485_uart_tx_irq(dev);
+static const struct modbus_iface_param server_param = {
+    .mode = MODBUS_MODE_RTU,
+    .server = {
+        .user_cb = &mbs_cbs,
+        .unit_id = MODBUS_UNIT_ID,
+    },
+    .serial = {
+        .baud = MODBUS_BAUD,
+        .parity = UART_CFG_PARITY_NONE,
+    },
+};
+
+static int init_modbus_server(void)
+{
+    const char iface_name[] = DEVICE_DT_NAME(MODBUS_NODE);
+    int iface = modbus_iface_get_by_name(iface_name);
+    int err;
+
+    if (iface < 0) {
+        printk("Failed to get Modbus iface %s: %d\n", iface_name, iface);
+        return iface;
     }
+
+    err = modbus_init_server(iface, server_param);
+    if (err != 0) {
+        return err;
+    }
+
+    /* Modbus configures the UART with flow control disabled. Restore STM32
+     * hardware driver-enable mode so PA12 drives the RS-485 transceiver DE.
+     */
+    const struct uart_config rs485_cfg = {
+        .baudrate = MODBUS_BAUD,
+        .parity = UART_CFG_PARITY_NONE,
+        .stop_bits = UART_CFG_STOP_BITS_2,
+        .data_bits = UART_CFG_DATA_BITS_8,
+        .flow_ctrl = UART_CFG_FLOW_CTRL_RS485,
+    };
+
+    return uart_configure(uart_rs485, &rs485_cfg);
 }
 
 static bool init_devices(void)
@@ -436,20 +572,29 @@ static bool read_power(const struct device *dev, struct sensor_value *voltage,
            sensor_channel_get(dev, SENSOR_CHAN_POWER, power) == 0;
 }
 
+static struct power_sample read_power_sample(const struct device *dev)
+{
+    struct sensor_value voltage;
+    struct sensor_value current;
+    struct sensor_value power;
+    struct power_sample sample = {0};
+
+    sample.ok = read_power(dev, &voltage, &current, &power);
+    if (sample.ok) {
+        sample.voltage_mv = (int32_t)(sensor_value_to_double(&voltage) * 1000.0);
+        sample.current_ua = (int32_t)(sensor_value_to_double(&current) * 1000000.0);
+        sample.power_uw = (int32_t)(sensor_value_to_double(&power) * 1000000.0);
+    }
+
+    return sample;
+}
+
 static void log_telemetry(const struct status *s)
 {
     char buf[320];
-    struct sensor_value v0;
-    struct sensor_value c0;
-    struct sensor_value p0;
-    struct sensor_value v1;
-    struct sensor_value c1;
-    struct sensor_value p1;
-    bool power0_ok = read_power(ina236_0, &v0, &c0, &p0);
-    bool power1_ok = read_power(ina236_1, &v1, &c1, &p1);
 
     snprintf(buf, sizeof(buf),
-             "TEL,%lu,%lld,%.3f,%.3f,%.3f,%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%.6f,%.6f,%.6f,%d,%.6f,%.6f,%.6f\r\n",
+             "TEL,%lu,%lld,%.3f,%.3f,%.3f,%.2f,%.2f,%.1f,%.1f,%d,%d,%d,%d,%.3f,%.6f,%.6f,%d,%.3f,%.6f,%.6f\r\n",
              (unsigned long)s->seq,
              s->time_ms,
              s->dt_s,
@@ -462,14 +607,14 @@ static void log_telemetry(const struct status *s)
              s->temp.pt_raw,
              s->temp.lm_raw,
              s->temp.stm32_raw,
-             power0_ok ? 1 : 0,
-             power0_ok ? sensor_value_to_double(&v0) : NAN,
-             power0_ok ? sensor_value_to_double(&c0) : NAN,
-             power0_ok ? sensor_value_to_double(&p0) : NAN,
-             power1_ok ? 1 : 0,
-             power1_ok ? sensor_value_to_double(&v1) : NAN,
-             power1_ok ? sensor_value_to_double(&c1) : NAN,
-             power1_ok ? sensor_value_to_double(&p1) : NAN);
+             s->power[0].ok ? 1 : 0,
+             s->power[0].ok ? (double)s->power[0].voltage_mv / 1000.0 : NAN,
+             s->power[0].ok ? (double)s->power[0].current_ua / 1000000.0 : NAN,
+             s->power[0].ok ? (double)s->power[0].power_uw / 1000000.0 : NAN,
+             s->power[1].ok ? 1 : 0,
+             s->power[1].ok ? (double)s->power[1].voltage_mv / 1000.0 : NAN,
+             s->power[1].ok ? (double)s->power[1].current_ua / 1000000.0 : NAN,
+             s->power[1].ok ? (double)s->power[1].power_uw / 1000000.0 : NAN);
 
     serial_send(buf);
 }
@@ -515,16 +660,19 @@ static void telemetry_thread(void *arg1, void *arg2, void *arg3)
 
     bool led1_on = false;
     int64_t last_led1_ms = 0;
-    int64_t last_rs485_ms = 0;
-    static char rs485_buf[64];
 
     while (true) {
         int64_t now_ms;
         struct status s;
+        struct power_sample power[2];
 
         k_timer_status_sync(&telemetry_timer);
 
         now_ms = k_uptime_get();
+        power[0] = read_power_sample(ina236_0);
+        power[1] = read_power_sample(ina236_1);
+        save_power_status(power);
+
         s = get_status();
         log_telemetry(&s);
 
@@ -532,15 +680,6 @@ static void telemetry_thread(void *arg1, void *arg2, void *arg3)
             led1_on = !led1_on;
             gpio_pin_set_dt(&led1, led1_on);
             last_led1_ms = now_ms;
-        }
-
-
-        if (!rs485_is_busy() &&
-            (now_ms - last_rs485_ms) >= RS485_STATUS_PERIOD_MS) {
-            snprintf(rs485_buf, sizeof(rs485_buf), "SET PT=%.2f LM=%.2f\n",
-                     s.target_pt, s.target_lm);
-            rs485_send(rs485_buf);
-            last_rs485_ms = now_ms;
         }
     }
 }
@@ -556,8 +695,17 @@ int main(void)
     k_sleep(K_SECONDS(2));
     report_lse_status();
 
-    uart_irq_callback_user_data_set(uart_rs485, uart_cb, NULL);
-    uart_irq_rx_enable(uart_rs485);
+    int modbus_err = init_modbus_server();
+
+    if (modbus_err != 0) {
+        char buf[64];
+
+        snprintf(buf, sizeof(buf), "Modbus RTU init failed: %d\r\n", modbus_err);
+        serial_send(buf);
+        printk("%s", buf);
+        return 0;
+    }
+    serial_send("Modbus RTU server ready\r\n");
 
     k_timer_start(&control_timer, K_NO_WAIT, K_MSEC(CONTROL_PERIOD_MS));
     k_timer_start(&telemetry_timer, K_NO_WAIT, K_MSEC(TELEMETRY_PERIOD_MS));
