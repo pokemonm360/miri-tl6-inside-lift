@@ -2,8 +2,6 @@
 #include <zephyr/dt-bindings/adc/adc.h>
 #include <zephyr/dt-bindings/sensor/ina230.h>
 
-// To change pwm channels change it in main.c as well as here.
-
 / {
     leds {
         compatible = "gpio-leds";
@@ -157,4 +155,42 @@
         rshunt-micro-ohms = <100000>;
         current-lsb-microamps = <100>;
     };
+};
+
+
+
+
+&clk_hse {
+    clock-frequency = <DT_FREQ_M(8)>;
+    hse-bypass;
+    status = "okay";
+};
+
+&clk_lse {
+    status = "okay";
+    driving-capability = <0>;
+};
+
+&pll {
+    div-m = <1>;
+    mul-n = <20>;
+    div-p = <7>;
+    div-q = <2>;
+    div-r = <2>;
+    clocks = <&clk_hse>;
+    status = "okay";
+};
+
+&rcc {
+    clocks = <&pll>;
+    clock-frequency = <DT_FREQ_M(80)>;
+    ahb-prescaler = <1>;
+    apb1-prescaler = <1>;
+    apb2-prescaler = <1>;
+};
+
+&rtc {
+    clocks = <&rcc STM32_CLOCK(APB1, 28)>,
+             <&rcc STM32_SRC_LSE RTC_SEL(1)>;
+    status = "okay";
 };
