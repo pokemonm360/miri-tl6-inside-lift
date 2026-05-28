@@ -12,8 +12,8 @@
         };
 
         led2: led_2 {
-            gpios = <&gpioa 8 GPIO_ACTIVE_HIGH>;
-            label = "LED2_PA8";
+            gpios = <&gpiob 3 GPIO_ACTIVE_HIGH>;
+            label = "LED2_PB3";
         };
     };
 };
@@ -160,15 +160,25 @@
 
 
 
+/* NUCLEO-L432KC HSE is provided by ST-LINK MCO as an 8 MHz external clock. */
 &clk_hse {
     clock-frequency = <DT_FREQ_M(8)>;
     hse-bypass;
     status = "okay";
 };
 
+/* Use the external 32.768 kHz LSE crystal for RTC. */
 &clk_lse {
     status = "okay";
     driving-capability = <0>;
+};
+
+&clk_hsi {
+    status = "disabled";
+};
+
+&clk_lsi {
+    status = "disabled";
 };
 
 &pll {
@@ -192,5 +202,13 @@
 &rtc {
     clocks = <&rcc STM32_CLOCK(APB1, 28)>,
              <&rcc STM32_SRC_LSE RTC_SEL(1)>;
+    status = "okay";
+};
+
+&mco1 {
+    clocks = <&rcc STM32_SRC_LSE MCO1_SEL(7)>;
+    prescaler = <MCO1_PRE(MCO_PRE_DIV_1)>;
+    pinctrl-0 = <&rcc_mco_pa8>;
+    pinctrl-names = "default";
     status = "okay";
 };

@@ -9,6 +9,8 @@
 #include <zephyr/spinlock.h>
 #include <zephyr/sys/printk.h>
 
+#include <stm32_ll_rcc.h>
+
 #include <math.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -19,13 +21,11 @@
 #define UART_RS485_NODE  DT_NODELABEL(usart1)
 #define UART_SERIAL_NODE DT_NODELABEL(usart2)
 #define LED1_NODE        DT_NODELABEL(led1)
-#define LED2_NODE        DT_NODELABEL(led2)
 #define PWM_NODE         DT_NODELABEL(pwm2)
 
 static const struct device *uart_rs485 = DEVICE_DT_GET(UART_RS485_NODE);
 static const struct device *uart_serial = DEVICE_DT_GET(UART_SERIAL_NODE);
 static const struct gpio_dt_spec led1 = GPIO_DT_SPEC_GET(LED1_NODE, gpios);
-static const struct gpio_dt_spec led2 = GPIO_DT_SPEC_GET(LED2_NODE, gpios);
 static const struct device *adc_pt1000 = DEVICE_DT_GET(DT_NODELABEL(ads1220_0));
 static const struct device *adc_lm35 = DEVICE_DT_GET(DT_NODELABEL(ads1220_1));
 static const struct device *adc_stm32 = DEVICE_DT_GET(DT_NODELABEL(adc1));
@@ -56,7 +56,6 @@ static const struct device *ina236_1 = DEVICE_DT_GET(DT_NODELABEL(ina236_1));
 #define TELEMETRY_PERIOD_MS    200
 #define RS485_STATUS_PERIOD_MS 1000
 #define LED1_BLINK_MS         1000
-#define LED2_BLINK_MS         4000
 #define MIN_CONTROL_DT_S      0.05f
 #define MAX_CONTROL_DT_S      1.0f
 #define INTEGRAL_ENABLE_ERROR 5.0f
@@ -282,6 +281,21 @@ static void serial_send(const char *str)
     }
 }
 
+static void report_lse_status(void)
+{
+#if defined(RCC_BDCR_LSEON) && defined(RCC_BDCR_LSERDY)
+    char buf[96];
+    uint32_t bdcr = RCC->BDCR;
+
+    snprintf(buf, sizeof(buf), "BDCR=0x%08lx LSEON=%d LSERDY=%d\r\n",
+             (unsigned long)bdcr,
+             (bdcr & RCC_BDCR_LSEON) != 0U,
+             (bdcr & RCC_BDCR_LSERDY) != 0U);
+    serial_send(buf);
+    printk("%s", buf);
+#endif
+}
+
 static bool rs485_is_busy(void)
 {
     bool busy;
@@ -395,13 +409,12 @@ static bool init_devices(void)
         return false;
     }
 
-    if (!gpio_is_ready_dt(&led1) || !gpio_is_ready_dt(&led2)) {
+    if (!gpio_is_ready_dt(&led1)) {
         printk("LED GPIO not ready\n");
         return false;
     }
 
     gpio_pin_configure_dt(&led1, GPIO_OUTPUT_INACTIVE);
-    gpio_pin_configure_dt(&led2, GPIO_OUTPUT_INACTIVE);
 
     if (!device_is_ready(ina236_0)) {
         printk("INA236_0 not ready, telemetry will show invalid power 0\n");
@@ -501,9 +514,7 @@ static void telemetry_thread(void *arg1, void *arg2, void *arg3)
     ARG_UNUSED(arg3);
 
     bool led1_on = false;
-    bool led2_on = false;
     int64_t last_led1_ms = 0;
-    int64_t last_led2_ms = 0;
     int64_t last_rs485_ms = 0;
     static char rs485_buf[64];
 
@@ -523,11 +534,6 @@ static void telemetry_thread(void *arg1, void *arg2, void *arg3)
             last_led1_ms = now_ms;
         }
 
-        if ((now_ms - last_led2_ms) >= LED2_BLINK_MS) {
-            led2_on = !led2_on;
-            gpio_pin_set_dt(&led2, led2_on);
-            last_led2_ms = now_ms;
-        }
 
         if (!rs485_is_busy() &&
             (now_ms - last_rs485_ms) >= RS485_STATUS_PERIOD_MS) {
@@ -546,6 +552,9 @@ int main(void)
     if (!init_devices()) {
         return 0;
     }
+
+    k_sleep(K_SECONDS(2));
+    report_lse_status();
 
     uart_irq_callback_user_data_set(uart_rs485, uart_cb, NULL);
     uart_irq_rx_enable(uart_rs485);
