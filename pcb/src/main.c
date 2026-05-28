@@ -59,7 +59,7 @@ static const struct device *ina236_1 = DEVICE_DT_GET(DT_NODELABEL(ina236_1));
 #define MIN_CONTROL_DT_S      0.05f
 #define MAX_CONTROL_DT_S      1.0f
 #define INTEGRAL_ENABLE_ERROR 5.0f
-#define LID_CLOSED_THRESHOLD_MV 1650
+#define LID_CLOSED_THRESHOLD_MV 2200
 
 #define MODBUS_UNIT_ID 1
 #define MODBUS_BAUD    115200

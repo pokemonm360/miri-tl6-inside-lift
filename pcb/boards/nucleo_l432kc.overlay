@@ -149,8 +149,8 @@
         rshunt-micro-ohms = <15000>;
         current-lsb-microamps = <30>;
         high-precision;
-        vshunt-conversion-time-us = <8244>;
-        vbus-conversion-time-us = <8244>;
+        vshunt-conversion-time-us = <4156>;
+        vbus-conversion-time-us = <4156>;
         avg-count = <16>;
     };
 
@@ -162,8 +162,8 @@
         rshunt-micro-ohms = <15000>;
         current-lsb-microamps = <30>;
         high-precision;
-        vshunt-conversion-time-us = <8244>;
-        vbus-conversion-time-us = <8244>;
+        vshunt-conversion-time-us = <4156>;
+        vbus-conversion-time-us = <4156>;
         avg-count = <16>;
     };
 };
